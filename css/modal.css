@@ -1,0 +1,166 @@
+/* Modal Overlay */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+/* Backdrop */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,0.6);
+  backdrop-filter:blur(4px);
+}
+
+/* Modal Panel */
+.modal-panel{
+  position:relative;
+  background:#fff;
+  width:400px;
+  max-width:92%;
+  border-radius:16px;
+  padding:32px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.25);
+  z-index:1001;
+  animation:modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn{
+  from{
+    opacity:0;
+    transform:translateY(-20px) scale(0.95);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Close Button */
+.modal-close{
+  position:absolute;
+  right:16px;
+  top:16px;
+  width:32px;
+  height:32px;
+  background:#f1f5f9;
+  border:none;
+  border-radius:50%;
+  font-size:20px;
+  color:#64748b;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.2s;
+}
+.modal-close:hover{
+  background:#e2e8f0;
+  color:#1e293b;
+}
+
+/* Modal Title */
+.modal-panel h3{
+  font-size:24px;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+/* Login Tabs */
+.login-tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:24px;
+  background:#f1f5f9;
+  padding:6px;
+  border-radius:10px;
+}
+
+.tab-btn{
+  flex:1;
+  padding:12px 16px;
+  border:none;
+  border-radius:8px;
+  background:transparent;
+  color:#64748b;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+
+.tab-btn:hover{
+  color:#1e4fa0;
+}
+
+.tab-btn.active{
+  background:#fff;
+  color:#1e4fa0;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Login Form */
+.login-form label{
+  display:block;
+  margin-bottom:16px;
+}
+
+.login-form label span{
+  display:block;
+  font-weight:600;
+  color:#374151;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"]{
+  width:100%;
+  padding:14px 16px;
+  border:2px solid #e5e7eb;
+  border-radius:10px;
+  font-size:15px;
+  transition:all 0.2s;
+  background:#f9fafb;
+}
+
+.login-form input:focus{
+  outline:none;
+  border-color:#1e4fa0;
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(30,79,160,0.1);
+}
+
+.login-form input::placeholder{
+  color:#9ca3af;
+}
+
+/* Form Actions */
+.form-actions{
+  margin-top:24px;
+}
+
+.form-actions .btn-primary{
+  width:100%;
+  padding:16px;
+  font-size:16px;
+}
+
+/* Login Section Toggle */
+.login-section{
+  display:block;
+}
+
+/* Error Message */
+.form-error{
+  color:#dc2626;
+  font-size:14px;
+  margin-top:12px;
+  text-align:center;
+}

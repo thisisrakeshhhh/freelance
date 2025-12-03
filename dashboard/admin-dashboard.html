@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Admin Dashboard - Manage students, staff, attendance, fees and more.">
+  <title>Admin Dashboard - College Management</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <button class="menu-toggle" id="menuToggle">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="dash-wrapper">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <img src="../assets/images/logo.png" class="logo-sm" alt="Logo">
+        <div class="brand-text-sm">COLLEGE CMS</div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active" data-page="dashboard" tabindex="0">
+            <span class="nav-icon">🏠</span> Dashboard
+          </li>
+          <li data-page="attendance" tabindex="0">
+            <span class="nav-icon">👥</span> Student Attendance
+          </li>
+          <li class="has-sub" data-page="examination" tabindex="0">
+            <span class="nav-icon">📝</span> Examination
+            <ul class="sub">
+              <li tabindex="0">Internal Exams</li>
+              <li tabindex="0">Report Cards</li>
+              <li tabindex="0">Upload Results</li>
+            </ul>
+          </li>
+          <li data-page="fees" tabindex="0">
+            <span class="nav-icon">💰</span> Fees
+          </li>
+          <li data-page="timetable" tabindex="0">
+            <span class="nav-icon">📅</span> Timetable
+          </li>
+          <li data-page="staff" tabindex="0">
+            <span class="nav-icon">👨‍🏫</span> Staff Management
+          </li>
+          <li data-page="notifications" tabindex="0">
+            <span class="nav-icon">🔔</span> Notifications
+          </li>
+          <li data-page="about" tabindex="0">
+            <span class="nav-icon">ℹ️</span> About Us
+          </li>
+          <li class="logout" id="logoutBtn" tabindex="0">
+            <span class="nav-icon">🚪</span> Logout
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="dash-main">
+      <header class="dash-header">
+        <h1>Admin Dashboard</h1>
+        <div class="user-info">
+          <span>Welcome, <strong id="userName">Admin</strong></span>
+          <img src="../assets/images/logo.png" alt="User" class="user-avatar">
+        </div>
+      </header>
+
+      <section class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon blue">👨‍🎓</div>
+          <div class="stat-info">
+            <h3>1,250</h3>
+            <p>Total Students</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">👨‍🏫</div>
+          <div class="stat-info">
+            <h3>85</h3>
+            <p>Total Staff</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">📚</div>
+          <div class="stat-info">
+            <h3>24</h3>
+            <p>Courses</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">💵</div>
+          <div class="stat-info">
+            <h3>₹12.5L</h3>
+            <p>Fees Collected</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cards-grid">
+        <div class="card" data-module="attendance" tabindex="0">
+          <div class="card-icon">👥</div>
+          <div class="card-body">
+            <h3>Student Attendance</h3>
+            <p>Manage attendance records</p>
+          </div>
+        </div>
+
+        <div class="card" data-module="examination" tabindex="0">
+          <div class="card-icon">📝</div>
+          <div class="card-body">
+            <h3>Examination</h3>
+            <p>Manage exams & report cards</p>
+          </div>
+        </div>
+
+        <div class="card" data-module="fees" tabindex="0">
+          <div class="card-icon">💰</div>
+          <div class="card-body">
+            <h3>Fees</h3>
+            <p>Fee collection & transactions</p>
+          </div>
+        </div>
+
+        <div class="card" data-module="timetable" tabindex="0">
+          <div class="card-icon">📅</div>
+          <div class="card-body">
+            <h3>Timetable</h3>
+            <p>Class schedules</p>
+          </div>
+        </div>
+
+        <div class="card" data-module="notifications" tabindex="0">
+          <div class="card-icon">🔔</div>
+          <div class="card-body">
+            <h3>Notifications</h3>
+            <p>Send announcements</p>
+          </div>
+        </div>
+
+        <div class="card" data-module="staff" tabindex="0">
+          <div class="card-icon">👨‍🏫</div>
+          <div class="card-body">
+            <h3>Staff Management</h3>
+            <p>Manage faculty records</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="recent-section">
+        <h2>Recent Activity</h2>
+        <div class="activity-list">
+          <div class="activity-item">
+            <span class="activity-icon">📋</span>
+            <div class="activity-info">
+              <p><strong>Attendance Updated</strong> - Class 10A</p>
+              <small>2 hours ago</small>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">💵</span>
+            <div class="activity-info">
+              <p><strong>Fee Payment</strong> - Rahul Kumar (₹15,000)</p>
+              <small>5 hours ago</small>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">📝</span>
+            <div class="activity-info">
+              <p><strong>Results Uploaded</strong> - Semester 3 Exams</p>
+              <small>1 day ago</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/toast.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>
+    if (!Auth.requireAuth('admin')) {
+    } else {
+      document.getElementById('userName').textContent = Auth.getUsername() || 'Admin';
+    }
+  </script>
+</body>
+</html>
