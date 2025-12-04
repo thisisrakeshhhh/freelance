@@ -6,38 +6,38 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   var loginBtn = document.getElementById('loginBtn');
-  var loginPopup = document.getElementById('loginPopup');
+  var loginOverlay = document.querySelector('.login-overlay');
   var closeLogin = document.getElementById('closeLogin');
-  
-  if (loginBtn && loginPopup) {
+
+  if (loginBtn && loginOverlay) {
     loginBtn.addEventListener('click', function() {
-      loginPopup.style.display = 'flex';
+      loginOverlay.style.display = 'flex';
       setTimeout(function() {
-        var firstInput = loginPopup.querySelector('input');
+        var firstInput = loginOverlay.querySelector('input');
         if (firstInput) firstInput.focus();
       }, 100);
     });
   }
-  
-  if (closeLogin && loginPopup) {
+
+  if (closeLogin && loginOverlay) {
     closeLogin.addEventListener('click', function() {
-      loginPopup.style.display = 'none';
+      loginOverlay.style.display = 'none';
       clearFormErrors();
     });
   }
-  
-  if (loginPopup) {
-    loginPopup.addEventListener('click', function(e) {
-      if (e.target === loginPopup || e.target.classList.contains('modal-backdrop')) {
-        loginPopup.style.display = 'none';
+
+  if (loginOverlay) {
+    loginOverlay.addEventListener('click', function(e) {
+      if (e.target === loginOverlay) {
+        loginOverlay.style.display = 'none';
         clearFormErrors();
       }
     });
   }
-  
+
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && loginPopup && loginPopup.style.display === 'flex') {
-      loginPopup.style.display = 'none';
+    if (e.key === 'Escape' && loginOverlay && loginOverlay.style.display === 'flex') {
+      loginOverlay.style.display = 'none';
       clearFormErrors();
     }
   });
@@ -82,7 +82,30 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener('click', function() {
       navLinks.forEach(function(l) { l.classList.remove('active'); });
       link.classList.add('active');
+
+      // Close mobile menu when link is clicked
+      var navLinksEl = document.getElementById('navLinks');
+      if (navLinksEl.classList.contains('active')) {
+        navLinksEl.classList.remove('active');
+      }
     });
+  });
+
+  // Hamburger menu toggle
+  var hamburgerMenu = document.getElementById('hamburgerMenu');
+  var navLinksEl = document.getElementById('navLinks');
+
+  if (hamburgerMenu && navLinksEl) {
+    hamburgerMenu.addEventListener('click', function() {
+      navLinksEl.classList.toggle('active');
+    });
+  }
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!hamburgerMenu.contains(e.target) && !navLinksEl.contains(e.target)) {
+      navLinksEl.classList.remove('active');
+    }
   });
   
   var contactForm = document.getElementById('contactForm');
