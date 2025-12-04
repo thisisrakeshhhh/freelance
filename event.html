@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event</title>
+  <style>
+    body{
+      font-family: 'Courier New', Courier, monospace;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .box{
+      padding: 10px;
+      border: 1px solid black;
+      margin-bottom: 15px;
+    }
+    input,button,select{
+      margin-top: 10px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body onload="alert('page loaded')">
+  <h1>combined javascript &DOM event</h1>
+  <div class="box">
+    <h3>1.onchange</h3>
+    <input type="text" onchange="alert('input changed')" placeholder="type & blur">
+  </div>
+  <div class="box">
+    <h3>2.onclick</h3>
+    <button onclick="alert('button clicked')">click me</button>
+  </div>
+  <div class="box">
+    <h3>3.ondblclick</h3>
+    <button ondblclick="alert('double click')">dbl click</button>
+  </div>
+  <div class="box">
+    <h3>4.onmouseover/onmouseout</h3>
+    <p onmouseover="this.style.color='green'" onmouseout="this.style.color='black'">hello there sonu</p>
+  </div>
+  <div class="box">
+    <h3>5.onkeyDown</h3>
+    <input type="text" onkeydown="document.getElementById('liveText').textContent=this.value" placeholder="typing">
+  </div>
+  <div class="box">
+    <h3>6.oninput</h3>
+     <input type="text" onkeydown="document.getElementById('liveText').textContent=this.value" placeholder="typing..">
+     <p>You typed:<span id="liveText"></span></p>
+  </div>
+  <div class="box">
+    <h3>7.onchange with a e.target.value</h3>
+    <input type="text" onchange="handleChange(event)" placeholder="type & leave">
+    <p id="output">changed value will appear here...</p>
+  </div>
+  <div class="box">
+    <h3>8.onSubmit</h3>
+    <form onsubmit ="return handleFormSubmit(event)">
+    <input type="text" placeholder="your name..." required>
+    <button type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="box">
+    <h3>9.onfocus/onblur</h3>
+    <input type="text" onfocus="this.style.backgroundColor='green'" onblur="this.style.backgroundColor='red'" placeholder="focus me..">
+  </div>
+
+  <div class="box">
+    <h3>10.onchange(select dropdown)</h3>
+    <select onchange="alert('select:'+this.value)">
+      <option value="">choose a fruit</option>
+      <option value="Apple">Apple</option>
+      <option value="Banana">Banana</option>
+    </select>
+  </div>
+  <div class="box">
+    <h3>11. onresize</h3>
+    <p>resize the browser and check console(f12)</p>
+  </div>
+  <div class="box">
+    <h3>12. onscroll</h3>
+    <div style="height: 100px; overflow-y:scroll" onscroll="console.log('scrolled!')">
+    <p>scroll this box to trigger onscrooll event</p>
+    <p style="height: 200px"></p>
+    </div> 
+  </div>
+  <div class="box">
+    <h3>13.oncontextmenu</h3>
+    <p oncontextmenu="alert('right-click menu'); return false;">RIGHT clicked on this text</p>
+  </div>
+  <script>
+    window.onresize =() => console.log('window resized');
+    function handleChange(e){
+      document.getElementById("output").innerHTML=`you changed the input to:<strong>${e.target.value}</strong>`
+    }
+
+    function handleFormSubmit(event){
+      event.preventDefault();
+      alert("form submitted");
+      return false;
+    }
+  </script>
+</body>
+</html>

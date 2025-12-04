@@ -1,3 +1,6 @@
+:root {
+      --primary: #1e4fa0;
+}
 /* Hero Section */
 .hero{
   text-align:center;
@@ -58,33 +61,34 @@
 }
 
 /* Stats Section */
-.stats-section{
-  background:linear-gradient(135deg, #1e4fa0 0%, #16407f 100%);
-  padding:50px 20px;
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 80px 20px;
+  background: #0f2a5f;
+  color: #fff;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:30px;
-  text-align:center;
+.stat-box {
+  width: 200px;
+  margin-bottom: 20px;
 }
 
-.stat-item{
-  color:#fff;
+.stat-box h2 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #00e5ff;
 }
 
-.stat-number{
-  display:block;
-  font-size:clamp(32px, 5vw, 48px);
-  font-weight:800;
-  margin-bottom:8px;
+.stat-box p {
+  margin-top: 10px;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
-.stat-label{
-  font-size:clamp(14px, 2vw, 16px);
-  opacity:0.9;
-}
 
 /* Section Headers */
 .section-header{
@@ -106,9 +110,62 @@
   margin:0 auto;
 }
 
+/* ===== SCROLL ANIMATION BASE ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Side slide variations */
+.reveal-left {
+  transform: translateX(-50px);
+}
+
+.reveal-right {
+  transform: translateX(50px);
+}
+
+.reveal-left.active,
+.reveal-right.active {
+  transform: translateX(0);
+}
+
+/* Card hover effect */
+.vision-card,
+.mission-card,
+.values-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vision-card:hover,
+.mission-card:hover,
+.values-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* Icon pop effect */
+.vision-card i,
+.mission-card i,
+.values-card i {
+  transition: transform 0.4s ease;
+}
+
+.vision-card:hover i,
+.mission-card:hover i,
+.values-card:hover i {
+  transform: scale(1.2) rotate(5deg);
+}
+
 /* About Section */
 .about-section{
-  padding:80px 0;
+  /* padding:80px 0; */
   background:#fff;
 }
 
@@ -167,29 +224,61 @@
   gap:20px;
 }
 
-.vision-card{
+/* ///c */
+.vision-card,
+.mission-card,
+.values-card{
   background:#f8fafc;
-  padding:24px;
-  border-radius:12px;
-  border-left:4px solid var(--primary);
+  padding:26px 24px;
+  border-radius:14px;
+  border-left:5px solid var(--primary);
+  box-shadow:0 8px 22px rgba(0,0,0,0.06);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.vision-card h3{
+/* Hover animation */
+.vision-card:hover,
+.mission-card:hover,
+.values-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 14px 30px rgba(0,0,0,0.12);
+}
+
+/* Headings */
+.vision-card h3,
+.mission-card h3,
+.values-card h3{
   font-size:18px;
   margin:0 0 12px;
   color:#0f172a;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.vision-card p{
+/* Icons */
+.vision-card i,
+.mission-card i,
+.values-card i{
+  font-size:20px;
+  color:var(--primary);
+}
+
+/* Text */
+.vision-card p,
+.mission-card p,
+.values-card p{
   margin:0;
   color:#475569;
   font-size:15px;
   line-height:1.7;
 }
 
+
+/* Facilities Section */
 /* Facilities Section */
 .facilities-section{
-  padding:80px 0;
+  padding:20px 0;
   background:#f8fafc;
 }
 
@@ -200,107 +289,337 @@
 }
 
 .facility-card{
-  background:#fff;
-  padding:30px;
-  border-radius:12px;
-  text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,0.05);
-  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  background:#ffffff;
+  padding:28px 26px;
+  border-radius:14px;
+  text-align:left;
+  border-left:6px solid #1e3a8a;   
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  transition:transform 0.35s ease, box-shadow 0.35s ease;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
 }
 
 .facility-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  transform:translateY(-8px);
+  box-shadow:0 16px 36px rgba(0,0,0,0.12);
+}
+
+.facility-gif {
+  width:100%;
+  height:180px;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:20px;
+  background:#f1f5f9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.facility-gif img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transition:transform 0.3s ease;
+}
+
+.facility-card:hover .facility-gif img {
+  transform:scale(1.05);
 }
 
 .facility-icon{
-  font-size:48px;
-  display:block;
+  width:52px;
+  height:52px;
+  background:#e0e7ff;
+  color:#1e3a8a;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
   margin-bottom:16px;
 }
 
 .facility-card h3{
   font-size:18px;
-  color:#0f172a;
-  margin:0 0 10px;
-}
-
-.facility-card p{
-  color:#64748b;
-  font-size:14px;
-  line-height:1.6;
-  margin:0;
-}
-
-/* Courses Section */
-.courses-section{
-  padding:80px 0;
-  background:#fff;
-}
-
-.courses-grid{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:24px;
-}
-
-.course-card{
-  background:#f8fafc;
-  border-radius:12px;
-  padding:28px;
-  border:1px solid #e5e7eb;
-  transition:all 0.3s ease;
-}
-
-.course-card:hover{
-  border-color:var(--primary);
-  box-shadow:0 10px 30px rgba(30,79,160,0.1);
-}
-
-.course-icon{
-  font-size:36px;
-  margin-bottom:16px;
-}
-
-.course-card h3{
-  font-size:18px;
+  font-weight:600;
   color:#0f172a;
   margin:0 0 8px;
 }
 
-.course-card > p{
-  color:#64748b;
-  font-size:14px;
-  margin:0 0 16px;
-}
-
-.course-card ul{
-  list-style:none;
-  padding:0;
-  margin:0 0 16px;
-}
-
-.course-card ul li{
-  padding:6px 0;
+.facility-card p{
   color:#475569;
   font-size:14px;
-  border-bottom:1px solid #e5e7eb;
+  line-height:1.65;
+  margin:0;
+  flex-grow:1;
 }
 
-.course-card ul li:last-child{
-  border-bottom:none;
+.facilities-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:30px;
 }
 
-.course-fee{
-  display:inline-block;
-  background:var(--primary);
-  color:#fff;
-  padding:8px 16px;
-  border-radius:20px;
-  font-size:14px;
-  font-weight:600;
+@media(max-width: 900px){
+  .facilities-grid{
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+}
+@media(max-width: 600px){
+  .facilities-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  
+  .facility-gif {
+    height:150px;
+  }
 }
 
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-size: 18px;
+      color: #64748b;
+    }
+
+    .courses-section {
+      padding: 60px 0;
+      background: #fff;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .course-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid #e5e7eb;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease-out forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card:nth-child(1) { animation-delay: 0.1s; }
+    .course-card:nth-child(2) { animation-delay: 0.2s; }
+    .course-card:nth-child(3) { animation-delay: 0.3s; }
+    .course-card:nth-child(4) { animation-delay: 0.4s; }
+    .course-card:nth-child(5) { animation-delay: 0.5s; }
+    .course-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(30, 79, 160, 0.05), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .course-card:hover::before {
+      left: 100%;
+    }
+
+    .course-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(30, 79, 160, 0.15);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .course-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: inline-block;
+      transition: all 0.4s ease;
+      animation: bounceIn 0.8s ease-out;
+    }
+
+    .course-card:hover .course-icon {
+      transform: scale(1.2) rotate(5deg);
+      filter: drop-shadow(0 5px 15px rgba(30, 79, 160, 0.3));
+    }
+
+    .course-card h3 {
+      font-size: 18px;
+      color: #0f172a;
+      margin: 0 0 8px;
+      transition: color 0.3s ease;
+    }
+
+    .course-card:hover h3 {
+      color: var(--primary);
+    }
+
+    .course-card > p {
+      color: #64748b;
+      font-size: 14px;
+      margin: 0 0 16px;
+    }
+
+    .course-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+    }
+
+    .course-card ul li {
+      padding: 6px 0 6px 20px;
+      color: #475569;
+      font-size: 14px;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .course-card ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .course-card:hover ul li::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .course-card:hover ul li {
+      padding-left: 20px;
+      color: #0f172a;
+    }
+
+    .course-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .course-fee {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-fee::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .course-card:hover .course-fee::before {
+      left: 100%;
+    }
+
+    .course-card:hover .course-fee {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(30, 79, 160, 0.4);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @media(max-width: 900px) {
+      .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    @media(max-width: 600px) {
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .section-header h2 {
+        font-size: 28px;
+      }
+
+      .section-header p {
+        font-size: 16px;
+      }
+    }
 /* Features Section */
 .features-section{
   padding:80px 0;
@@ -393,55 +712,327 @@
 }
 
 /* Placements Section */
-.placements-section{
-  padding:80px 0;
-  background:linear-gradient(135deg, #1e4fa0 0%, #16407f 100%);
-  color:#fff;
-}
+    .stats-section {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      padding: 80px 20px;
+      background: #0f2a5f;
+      color: #fff;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
 
-.placements-section .section-header h2,
-.placements-section .section-header p{
-  color:#fff;
-}
+    /* Animated background particles */
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveBackground 20s linear infinite;
+      opacity: 0.3;
+    }
 
-.placements-section .section-header p{
-  opacity:0.9;
-}
+    @keyframes moveBackground {
+      from {
+        transform: translate(0, 0);
+      }
+      to {
+        transform: translate(50px, 50px);
+      }
+    }
 
-.recruiters-list{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:20px;
-  margin-bottom:50px;
-}
+    .stat-box {
+      width: 200px;
+      margin-bottom: 20px;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.5);
+      animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
 
-.recruiter-logo{
-  background:rgba(255,255,255,0.1);
-  padding:16px 32px;
-  border-radius:8px;
-  font-weight:600;
-  font-size:16px;
-  backdrop-filter:blur(10px);
-}
+    .stat-box:nth-child(1) { animation-delay: 0.1s; }
+    .stat-box:nth-child(2) { animation-delay: 0.2s; }
+    .stat-box:nth-child(3) { animation-delay: 0.3s; }
+    .stat-box:nth-child(4) { animation-delay: 0.4s; }
 
-.placement-stats{
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:30px;
-  text-align:center;
-}
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.2), transparent);
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      transition: transform 0.6s ease;
+      z-index: 0;
+    }
 
-.placement-stat strong{
-  display:block;
-  font-size:clamp(24px, 4vw, 36px);
-  margin-bottom:8px;
-}
+    .stat-box:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
 
-.placement-stat span{
-  opacity:0.9;
-  font-size:14px;
-}
+    .stat-box h2 {
+      font-size: 48px;
+      font-weight: bold;
+      color: #00e5ff;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .stat-box:hover h2 {
+      transform: scale(1.1);
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+
+    .stat-box p {
+      margin-top: 10px;
+      font-size: 16px;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+    }
+
+    .stat-box:hover p {
+      opacity: 1;
+    }
+
+    /* ===== PLACEMENTS SECTION ===== */
+    .placements-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #1e4fa0 0%, #16407f 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .placements-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent);
+      animation: float 15s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(-30px, -30px);
+      }
+    }
+
+    .placements-section .section-header h2,
+    .placements-section .section-header p {
+      color: #fff;
+    }
+
+    .placements-section .section-header p {
+      opacity: 0.9;
+    }
+
+    .recruiters-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .recruiter-logo {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease-out forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .recruiter-logo:nth-child(1) { animation-delay: 0.1s; }
+    .recruiter-logo:nth-child(2) { animation-delay: 0.15s; }
+    .recruiter-logo:nth-child(3) { animation-delay: 0.2s; }
+    .recruiter-logo:nth-child(4) { animation-delay: 0.25s; }
+    .recruiter-logo:nth-child(5) { animation-delay: 0.3s; }
+    .recruiter-logo:nth-child(6) { animation-delay: 0.35s; }
+    .recruiter-logo:nth-child(7) { animation-delay: 0.4s; }
+    .recruiter-logo:nth-child(8) { animation-delay: 0.45s; }
+
+    /* Shine effect */
+    .recruiter-logo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .recruiter-logo:hover::before {
+      left: 100%;
+    }
+
+    .recruiter-logo:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .placement-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .placement-stat {
+      opacity: 0;
+      transform: scale(0.8);
+      animation: scaleIn 0.6s ease-out forwards;
+      transition: transform 0.3s ease;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .placement-stat:nth-child(1) { animation-delay: 0.5s; }
+    .placement-stat:nth-child(2) { animation-delay: 0.6s; }
+    .placement-stat:nth-child(3) { animation-delay: 0.7s; }
+    .placement-stat:nth-child(4) { animation-delay: 0.8s; }
+
+    .placement-stat:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .placement-stat strong {
+      display: block;
+      font-size: clamp(24px, 4vw, 36px);
+      margin-bottom: 8px;
+      color: #00e5ff;
+      transition: all 0.3s ease;
+    }
+
+    .placement-stat:hover strong {
+      transform: scale(1.1);
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+
+    .placement-stat span {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Responsive Design */
+    @media(max-width: 768px) {
+      .stats-section {
+        padding: 60px 20px;
+      }
+
+      .stat-box {
+        width: 45%;
+      }
+
+      .stat-box h2 {
+        font-size: 36px;
+      }
+
+      .placement-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .recruiters-list {
+        gap: 15px;
+      }
+
+      .recruiter-logo {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    @media(max-width: 480px) {
+      .stat-box {
+        width: 100%;
+      }
+
+      .placement-stats {
+        grid-template-columns: 1fr;
+      }
+    }
 
 /* Contact Section */
 .contact-section{
@@ -723,7 +1314,7 @@
   
   .stats-section,
   .about-section,
-  .facilities-section,
+  /* .facilities-section, */
   .courses-section,
   .features-section,
   .testimonials-section,

@@ -221,16 +221,16 @@ function setupPasswordToggles() {
     var wrapper = document.createElement('div');
     wrapper.className = 'password-wrapper';
     wrapper.style.cssText = 'position:relative;';
-    
+
     input.parentNode.insertBefore(wrapper, input);
     wrapper.appendChild(input);
-    
+
     var toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'password-toggle';
     toggle.innerHTML = '👁';
     toggle.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;opacity:0.6;padding:4px;';
-    
+
     toggle.addEventListener('click', function() {
       if (input.type === 'password') {
         input.type = 'text';
@@ -240,7 +240,24 @@ function setupPasswordToggles() {
         toggle.innerHTML = '👁';
       }
     });
-    
+
     wrapper.appendChild(toggle);
   });
 }
+
+function revealOnScroll() {
+  const reveals = document.querySelectorAll(".reveal");
+
+  reveals.forEach(el => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    const elementVisible = 100;
+
+    if (elementTop < windowHeight - elementVisible) {
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll(); // run once on load
