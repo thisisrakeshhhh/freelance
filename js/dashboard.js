@@ -3,6 +3,7 @@ const PAGES = {
     'all-students': 'pages/studentmanagement.html',
     'add-student': 'pages/addstudent.html',
     remove: 'pages/remove.html',
+    attendance: 'pages/studentmanagement.html',
     teachers: 'pages/teachers.html',
     fees: 'pages/fees.html',
     timetable: 'pages/timetable.html',

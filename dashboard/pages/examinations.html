@@ -1,338 +1,188 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Exam Management — Student Management (Dummy)</title>
+  <meta charset="UTF-8">
+  <title>Examination | St. Xavier's</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#7c3aed;--muted:#9aa7bf;--text:#e6eef8}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,#071126 0%, #0b1630 100%); color:var(--text);}
-    .container{max-width:1100px;margin:32px auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-    header h1{font-size:20px;margin:0}
-    header .controls{display:flex;gap:8px;align-items:center}
-    .btn{background:var(--accent);border:none;color:white;padding:8px 12px;border-radius:8px;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);}
-    .layout{display:grid;grid-template-columns:320px 1fr;gap:16px}
+    body{font-family:Inter,Arial,sans-serif;background:#f1f5f9;margin:0;padding:20px;}
+    .container{max-width:1200px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1);overflow:hidden;}
+    .header{background:#4f46e5;color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center;}
+    .content{padding:30px;}
+    h3{margin-top:0;color:#1f2933;}
 
-    /* Sidebar */
-    .sidebar{padding:12px}
-    .logo{display:flex;gap:10px;align-items:center}
-    .logo .dot{width:36px;height:36px;border-radius:8px;background:var(--accent);display:inline-block}
-    .nav{margin-top:18px;display:flex;flex-direction:column;gap:6px}
-    .nav button{background:transparent;border:none;color:var(--muted);padding:10px;border-radius:8px;text-align:left;cursor:pointer}
-    .nav button.active{background:rgba(124,58,237,0.12);color:var(--text);}
+    .tabs{display:flex;gap:10px;margin-bottom:20px;}
+    .tab{padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:600;background:#e5e7eb;}
+    .tab.active{background:#4f46e5;color:#fff;}
 
-    /* Content area */
-    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .search{display:flex;gap:8px;align-items:center}
-    .search input{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+    table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:30px;}
+    th,td{padding:12px;text-align:center;border:1px solid #ddd;}
+    th{background:#eef2ff;}
 
-    table{width:100%;border-collapse:collapse;margin-top:12px}
-    th,td{padding:10px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left}
-    th{font-size:13px;color:var(--muted)}
+    .badge-upcoming{background:#dcfce7;color:#166534;padding:4px 10px;border-radius:20px;font-size:12px;}
+    .badge-previous{background:#fee2e2;color:#991b1b;padding:4px 10px;border-radius:20px;font-size:12px;}
 
-    .form-row{display:flex;gap:8px;margin-top:8px}
-    .form-row input, .form-row select{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
-    .small{width:120px}
+    .notice-box{margin-top:20px;background:#fef3c7;padding:15px;border-radius:8px;color:#92400e;font-size:14px;}
 
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .btn{padding:8px 14px;border:none;border-radius:6px;font-weight:600;cursor:pointer;}
+    .btn-add{background:#16a34a;color:white;}
+    .btn-delete{background:#dc2626;color:white;}
 
-    /* Modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:50}
-    .modal{width:720px;max-width:95%;background:var(--card);padding:18px;border-radius:12px}
-    .modal header{display:flex;justify-content:space-between;align-items:center}
-
-    /* Responsive */
-    @media (max-width:900px){.layout{grid-template-columns:1fr}.sidebar{order:2}}
-
-    /* Tiny badges */
-    .badge{display:inline-block;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,0.04);font-size:12px}
-    .actions button{margin-right:6px}
-
-    .empty{padding:18px;text-align:center;color:var(--muted)}
-
+    .controls{display:flex;gap:10px;margin-bottom:15px;}
+    input,select{padding:8px;border:1px solid #ccc;border-radius:6px;}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div>
-        <h1>Student Management — Examination (Dummy)</h1>
-        <div style="font-size:13px;color:var(--muted)">Demo site — add students, create exams, assign marks</div>
-      </div>
-      <div class="controls">
-        <div class="badge" id="statStudents">Students: 0</div>
-        <button class="btn" id="openAddStudent">+ Add Student</button>
-        <button class="btn secondary" id="openCreateExam">Create Exam</button>
-      </div>
-    </header>
 
-    <div class="layout">
-      <aside class="sidebar card">
-        <div class="logo">
-          <div class="dot"></div>
-          <div>
-            <div style="font-weight:600">College — Demo</div>
-            <div style="font-size:12px;color:var(--muted)">Exam management mock</div>
-          </div>
-        </div>
-
-        <nav class="nav" aria-label="Main navigation">
-          <button class="active" data-panel="students">Students</button>
-          <button data-panel="exams">Exams</button>
-          <button data-panel="results">Results</button>
-          <button data-panel="reports">Reports</button>
-        </nav>
-
-        <div style="margin-top:14px;color:var(--muted);font-size:13px">
-          Tips: This is a client-side dummy. Data stored in-memory and localStorage for demo purposes.
-        </div>
-      </aside>
-
-      <main>
-        <section class="card" id="panel-students">
-          <div class="topbar">
-            <div class="search">
-              <input id="searchInput" placeholder="Search students by name, roll or class" />
-              <select id="filterClass">
-                <option value="">All Classes</option>
-              </select>
-            </div>
-            <div class="actions">
-              <button class="btn" id="seedData">Seed Sample Data</button>
-              <button class="btn secondary" id="clearData">Clear Data</button>
-            </div>
-          </div>
-
-          <div id="studentsTableWrap"></div>
-        </section>
-
-        <section class="card" id="panel-exams" style="display:none;margin-top:12px">
-          <h3 style="margin:0">Exams</h3>
-          <div style="font-size:13px;color:var(--muted);margin-top:6px">Create exams and assign marks to students</div>
-          <div style="margin-top:14px">
-            <div class="form-row">
-              <input id="examName" placeholder="Exam name (e.g., Midterm 1)" />
-              <input id="examDate" type="date" />
-              <select id="examClass"><option value="">Select class</option></select>
-              <button class="btn" id="createExamBtn">Create</button>
-            </div>
-          </div>
-
-          <div id="examsList" style="margin-top:12px"></div>
-        </section>
-
-        <section class="card" id="panel-results" style="display:none;margin-top:12px">
-          <h3 style="margin:0">Results & Grade Entry</h3>
-          <div style="margin-top:10px">
-            <div class="form-row">
-              <select id="selectExamForMarks"><option value="">Select Exam</option></select>
-              <button class="btn" id="openGradeEntry">Enter Marks</button>
-            </div>
-          </div>
-          <div id="resultsWrap" style="margin-top:12px"></div>
-        </section>
-
-        <section class="card" id="panel-reports" style="display:none;margin-top:12px">
-          <h3 style="margin:0">Reports</h3>
-          <div style="margin-top:8px;color:var(--muted)">Simple reports for demo purposes</div>
-          <div id="reportArea" style="margin-top:12px"></div>
-        </section>
-
-        <footer>
-          This is only a dummy UI for testing & demonstration. No server — all data stored locally.
-        </footer>
-      </main>
-    </div>
+<div class="container">
+  <div class="header">
+    <h2>Examination Management</h2>
+    <span>B.Sc Computer Science</span>
   </div>
 
-  <!-- Modal skeletons -->
-  <div id="modalWrap"></div>
+  <div class="content">
 
-  <script>
-    // ---------- Data structures (in-memory + localStorage demo) ----------
-    const DB_KEY = 'smd_demo_v1';
-    const state = { students: [], exams: [], marks: [] };
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('upcoming')">Upcoming Exams</button>
+      <button class="tab" onclick="showTab('previous')">Previous Exams</button>
+    </div>
 
-    // Sample student object: {id:'s1', name:'Rakesh', roll:'PTU001', class:'BCA-6', email:'r@x'}
-    // Exam: {id:'e1', name:'Midterm', date:'2025-12-10', class:'BCA-6'}
-    // Marks: {examId:'e1', studentId:'s1', marks:78}
+    <!-- UPCOMING EXAMS -->
+    <div id="upcoming" class="tab-content">
 
-    // ---------- Helpers ----------
-    const $ = (sel) => document.querySelector(sel);
-    const qs = (sel) => Array.from(document.querySelectorAll(sel));
+      <div class="controls">
+        <input id="u_subject" placeholder="Subject">
+        <input id="u_date" type="date">
+        <input id="u_time" placeholder="Time">
+        <input id="u_room" placeholder="Room No">
+        <button class="btn btn-add" onclick="addUpcoming()">Add Upcoming</button>
+      </div>
 
-    function uid(prefix='id'){return prefix + '_' + Math.random().toString(36).slice(2,9)}
+      <table>
+        <thead>
+          <tr>
+            <th>Exam ID</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="upcomingBody"></tbody>
+      </table>
 
-    function save() { localStorage.setItem(DB_KEY, JSON.stringify(state)); updateStats(); }
-    function load(){ const raw = localStorage.getItem(DB_KEY); if(raw){
-      try{ const parsed = JSON.parse(raw); state.students = parsed.students||[]; state.exams = parsed.exams||[]; state.marks = parsed.marks||[]; }catch(e){console.warn('bad JSON',e)}
-    } updateDerived(); }
+      <div class="notice-box">
+        ⚠ Students must carry their valid ID cards and arrive 30 minutes before the exam time.
+      </div>
+    </div>
 
-    function updateStats(){ $('#statStudents').textContent = 'Students: ' + state.students.length; }
+    <!-- PREVIOUS EXAMS -->
+    <div id="previous" class="tab-content" style="display:none;">
 
-    function updateDerived(){ // rebuild some UI parts
-      populateClassFilters(); renderStudentsTable(); renderExams(); renderExamSelect(); renderReports(); updateStats(); }
+      <table>
+        <thead>
+          <tr>
+            <th>Exam ID</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="previousBody"></tbody>
+      </table>
 
-    // ---------- Student CRUD ----------
-    function addStudent(data){ const s = {...data, id: uid('s')}; state.students.push(s); save(); updateDerived(); return s }
-    function updateStudent(id, data){ const idx = state.students.findIndex(s=>s.id===id); if(idx>-1){ state.students[idx]= {...state.students[idx], ...data}; save(); updateDerived(); }}
-    function deleteStudent(id){ state.students = state.students.filter(s=>s.id!==id); // also remove marks
-      state.marks = state.marks.filter(m=>m.studentId!==id); save(); updateDerived(); }
+    </div>
 
-    // ---------- Examinations ----------
-    function createExam(obj){ const e = {...obj, id: uid('e')}; state.exams.push(e); save(); updateDerived(); return e }
-    function deleteExam(id){ state.exams = state.exams.filter(e=>e.id!==id); state.marks = state.marks.filter(m=>m.examId!==id); save(); updateDerived(); }
+  </div>
+</div>
 
-    // ---------- Marks ----------
-    function setMark(examId, studentId, marks){ const idx = state.marks.findIndex(m=>m.examId===examId && m.studentId===studentId); if(idx>-1){ state.marks[idx].marks = marks } else { state.marks.push({examId, studentId, marks}) } save(); }
-    function getMark(examId, studentId){ const m = state.marks.find(x=>x.examId===examId && x.studentId===studentId); return m?m.marks:null }
+<script>
+  // Dummy Data
+  let upcomingExams = JSON.parse(localStorage.getItem('upcoming_exams')) || [
+    {id:'EX101', subject:'Data Structures', date:'2025-01-15', time:'10:00 AM', room:'A-101'},
+    {id:'EX102', subject:'Operating Systems', date:'2025-01-18', time:'2:00 PM', room:'B-204'}
+  ];
 
-    // ---------- Rendering UI ----------
-    function populateClassFilters(){ const sel = $('#filterClass'); const classSet = new Set(state.students.map(s=>s.class).filter(Boolean)); const examClass = $('#examClass'); const selectExamClass = $('#selectExamForMarks');
-      // rebuild
-      if(sel){ sel.innerHTML = '<option value="">All Classes</option>'; classSet.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o)}) }
-      if(examClass){ examClass.innerHTML = '<option value="">Select class</option>'; classSet.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; examClass.appendChild(o)}) }
-      if(selectExamClass){ selectExamClass.innerHTML = '<option value="">Select Exam</option>'; }
+  let previousExams = JSON.parse(localStorage.getItem('previous_exams')) || [
+    {id:'EX090', subject:'DBMS', date:'2024-12-05', time:'10:00 AM', status:'Completed', result:'Published'},
+    {id:'EX091', subject:'Computer Networks', date:'2024-12-08', time:'2:00 PM', status:'Completed', result:'Published'}
+  ];
+
+  function render(){
+    const uBody = document.getElementById('upcomingBody');
+    const pBody = document.getElementById('previousBody');
+    uBody.innerHTML = '';
+    pBody.innerHTML = '';
+
+    upcomingExams.forEach((e,i)=>{
+      uBody.innerHTML += `
+        <tr>
+          <td>${e.id}</td>
+          <td>${e.subject}</td>
+          <td>${e.date}</td>
+          <td>${e.time}</td>
+          <td>${e.room}</td>
+          <td><span class="badge-upcoming">Upcoming</span></td>
+          <td><button class="btn btn-delete" onclick="removeUpcoming(${i})">Remove</button></td>
+        </tr>`;
+    });
+
+    previousExams.forEach(e=>{
+      pBody.innerHTML += `
+        <tr>
+          <td>${e.id}</td>
+          <td>${e.subject}</td>
+          <td>${e.date}</td>
+          <td>${e.time}</td>
+          <td><span class="badge-previous">Completed</span></td>
+          <td>${e.result}</td>
+        </tr>`;
+    });
+
+    localStorage.setItem('upcoming_exams', JSON.stringify(upcomingExams));
+    localStorage.setItem('previous_exams', JSON.stringify(previousExams));
+  }
+
+  function addUpcoming(){
+    const subject = u_subject.value;
+    const date = u_date.value;
+    const time = u_time.value;
+    const room = u_room.value;
+
+    if(!subject || !date || !time || !room){ alert('Fill all fields'); return; }
+
+    const id = 'EX' + Math.floor(Math.random()*900+100);
+    upcomingExams.push({id, subject, date, time, room});
+    u_subject.value=''; u_date.value=''; u_time.value=''; u_room.value='';
+    render();
+  }
+
+  function removeUpcoming(index){
+    if(confirm('Remove this upcoming exam?')){
+      upcomingExams.splice(index,1);
+      render();
     }
+  }
 
-    function renderStudentsTable(){ const wrap = $('#studentsTableWrap'); const q = $('#searchInput').value.toLowerCase().trim(); const classFilter = $('#filterClass').value;
-      let rows = state.students.slice(); if(classFilter) rows = rows.filter(r=>r.class===classFilter);
-      if(q) rows = rows.filter(r=> (r.name||'').toLowerCase().includes(q) || (r.roll||'').toLowerCase().includes(q) || (r.email||'').toLowerCase().includes(q));
-
-      if(rows.length===0){ wrap.innerHTML = '<div class="empty card">No students found. Add students or click "Seed Sample Data" to populate demo data.</div>'; return }
-
-      let html = '<table><thead><tr><th>Name</th><th>Roll</th><th>Class</th><th>Email</th><th>Actions</th></tr></thead><tbody>';
-      for(const s of rows){ html += `<tr><td>${escapeHtml(s.name||'—')}</td><td>${escapeHtml(s.roll||'—')}</td><td>${escapeHtml(s.class||'—')}</td><td>${escapeHtml(s.email||'—')}</td><td><div class="actions">`;
-        html += `<button class="btn secondary" onclick="openEditStudent('${s.id}')">Edit</button>`;
-        html += `<button class="btn" onclick="confirmDeleteStudent('${s.id}')">Delete</button>`;
-        html += '</div></td></tr>' }
-      html += '</tbody></table>';
-      wrap.innerHTML = html;
+  function showTab(type){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    if(type==='upcoming'){
+      document.getElementById('upcoming').style.display='block';
+      document.getElementById('previous').style.display='none';
+      document.querySelectorAll('.tab')[0].classList.add('active');
+    }else{
+      document.getElementById('previous').style.display='block';
+      document.getElementById('upcoming').style.display='none';
+      document.querySelectorAll('.tab')[1].classList.add('active');
     }
+  }
 
-    function renderExams(){ const wrap = $('#examsList'); if(!wrap) return; if(state.exams.length===0){ wrap.innerHTML = '<div class="empty">No exams. Create one above.</div>'; return }
-      let html = '<table><thead><tr><th>Exam</th><th>Date</th><th>Class</th><th>Actions</th></tr></thead><tbody>';
-      for(const e of state.exams){ html += `<tr><td>${escapeHtml(e.name)}</td><td>${e.date||'—'}</td><td>${escapeHtml(e.class||'—')}</td><td>`;
-        html += `<button class="btn secondary" onclick="previewExam('${e.id}')">Preview</button> `;
-        html += `<button class="btn" onclick="confirmDeleteExam('${e.id}')">Delete</button>`;
-        html += `</td></tr>` }
-      html += '</tbody></table>';
-      wrap.innerHTML = html;
-    }
+  render();
+</script>
 
-    function renderExamSelect(){ const sel = $('#selectExamForMarks'); if(!sel) return; sel.innerHTML = '<option value="">Select Exam</option>'; for(const e of state.exams){ const o = document.createElement('option'); o.value = e.id; o.textContent = `${e.name} — ${e.class} (${e.date||'—'})`; sel.appendChild(o)} }
-
-    function renderReports(){ const area = $('#reportArea'); if(!area) return; const examsCount = state.exams.length; const avgMarks = computeAverageMarks(); area.innerHTML = `<div style="display:flex;gap:12px;flex-wrap:wrap"><div class="card" style="padding:12px"><strong>Total students</strong><div style="font-size:20px">${state.students.length}</div></div><div class="card" style="padding:12px"><strong>Total exams</strong><div style="font-size:20px">${examsCount}</div></div><div class="card" style="padding:12px"><strong>Overall average mark</strong><div style="font-size:20px">${isNaN(avgMarks)?'—':avgMarks.toFixed(1)}</div></div></div>` }
-
-    function computeAverageMarks(){ if(state.marks.length===0) return NaN; const sum = state.marks.reduce((a,b)=>a + (Number(b.marks)||0),0); return sum / state.marks.length }
-
-    // ---------- Modal UI components ----------
-    function openModal(html){ const wrap = $('#modalWrap'); wrap.innerHTML = `<div class="modal-backdrop"> <div class="modal">${html}</div></div>`; }
-    function closeModal(){ $('#modalWrap').innerHTML = '' }
-
-    // Add Student modal
-    function showAddStudentModal(prefill={}){
-      openModal(`<header><h3>${prefill.id? 'Edit':'Add'} Student</h3><button onclick="closeModal()" class="btn secondary">Close</button></header>
-        <div style="margin-top:12px">
-          <div class="form-row"><input id="m_name" placeholder="Full name" value="${escapeAttr(prefill.name||'')}"></div>
-          <div class="form-row"><input id="m_roll" placeholder="Roll number" value="${escapeAttr(prefill.roll||'')}"><input id="m_class" placeholder="Class (e.g., BCA-6)" value="${escapeAttr(prefill.class||'')}"></div>
-          <div class="form-row"><input id="m_email" placeholder="Email" value="${escapeAttr(prefill.email||'')}"></div>
-          <div style="margin-top:12px;text-align:right"><button class="btn" id="saveStudentBtn">Save</button></div>
-        </div>`);
-
-      $('#saveStudentBtn').onclick = function(){ const data = { name: $('#m_name').value.trim(), roll: $('#m_roll').value.trim(), class: $('#m_class').value.trim(), email: $('#m_email').value.trim() };
-        if(!data.name || !data.roll){ alert('Name and roll are required'); return }
-        if(prefill.id){ updateStudent(prefill.id, data) } else { addStudent(data) }
-        closeModal();
-      }
-    }
-
-    function openEditStudent(id){ const s = state.students.find(x=>x.id===id); if(!s) return alert('Student not found'); showAddStudentModal(s) }
-    function confirmDeleteStudent(id){ if(confirm('Delete this student? This will also remove their marks in exams.')){ deleteStudent(id) } }
-
-    // Exam modals
-    function previewExam(id){ const e = state.exams.find(x=>x.id===id); if(!e) return; // show list of students and marks
-      const students = state.students.filter(s=>s.class===e.class);
-      let html = `<header><h3>Exam: ${escapeHtml(e.name)}</h3><button onclick="closeModal()" class="btn secondary">Close</button></header><div style="margin-top:12px">`;
-      if(students.length===0){ html += '<div class="empty">No students in this class</div>' }
-      else{
-        html += '<table><thead><tr><th>Name</th><th>Roll</th><th>Marks</th></tr></thead><tbody>';
-        for(const s of students){ const m = getMark(id,s.id); html += `<tr><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.roll)}</td><td>${m===null?'—':m}</td></tr>` }
-        html += '</tbody></table>'
-      }
-      html += '</div>';
-      openModal(html);
-    }
-
-    function confirmDeleteExam(id){ if(confirm('Delete this exam and all related marks?')){ deleteExam(id) } }
-
-    // Grade entry modal
-    function showGradeEntry(examId){ const e = state.exams.find(x=>x.id===examId); if(!e) return alert('Select a valid exam'); const students = state.students.filter(s=>s.class===e.class);
-      let html = `<header><h3>Enter marks — ${escapeHtml(e.name)}</h3><button onclick="closeModal()" class="btn secondary">Close</button></header><div style="margin-top:12px">`;
-      if(students.length===0){ html += '<div class="empty">No students in this class to enter marks for.</div>' }
-      else{
-        html += '<div style="max-height:380px;overflow:auto"><table><thead><tr><th>Name</th><th>Roll</th><th style="width:120px">Marks</th></tr></thead><tbody>';
-        for(const s of students){ const m = getMark(examId,s.id); html += `<tr><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.roll)}</td><td><input data-student="${s.id}" value="${m===null?'':m}" style="width:100px;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></td></tr>` }
-        html += '</tbody></table></div>'
-      }
-      html += `<div style="margin-top:12px;text-align:right"><button class="btn" id="saveMarksBtn">Save marks</button></div></div>`;
-      openModal(html);
-      $('#saveMarksBtn').onclick = function(){ const inputs = Array.from(document.querySelectorAll('[data-student]'));
-        for(const inp of inputs){ const studentId = inp.getAttribute('data-student'); let val = inp.value.trim(); if(val==='') continue; if(isNaN(Number(val))){ alert('Marks must be numeric'); return } setMark(examId, studentId, Number(val)) }
-        closeModal(); alert('Marks saved (in localStorage)')
-      }
-    }
-
-    // ---------- Utilities ----------
-    function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;') }
-    function escapeAttr(s){ return (s+'').replaceAll('"','&quot;').replaceAll("'","&#39;") }
-
-    // ---------- Event wiring ----------
-    document.addEventListener('click', function(e){ const nav = e.target.closest('.nav button'); if(nav){ qs('.nav button').forEach(b=>b.classList.remove('active')); nav.classList.add('active'); const panel = nav.getAttribute('data-panel'); openPanel(panel) } });
-    $('#openAddStudent').addEventListener('click', ()=> showAddStudentModal({}));
-    $('#openCreateExam').addEventListener('click', ()=>{ document.querySelector('#panel-exams').style.display='block'; openPanel('exams'); });
-
-    $('#seedData').addEventListener('click', ()=>{ seedSampleData(); });
-    $('#clearData').addEventListener('click', ()=>{ if(confirm('Clear all demo data?')){ state.students=[]; state.exams=[]; state.marks=[]; save(); updateDerived(); } });
-    $('#searchInput').addEventListener('input', ()=> renderStudentsTable());
-    $('#filterClass').addEventListener('change', ()=> renderStudentsTable());
-    $('#createExamBtn').addEventListener('click', ()=>{ const name = $('#examName').value.trim(); const date = $('#examDate').value; const cls = $('#examClass').value; if(!name||!cls){ alert('Provide exam name and class'); return } createExam({name, date, class:cls}); $('#examName').value=''; $('#examDate').value=''; $('#examClass').value=''; alert('Exam created') });
-
-    $('#openGradeEntry').addEventListener('click', ()=>{ const examId = $('#selectExamForMarks').value; if(!examId){ alert('Select an exam first'); return } showGradeEntry(examId); });
-
-    // ---------- Seeding demo data ----------
-    function seedSampleData(){ const classes = ['BCA-6','BCA-5','BSC-3']; const sample = [
-      {name:'Rey Kumar', roll:'BCA6001', class:'BCA-6', email:'rey@example.com'},
-      {name:'Aisha Singh', roll:'BCA6002', class:'BCA-6', email:'aisha@example.com'},
-      {name:'Vikram Patel', roll:'BCA5001', class:'BCA-5', email:'vikram@example.com'},
-      {name:'Sara Mehta', roll:'BSC3001', class:'BSC-3', email:'sara@example.com'}
-    ];
-    for(const s of sample){ addStudent(s) }
-    createExam({name:'Midterm 1', date: new Date().toISOString().slice(0,10), class:'BCA-6'});
-    createExam({name:'Finals', date:'2025-12-22', class:'BCA-6'});
-    alert('Sample data added') }
-
-    // ---------- Reports and download ----------
-    function openPanel(panel){ qs('main section').forEach(s=>s.style.display='none'); $('#panel-' + panel).style.display='block'; }
-
-    // allow CSV export of students as simple demo
-    function exportStudentsCSV(){ if(state.students.length===0) return alert('No students'); let csv = 'Name,Roll,Class,Email\n' + state.students.map(s=>`"${s.name}","${s.roll}","${s.class}","${s.email}"`).join('\n'); const blob = new Blob([csv], {type:'text/csv'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='students.csv'; a.click(); URL.revokeObjectURL(url); }
-
-    // ---------- Small confirmations accessible from UI ----------
-    window.confirmDeleteStudent = confirmDeleteStudent; window.openEditStudent = openEditStudent; window.confirmDeleteExam = confirmDeleteExam; window.previewExam = previewExam; window.showGradeEntry = showGradeEntry;
-
-    // ---------- Small helpers ----------
-    function renderInitial(){ load(); if(state.students.length===0 && state.exams.length===0){ /* nothing */ } updateDerived(); }
-
-    renderInitial();
-
-    // ---------- Extra: keyboard shortcut to seed data (S) ----------
-    document.addEventListener('keydown', (e)=>{ if(e.key.toLowerCase()==='s' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); seedSampleData(); } });
-
-  </script>
 </body>
 </html>
