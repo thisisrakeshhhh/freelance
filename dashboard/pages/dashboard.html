@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,18 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/landing.css">
 </head>
+
 <body>
-    
+
     <button class="menu-toggle" id="menuToggle">☰</button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="dash-wrapper">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
-                <img src="../assets/images/logo.png" alt="St. Xavier's Logo" class="logo-img" style="width: 60px; height: 60px;">
+                <img src="../assets/images/logo.png" alt="St. Xavier's Logo" class="logo-img"
+                    style="width: 60px; height: 60px;">
                 <div class="brand-text-sm">ST. XAVIER'S</div>
             </div>
-            
+
             <nav class="sidebar-nav">
                 <ul>
                     <li class="active" data-page="dashboard" tabindex="0">
@@ -58,132 +61,151 @@
         </aside>
 
         <main class="dash-main">
-<header class="dash-header">
-    <h1>Dashboard Overview</h1>
-    <div class="user-info">
-        <div class="search-box">
-            <input type="text" placeholder="Search anything...">
-            <i class="search-icon">🔍</i>
-        </div>
-        <div class="header-actions">
-            <button class="icon-btn">
-                🔔 <span class="badge">5</span>
-            </button>
-            <div class="user-avatar" id="userAvatar">AD</div>
-            <span style="font-weight: 600; font-size: 14px;">Hi, <span id="userName">Admin</span></span>
-        </div>
-    </div>
-</header>
-            <section class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-icon blue">👨‍🎓</div>
-                    <div class="stat-info">
-                        <h3>2,847</h3>
-                        <p>Total Students</p>
+
+            <header class="dash-header">
+                <h1 id="pageTitle">Dashboard Overview</h1>
+                <div class="user-info">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search anything...">
+                        <i class="search-icon">🔍</i>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-btn">
+                            🔔 <span class="badge">5</span>
+                        </button>
+                        <div class="user-avatar" id="userAvatar">AD</div>
+                        <span style="font-weight: 600; font-size: 14px;">Hi, <span id="userName">Admin</span></span>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon green">👨‍🏫</div>
-                    <div class="stat-info">
-                        <h3>156</h3>
-                        <p>Total Teachers</p>
+            </header>
+
+            <hr>
+
+            <div id="dashboard-only-content">
+                <p style="background: #f0f8ff; padding: 15px; border-radius: 5px; border-left: 5px solid #3b82f6;">
+                    **[Dashboard Content Here]:** The `stats-row` and `cards-grid` (your initial layout) should be
+                    placed inside this `div`.
+                </p>
+            </div>
+
+            <hr>
+
+            <div id="dynamic-content">
+                <p style="background: #fff8f0; padding: 15px; border-radius: 5px; border-left: 5px solid #f59e0b;">
+                    **[Dynamic Content View]:** Non-dashboard pages will load here, replacing this text.
+                </p>
+            </div>
+        </main>
+        <section class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon blue">👨‍🎓</div>
+                <div class="stat-info">
+                    <h3>2,847</h3>
+                    <p>Total Students</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">👨‍🏫</div>
+                <div class="stat-info">
+                    <h3>156</h3>
+                    <p>Total Teachers</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">💰</div>
+                <div class="stat-info">
+                    <h3>$84.5K</h3>
+                    <p>Fees Collected</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">📊</div>
+                <div class="stat-info">
+                    <h3>94.2%</h3>
+                    <p>Attendance Rate</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards-grid">
+            <a href="./studentmanagement.html" class="card-link">
+                <div class="card" data-module="student-management">
+                    <div class="card-icon">🎓</div>
+                    <div class="card-body">
+                        <h3>Student Management</h3>
+                        <ul>
+                            <li>Add & Edit Students</li>
+                            <li>View Profiles</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon orange">💰</div>
-                    <div class="stat-info">
-                        <h3>$84.5K</h3>
-                        <p>Fees Collected</p>
+            </a>
+
+            <a href="./staffmanagement.html" class="card-link">
+                <div class="card" data-module="staff-management">
+                    <div class="card-icon" style="color: #10b981;">👨‍🏫</div>
+                    <div class="card-body">
+                        <h3>Staff Management</h3>
+                        <ul>
+                            <li>Teacher Records</li>
+                            <li>Schedules</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon purple">📊</div>
-                    <div class="stat-info">
-                        <h3>94.2%</h3>
-                        <p>Attendance Rate</p>
+            </a>
+
+            <a href="./attendance.html" class="card-link">
+                <div class="card" data-module="attendance">
+                    <div class="card-icon" style="color: #f59e0b;">📅</div>
+                    <div class="card-body">
+                        <h3>Attendance</h3>
+                        <ul>
+                            <li>Mark Daily Attendance</li>
+                            <li>View Reports</li>
+                        </ul>
                     </div>
                 </div>
-            </section>
+            </a>
 
-            <section class="cards-grid">
-                <a href="./studentmanagement.html" class="card-link">
-                    <div class="card" data-module="student-management">
-                        <div class="card-icon">🎓</div>
-                        <div class="card-body">
-                            <h3>Student Management</h3>
-                            <ul>
-                                <li>Add & Edit Students</li>
-                                <li>View Profiles</li>
-                            </ul>
-                        </div>
+            <a href="./examinations.html" class="card-link">
+                <div class="card" data-module="examination">
+                    <div class="card-icon" style="color: #8b5cf6;">📝</div>
+                    <div class="card-body">
+                        <h3>Examinations</h3>
+                        <ul>
+                            <li>Create Exams</li>
+                            <li>Result Cards</li>
+                        </ul>
                     </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="./staffmanagement.html" class="card-link">
-                    <div class="card" data-module="staff-management">
-                        <div class="card-icon" style="color: #10b981;">👨‍🏫</div>
-                        <div class="card-body">
-                            <h3>Staff Management</h3>
-                            <ul>
-                                <li>Teacher Records</li>
-                                <li>Schedules</li>
-                            </ul>
-                        </div>
+            <a href="./fees.html" class="card-link">
+                <div class="card" data-module="fees">
+                    <div class="card-icon" style="color: #ef4444;">💳</div>
+                    <div class="card-body">
+                        <h3>Fee Management</h3>
+                        <ul>
+                            <li>Payment History</li>
+                            <li>Generate Receipts</li>
+                        </ul>
                     </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="./attendance.html" class="card-link">
-                    <div class="card" data-module="attendance">
-                        <div class="card-icon" style="color: #f59e0b;">📅</div>
-                        <div class="card-body">
-                            <h3>Attendance</h3>
-                            <ul>
-                                <li>Mark Daily Attendance</li>
-                                <li>View Reports</li>
-                            </ul>
-                        </div>
+            <a href="./timetable.html" class="card-link">
+                <div class="card" data-module="timetable">
+                    <div class="card-icon" style="color: #0d9488;">⏱️</div>
+                    <div class="card-body">
+                        <h3>Timetable</h3>
+                        <ul>
+                            <li>Class Schedules</li>
+                            <li>Room Allocation</li>
+                        </ul>
                     </div>
-                </a>
-
-                <a href="./examinations.html" class="card-link">
-                    <div class="card" data-module="examination">
-                        <div class="card-icon" style="color: #8b5cf6;">📝</div>
-                        <div class="card-body">
-                            <h3>Examinations</h3>
-                            <ul>
-                                <li>Create Exams</li>
-                                <li>Result Cards</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="./fees.html" class="card-link">
-                    <div class="card" data-module="fees">
-                        <div class="card-icon" style="color: #ef4444;">💳</div>
-                        <div class="card-body">
-                            <h3>Fee Management</h3>
-                            <ul>
-                                <li>Payment History</li>
-                                <li>Generate Receipts</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="./timetable.html" class="card-link">
-                    <div class="card" data-module="timetable">
-                        <div class="card-icon" style="color: #0d9488;">⏱️</div>
-                        <div class="card-body">
-                            <h3>Timetable</h3>
-                            <ul>
-                                <li>Class Schedules</li>
-                                <li>Room Allocation</li>
-                            </ul>
-                        </div>
-                    </div>
-                </a>
-            </section>
+                </div>
+            </a>
+        </section>
         </main>
     </div>
 
@@ -191,4 +213,5 @@
     <script src="../js/toast.js"></script>
     <script src="../js/dashboard.js"></script>
 </body>
+
 </html>
