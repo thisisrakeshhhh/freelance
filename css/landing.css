@@ -1904,3 +1904,25 @@ body {
     margin-right: 10px;
     font-size: 18px;
 }
+.sidebar-nav .has-sub > ul.sub {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: rgba(0,0,0,0.15);
+}
+
+.sidebar-nav .has-sub.open > ul.sub {
+    max-height: 300px;
+}
+
+.sidebar-nav .has-sub::after {
+    content: '▼';
+    position: absolute;
+    right: 20px;
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.sidebar-nav .has-sub.open::after {
+    transform: rotate(180deg);
+}

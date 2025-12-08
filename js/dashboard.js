@@ -1,15 +1,14 @@
 const PAGES = {
     dashboard: '',
     'all-students': 'pages/studentmanagement.html',
-    'add-student': 'pages/addstudent.html',        
+    'add-student': 'pages/addstudent.html',
     attendance: 'pages/attendance.html',
     teachers: 'pages/teachers.html',
     fees: 'pages/fees.html',
     timetable: 'pages/timetable.html',
     examinations: 'pages/examinations.html',
     notifications: 'pages/notifications.html',
-    settings: 'pages/settings.html',
-    staff: 'pages/staffmanagement.html'
+    settings: 'pages/settings.html'
 };
 
 const TITLES = {
@@ -22,8 +21,7 @@ const TITLES = {
     timetable: "Class Timetable",
     examinations: "Examinations",
     notifications: "Notifications & Announcements",
-    settings: "System Settings",
-    staff: "Staff Management"
+    settings: "System Settings"
 };
 
 async function loadPage(page) {
@@ -31,10 +29,7 @@ async function loadPage(page) {
     const dynamicContentArea = document.getElementById('dynamic-content');
     const dashboardOnly = document.getElementById('dashboard-only-content');
 
-    if (!pageTitleElement || !dynamicContentArea) {
-        console.error("Required elements not found!");
-        return;
-    }
+    if (!pageTitleElement || !dynamicContentArea) return;
 
     pageTitleElement.textContent = TITLES[page] || "Admin Panel";
 
@@ -45,14 +40,11 @@ async function loadPage(page) {
     }
 
     if (dashboardOnly) dashboardOnly.style.display = 'none';
-    dynamicContentArea.innerHTML = '<div style="text-align:center; padding:40px; color:#666;">Loading...</div>';
+    dynamicContentArea.innerHTML = '<div style="text-align:center;padding:40px;color:#666;">Loading...</div>';
 
     try {
         const filePath = PAGES[page];
-        if (!filePath) {
-            dynamicContentArea.innerHTML = "<h2 style='text-align:center; color:#ef4444;'>Page Not Found</h2>";
-            return;
-        }
+        if (!filePath) throw new Error("Page not found in PAGES object");
 
         const response = await fetch(filePath);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -60,116 +52,116 @@ async function loadPage(page) {
         const html = await response.text();
         dynamicContentArea.innerHTML = html;
 
-        const scripts = dynamicContentArea.querySelectorAll('script');
-        scripts.forEach(oldScript => {
-            const newScript = document.createElement('script');
-            newScript.text = oldScript.textContent;
-            oldScript.parentNode.replaceChild(newScript, oldScript);
+        // Re-run scripts
+        dynamicContentArea.querySelectorAll('script').forEach(old => {
+            const script = document.createElement('script');
+            script.text = old.textContent;
+            old.parentNode.replaceChild(script, old);
         });
 
     } catch (err) {
-        console.error("Failed to load page:", err);
         dynamicContentArea.innerHTML = `
-            <div style="text-align:center; padding:40px; color:#ef4444;">
+            <div style="text-align:center;padding:40px;color:#ef4444;">
                 <h3>Failed to Load Page</h3>
                 <p>${err.message}</p>
-                <small>Check file path: <code>${PAGES[page]}</code></small>
+                <small>Check: <code>${PAGES[page] || 'missing'}</code></small>
             </div>`;
     }
 
     updateSidebarActiveState(page);
-
-    if (typeof Toast !== "undefined" && Toast.info) {
-        Toast.info(TITLES[page] + " loaded");
-    }
 }
 
-function updateSidebarActiveState(currentPage) {
-    document.querySelectorAll('.sidebar-nav li').forEach(item => {
-        item.classList.remove('active', 'open');
+function updateSidebarActiveState(page) {
+    document.querySelectorAll('.sidebar-nav li').forEach(li => {
+        li.classList.remove('active', 'open');
     });
-
-    const activeItem = document.querySelector(`.sidebar-nav li[data-page="${currentPage}"]`);
-    if (activeItem) {
-        activeItem.classList.add('active');
-        const parentSub = activeItem.closest('.has-sub');
-        if (parentSub) parentSub.classList.add('open', 'active');
+    const item = document.querySelector(`[data-page="${page}"]`);
+    if (item) {
+        item.classList.add('active');
+        const parent = item.closest('.has-sub');
+        if (parent) parent.classList.add('open', 'active');
     }
 }
 
 function router() {
-    const params = new URLSearchParams(window.location.search);
-    const currentPage = params.get('page') || 'dashboard';
-    loadPage(currentPage);
+    const page = new URLSearchParams(location.search).get('page') || 'dashboard';
+    loadPage(page);
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    setupNavigationAndEvents();
-    router(); 
+// Sidebar clicks
+document.querySelectorAll('.sidebar-nav li[data-page]').forEach(item => {
+    item.addEventListener('click', e => {
+        e.stopPropagation();
+        const page = item.getAttribute('data-page');
+        history.pushState({page}, '', `?page=${page}`);
+        loadPage(page);
+        if (window.innerWidth <= 768) {
+            document.getElementById('sidebar')?.classList.remove('open');
+            document.getElementById('sidebarOverlay')?.classList.remove('open');
+        }
+    });
 });
 
-const sidebar = document.getElementById('sidebar');
-const menuToggle = document.getElementById('menuToggle');
-const overlay = document.getElementById('sidebarOverlay');
+// Dropdown toggle
+document.querySelectorAll('.has-sub').forEach(menu => {
+    menu.addEventListener('click', e => {
+        if (e.target.closest('[data-page]')) return;
+        menu.classList.toggle('open');
+    });
+});
 
-function toggleSidebar() {
-    if (!sidebar || !overlay || !menuToggle) return;
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
-    menuToggle.textContent = sidebar.classList.contains('open') ? '✕' : '☰';
-}
-
-function closeSidebar() {
-    if (!sidebar || !overlay || !menuToggle) return;
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-    menuToggle.textContent = '☰';
-}
+window.addEventListener('popstate', router);
+document.addEventListener('DOMContentLoaded', () => {
+    setupNavigationAndEvents?.();
+    router();
+});
 
 function setupNavigationAndEvents() {
-    document.querySelectorAll('.sidebar-nav li[data-page]').forEach(li => {
-        li.addEventListener('click', (event) => {
-            const page = event.currentTarget.getAttribute('data-page');
-            history.pushState({page}, TITLES[page] || 'Dashboard', `?page=${page}`);
-            router();
-            if (window.innerWidth <= 768) closeSidebar(); 
+// ———————— ULTIMATE SIDEBAR CLICK HANDLER (Works Everywhere!) ————————
+document.querySelectorAll('.sidebar-nav li[data-page]').forEach(item => {
+    item.addEventListener('click', function(e) {
+        // Prevent parent "has-sub" from interfering when clicking arrow/text
+        e.stopPropagation();
+
+        const page = this.getAttribute('data-page');
+        if (!page) return;
+
+        // Update URL
+        history.pushState({ page }, '', `?page=${page}`);
+
+        // Update active state for ALL sidebar items
+        document.querySelectorAll('.sidebar-nav li').forEach(li => {
+            li.classList.remove('active');
         });
+        this.classList.add('active');
+
+        // Special: also mark parent "Students" as active when submenu clicked
+        const parent = this.closest('.has-sub');
+        if (parent) {
+            parent.classList.add('active');
+        }
+
+        // Load the page
+        loadPage(page);
+
+        // Close mobile sidebar
+        if (window.innerWidth <= 768) {
+            document.getElementById('sidebar')?.classList.remove('open');
+            document.getElementById('sidebarOverlay')?.classList.remove('open');
+        }
     });
+});
 
-    document.querySelectorAll('.sidebar-nav li.has-sub').forEach(li => {
-        li.addEventListener('click', (event) => {
-            if (event.target === li || event.target.parentNode === li) {
-                li.classList.toggle('open');
-            }
-        });
+// ———————— Dropdown Toggle for "Students" Menu ————————
+document.querySelectorAll('.has-sub').forEach(menu => {
+    menu.addEventListener('click', function(e) {
+        // Only toggle if clicking the main label (not a submenu item)
+        if (e.target.closest('[data-page]') && e.target.closest('[data-page]').hasAttribute('data-page')) {
+            return; // Let the data-page handler do its job
+        }
+        this.classList.toggle('open');
     });
-    
-    if (menuToggle) menuToggle.addEventListener('click', toggleSidebar);
-    if (overlay) overlay.addEventListener('click', closeSidebar);
-
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
-            if (typeof Toast !== "undefined" && Toast.warning) {
-                Toast.warning('Logging out...');
-            }
-
-            setTimeout(function () {
-                if (typeof Auth !== "undefined" && Auth.logout) {
-                    Auth.logout();
-                }
-            }, 800);
-        });
-    }
-
-    
-    window.addEventListener('popstate', router);
-    
-    
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) closeSidebar();
-    });
+});
 }
 
 

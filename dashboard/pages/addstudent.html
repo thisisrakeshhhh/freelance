@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Student | St. Xavier's</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/landing.css">
+  <style>
+    :root {
+      --primary: #4a6cf7;
+      --primary-dark: #3a5ce5;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --border: #e2e8f0;
+      --bg-light: #f8fafc;
+    }
+
+    body {
+      background: var(--bg-light);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .page-module-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .module-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .module-header h2 {
+      font-size: 28px;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .module-content {
+      padding: 40px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #374151;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background: #f8fafc;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.1);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(74, 108, 247, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+      border: 2px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .success-message {
+      padding: 16px 20px;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 12px;
+      border: 1px solid #a7f3d0;
+      margin-top: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .module-content { padding: 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-actions { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-module-container">
+    <section class="module-header">
+      <h2>Add New Student</h2>
+    </section>
+
+    <section class="module-content">
+      <form id="addStudentForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="fullName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Roll Number *</label>
+            <input type="text" id="rollNumber" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email">
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone">
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" id="dob">
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label>
+            <select id="gender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Course / Program</label>
+            <select id="course">
+              <option value="">Select Course</option>
+              <option>B.Tech Computer Science</option>
+              <option>B.Tech Electronics</option>
+              <option>B.Sc Mathematics</option>
+              <option>B.Com Accounting</option>
+              <option>B.A English</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Year / Semester</label>
+            <select id="year">
+              <option value="">Select Year</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>Address</label>
+          <textarea id="address" rows="3" placeholder="Enter full address..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear Form</button>
+          <button type="submit" class="btn btn-primary">Add Student</button>
+        </div>
+      </form>
+
+      <div id="successMessage" class="success-message">
+        <strong>Success!</strong> Student has been added successfully.
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const form = document.getElementById('addStudentForm');
+    const successMsg = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const student = {
+        id: Date.now(),
+        fullName: document.getElementById('fullName').value.trim(),
+        rollNumber: document.getElementById('rollNumber').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        dob: document.getElementById('dob').value,
+        gender: document.getElementById('gender').value,
+        course: document.getElementById('course').value,
+        year: document.getElementById('year').value,
+        address: document.getElementById('address').value.trim(),
+        joinDate: new Date().toLocaleDateString()
+      };
+
+      // Save to localStorage (so it appears in All Students page)
+      let students = JSON.parse(localStorage.getItem('college_students') || '[]');
+      students.push(student);
+      localStorage.setItem('college_students', JSON.stringify(students));
+
+      // Show success
+      successMsg.style.display = 'flex';
+      setTimeout(() => successMsg.style.display = 'none', 4000);
+
+      // Reset form
+      form.reset();
+
+      // Optional: Show toast if Toast.js is loaded
+      if (typeof Toast !== 'undefined') {
+        Toast.success('Student added successfully!');
+      }
+    });
+
+    function resetForm() {
+      form.reset();
+      successMsg.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
