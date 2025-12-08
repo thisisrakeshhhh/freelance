@@ -1864,3 +1864,43 @@ body {
 .has-sub.open > ul.sub {
     max-height: 500px; 
 }
+/* Sidebar Dropdown Fix */
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav > ul > li {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.sidebar-nav > ul > li:hover,
+.sidebar-nav > ul > li.active {
+    background: rgba(255,255,255,0.1);
+}
+
+.sidebar-nav .has-sub > .sub {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(0,0,0,0.2);
+    margin-left: 20px;
+}
+
+.sidebar-nav .has-sub.open > .sub {
+    max-height: 300px; /* enough for all items */
+}
+
+.sidebar-nav .sub li {
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.sidebar-nav .nav-icon {
+    margin-right: 10px;
+    font-size: 18px;
+}

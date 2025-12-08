@@ -39,30 +39,50 @@
                 <div class="brand-text-sm">ST.XAVIER'S</div>
             </div>
 
-            <nav class="sidebar-nav">
-                <ul>
-                    <li class="nav-item active" data-page="dashboard">
-                        Dashboard
-                    </li>
+<nav class="sidebar-nav">
+    <ul>
+        <li class="nav-item active" data-page="dashboard" tabindex="0">
+            <span class="nav-icon">🏠</span> <span>Dashboard</span>
+        </li>
 
-                    <li class="nav-item has-sub">
-                        Students
-                        <ul class="sub">
-                            <li class="nav-item" data-page="all-students">All Students</li>
-                            <li class="nav-item" data-page="add-student">Add New Student</li>
-                            <li class="nav-item" data-page="attendance">Attendance</li>
-                        </ul>
-                    </li>
+        <li class="nav-item has-sub" tabindex="0">
+            <span class="nav-icon">🧑‍🎓</span> <span>Students</span>
+            <ul class="sub">
+                <li class="nav-item" data-page="all-students" tabindex="0">
+                    <span>All Students</span>
+                </li>
+                <li class="nav-item" data-page="add-student" tabindex="0">
+                    <span>Add New Student</span>
+                </li>
+                <li class="nav-item" data-page="attendance" tabindex="0">
+                    <span>Attendance</span>
+                </li>
+            </ul>
+        </li>
 
-                    <li class="nav-item" data-page="teachers">Teachers</li>
-                    <li class="nav-item" data-page="fees"> Fees</li>
-                    <li class="nav-item" data-page="timetable"> Timetable</li>
-                    <li class="nav-item" data-page="examinations"> Examinations</li>
-                    <li class="nav-item" data-page="notifications"> Notifications</li>
-                    <li class="nav-item" data-page="settings"> Settings</li>
-                    <li class="nav-item logout" id="logoutBtn"> Logout</li>
-                </ul>
-            </nav>
+        <li class="nav-item" data-page="teachers" tabindex="0">
+            <span class="nav-icon">👨‍🏫</span> <span>Teachers</span>
+        </li>
+        <li class="nav-item" data-page="fees" tabindex="0">
+            <span class="nav-icon">💳</span> <span>Fees</span>
+        </li>
+        <li class="nav-item" data-page="timetable" tabindex="0">
+            <span class="nav-icon">⏱️</span> <span>Timetable</span>
+        </li>
+        <li class="nav-item" data-page="examinations" tabindex="0">
+            <span class="nav-icon">📝</span> <span>Examinations</span>
+        </li>
+        <li class="nav-item" data-page="notifications" tabindex="0">
+            <span class="nav-icon">🔔</span> <span>Notifications</span>
+        </li>
+        <li class="nav-item" data-page="settings" tabindex="0">
+            <span class="nav-icon">⚙️</span> <span>Settings</span>
+        </li>
+        <li class="nav-item logout" id="logoutBtn" tabindex="0">
+            <span class="nav-icon">🚪</span> <span>Logout</span>
+        </li>
+    </ul>
+</nav>
         </aside>
 
         <main class="dash-main">
@@ -119,7 +139,7 @@
                 </section>
                 
                 <section class="cards-grid">
-                    <a href="./pages/studentmanagement.html" class="card-link" data-page-link="all-students">
+                    <a href="?page=all-students" class="card-link" data-page-link="all-students">
                         <div class="card" data-module="student-management">
                             <div class="card-icon">🎓</div>
                             <div class="card-body">
@@ -132,7 +152,7 @@
                         </div>
                     </a>
 
-                    <a href="./pages/staffmanagement.html" class="card-link" data-page-link="teachers">
+                    <a href="?page=teachers" class="card-link" data-page-link="teachers">
                         <div class="card" data-module="staff-management">
                             <div class="card-icon" style="color: #10b981;">👨‍🏫</div>
                             <div class="card-body">
@@ -145,7 +165,7 @@
                         </div>
                     </a>
 
-                    <a href="./pages/attendance.html" class="card-link" data-page-link="attendance">
+                    <a href="?page=attendance" class="card-link" data-page-link="attendance">
                         <div class="card" data-module="attendance">
                             <div class="card-icon" style="color: #f59e0b;">📅</div>
                             <div class="card-body">
@@ -158,7 +178,7 @@
                         </div>
                     </a>
 
-                    <a href="./pages/examinations.html" class="card-link" data-page-link="examinations">
+                    <a href="?page=examinations" class="card-link" data-page-link="examinations">
                         <div class="card" data-module="examination">
                             <div class="card-icon" style="color: #8b5cf6;">📝</div>
                             <div class="card-body">
@@ -171,7 +191,7 @@
                         </div>
                     </a>
                     
-                    <a href="./pages/freesmanagement.html" class="card-link" data-page-link="fees">
+                    <a href="?page=frees" class="card-link" data-page-link="fees">
                         <div class="card" data-module="fees">
                             <div class="card-icon" style="color: #ef4444;">💳</div>
                             <div class="card-body">
@@ -184,7 +204,7 @@
                         </div>
                     </a>
 
-                    <a href="./pages/timetable.html" class="card-link" data-page-link="timetable">
+                    <a href="?page=timetable" class="card-link" data-page-link="timetable">
                         <div class="card" data-module="timetable">
                             <div class="card-icon" style="color: #0d9488;">⏱️</div>
                             <div class="card-body">
