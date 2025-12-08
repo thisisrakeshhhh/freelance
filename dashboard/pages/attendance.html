@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | St. Xavier's</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f7fafc; margin: 0; padding: 20px; }
+        .page-module-container { max-width: 1300px; margin: auto; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; }
+        .module-header { background: #f59e0b; padding: 20px 30px; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .module-content { padding: 30px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 12px 8px; text-align: center; border: 1px solid #ddd; }
+        th { background: #fff4e5; }
+        .present { background: #d1fae5; color: #065f46; }
+        .absent { background: #fee2e2; color: #991b1b; }
+        .late { background: #fef3c7; color: #92400e; }
+    </style>
+</head>
+<body>
+<main class="page-module-container">
+    <section class="module-header">
+        <h2>Attendance – B.Sc Computer Science (Section A)</h2>
+        <div>
+            <select style="padding:8px; border-radius:6px; margin-right:10px;">
+                <option>B.Sc CS - A</option>
+                <option>B.Sc CS - B</option>
+                <option>B.Com Honours</option>
+            </select>
+            <button class="btn btn-primary" style="background:#f59e0b; border:none;">📅 Mark Today's Attendance</button>
+        </div>
+    </section>
+
+    <section class="module-content">
+        <h3>Date: 08 December 2025 | Total Students: 64 | Present: 58 | Attendance: 90.6%</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>08 Dec</th>
+                    <th>07 Dec</th>
+                    <th>06 Dec</th>
+                    <th>05 Dec</th>
+                    <th>04 Dec</th>
+                    <th>% (This Month)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01</td>
+                    <td>Aarav Mehta</td>
+                    <td class="present">P</td>
+                    <td class="present">P</td>
+                    <td class="present">P</td>
+                    <td class="late">L</td>
+                    <td class="present">P</td>
+                    <td>95%</td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>Isha Patel</td>
+                    <td class="present">P</td>
+                    <td class="present">P</td>
+                    <td class="absent">A</td>
+                    <td class="present">P</td>
+                    <td class="present">P</td>
+                    <td>88%</td>
+                </tr>
+                <tr>
+                    <td>03</td>
+                    <td>Rohan Kapoor</td>
+                    <td class="present">P</td>
+                    <td class="late">L</td>
+                    <td class="present">P</td>
+                    <td class="present">P</td>
+                    <td class="present">P</td>
+                    <td>92%</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

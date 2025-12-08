@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Teachers | St. Xavier's</title>
+    <style>
+        /* Same base styles */
+        .module-header { background: #0891b2; }
+        .teacher-table img { width: 40px; height: 40px; border-radius: 50%; }
+        .dept-badge { background: #cffafe; color: #0e7490; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+    </style>
 </head>
 <body>
-    <main class="page-module-container">
+<main class="page-module-container">
     <section class="module-header">
         <h2>Teachers Management</h2>
         <div class="header-actions">
@@ -15,21 +21,40 @@
     </section>
 
     <section class="module-content">
-        <div class="content-block">
-            <p><strong>Table of all faculty members:</strong></p>
-            <div class="data-table-placeholder" style="height: 400px; background: #fff; border-radius: 8px; border: 1px solid #ddd; padding: 20px;">
-                <p>Teacher directory will be loaded here...</p>
-            </div>
-        </div>
-        
-        <div class="content-block">
-            <h3>Quick Stats</h3>
-            <ul class="quick-stats-list">
-                <li>Total Faculty: 156</li>
-                <li>Active Classes: 45</li>
-                <li>Departments: 12</li>
-            </ul>
-        </div>
+        <table class="teacher-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Qualification</th>
+                    <th>Experience</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""></td>
+                    <td>T101</td>
+                    <td>Dr. Sunita Rao</td>
+                    <td><span class="dept-badge">Computer Science</span></td>
+                    <td>Ph.D (AI)</td>
+                    <td>18 years</td>
+                    <td>sunita.rao@xaviers.edu</td>
+                </tr>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/men/32.jpg" alt=""></td>
+                    <td>T089</td>
+                    <td>Prof. Amit Sharma</td>
+                    <td><span class="dept-badge">Mathematics</span></td>
+                    <td>M.Sc, NET</td>
+                    <td>12 years</td>
+                    <td>amit.sharma@xaviers.edu</td>
+                </tr>
+                
+            </tbody>
+        </table>
     </section>
 </main>
 </body>
