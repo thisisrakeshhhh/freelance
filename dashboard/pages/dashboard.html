@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ST. XAVIER'S | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/landing.css">
+</head>
+<body>
+    
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="dash-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <img src="../assets/images/logo.png" alt="St. Xavier's Logo" class="logo-img" style="width: 60px; height: 60px;">
+                <div class="brand-text-sm">ST. XAVIER'S</div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active" data-page="dashboard" tabindex="0">
+                        <span class="nav-icon">🏠</span> <span>Dashboard</span>
+                    </li>
+                    <li class="has-sub" tabindex="0">
+                        <span class="nav-icon">👥</span> <span>Students</span>
+                        <ul class="sub">
+                            <li tabindex="0">All Students</li>
+                            <li tabindex="0">Add New</li>
+                            <li tabindex="0">Attendance</li>
+                        </ul>
+                    </li>
+                    <li data-page="staff" tabindex="0">
+                        <span class="nav-icon">👨‍🏫</span> <span>Teachers</span>
+                    </li>
+                    <li data-page="fees" tabindex="0">
+                        <span class="nav-icon">💰</span> <span>Fees</span>
+                    </li>
+                    <li data-page="timetable" tabindex="0">
+                        <span class="nav-icon">📅</span> <span>Timetable</span>
+                    </li>
+                    <li data-page="examination" tabindex="0">
+                        <span class="nav-icon">📝</span> <span>Examinations</span>
+                    </li>
+                    <li data-page="notifications" tabindex="0">
+                        <span class="nav-icon">🔔</span> <span>Notifications</span>
+                    </li>
+                    <li data-page="settings" tabindex="0">
+                        <span class="nav-icon">⚙️</span> <span>Settings</span>
+                    </li>
+                    <li class="logout" id="logoutBtn" tabindex="0">
+                        <span class="nav-icon">🚪</span> <span>Logout</span>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dash-main">
+<header class="dash-header">
+    <h1>Dashboard Overview</h1>
+    <div class="user-info">
+        <div class="search-box">
+            <input type="text" placeholder="Search anything...">
+            <i class="search-icon">🔍</i>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn">
+                🔔 <span class="badge">5</span>
+            </button>
+            <div class="user-avatar" id="userAvatar">AD</div>
+            <span style="font-weight: 600; font-size: 14px;">Hi, <span id="userName">Admin</span></span>
+        </div>
+    </div>
+</header>
+            <section class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon blue">👨‍🎓</div>
+                    <div class="stat-info">
+                        <h3>2,847</h3>
+                        <p>Total Students</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">👨‍🏫</div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>Total Teachers</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">💰</div>
+                    <div class="stat-info">
+                        <h3>$84.5K</h3>
+                        <p>Fees Collected</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">📊</div>
+                    <div class="stat-info">
+                        <h3>94.2%</h3>
+                        <p>Attendance Rate</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards-grid">
+                <a href="#" class="card-link">
+                    <div class="card" data-module="student-management">
+                        <div class="card-icon">🎓</div>
+                        <div class="card-body">
+                            <h3>Student Management</h3>
+                            <ul>
+                                <li>Add & Edit Students</li>
+                                <li>View Profiles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="card-link">
+                    <div class="card" data-module="staff-management">
+                        <div class="card-icon" style="color: #10b981;">👨‍🏫</div>
+                        <div class="card-body">
+                            <h3>Staff Management</h3>
+                            <ul>
+                                <li>Teacher Records</li>
+                                <li>Schedules</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="card-link">
+                    <div class="card" data-module="attendance">
+                        <div class="card-icon" style="color: #f59e0b;">📅</div>
+                        <div class="card-body">
+                            <h3>Attendance</h3>
+                            <ul>
+                                <li>Mark Daily Attendance</li>
+                                <li>View Reports</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="card-link">
+                    <div class="card" data-module="examination">
+                        <div class="card-icon" style="color: #8b5cf6;">📝</div>
+                        <div class="card-body">
+                            <h3>Examinations</h3>
+                            <ul>
+                                <li>Create Exams</li>
+                                <li>Result Cards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="card-link">
+                    <div class="card" data-module="fees">
+                        <div class="card-icon" style="color: #ef4444;">💳</div>
+                        <div class="card-body">
+                            <h3>Fee Management</h3>
+                            <ul>
+                                <li>Payment History</li>
+                                <li>Generate Receipts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="card-link">
+                    <div class="card" data-module="timetable">
+                        <div class="card-icon" style="color: #0d9488;">⏱️</div>
+                        <div class="card-body">
+                            <h3>Timetable</h3>
+                            <ul>
+                                <li>Class Schedules</li>
+                                <li>Room Allocation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

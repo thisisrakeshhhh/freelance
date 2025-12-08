@@ -6,12 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   var loginBtn = document.getElementById('loginBtn');
-  var loginOverlay = document.querySelector('.login-overlay');
+  var loginOverlay = document.getElementById('loginOverlay');
   var closeLogin = document.getElementById('closeLogin');
 
   if (loginBtn && loginOverlay) {
     loginBtn.addEventListener('click', function() {
-      loginOverlay.style.display = 'flex';
+      loginOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
       setTimeout(function() {
         var firstInput = loginOverlay.querySelector('input');
         if (firstInput) firstInput.focus();
@@ -21,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (closeLogin && loginOverlay) {
     closeLogin.addEventListener('click', function() {
-      loginOverlay.style.display = 'none';
+      loginOverlay.classList.remove('active');
+      document.body.style.overflow = '';
       clearFormErrors();
     });
   }
@@ -29,36 +31,62 @@ document.addEventListener('DOMContentLoaded', function() {
   if (loginOverlay) {
     loginOverlay.addEventListener('click', function(e) {
       if (e.target === loginOverlay) {
-        loginOverlay.style.display = 'none';
+        loginOverlay.classList.remove('active');
+        document.body.style.overflow = '';
         clearFormErrors();
       }
     });
   }
 
+  
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && loginOverlay && loginOverlay.style.display === 'flex') {
-      loginOverlay.style.display = 'none';
+    if (e.key === 'Escape' && loginOverlay && loginOverlay.classList.contains('active')) {
+      loginOverlay.classList.remove('active');
+      document.body.style.overflow = '';
       clearFormErrors();
     }
   });
   
+  
   var tabButtons = document.querySelectorAll('.tab-btn');
   var loginSections = document.querySelectorAll('.login-section');
-  
+
   tabButtons.forEach(function(btn) {
     btn.addEventListener('click', function() {
       tabButtons.forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      
+
       var target = btn.getAttribute('data-target');
-      
+
       loginSections.forEach(function(section) {
         section.style.display = section.id === target ? 'block' : 'none';
       });
-      
+
       clearFormErrors();
     });
   });
+
+  
+  var toggleButtons = document.querySelectorAll('.toggle-password');
+
+  toggleButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.getAttribute('data-target');
+      var input = document.getElementById(targetId);
+      var icon = btn.querySelector('i');
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+  });
+  
   
   var studentForm = document.getElementById('studentLoginForm');
   var adminForm = document.getElementById('adminLoginForm');
@@ -77,13 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  
   var navLinks = document.querySelectorAll('.nav-links a');
   navLinks.forEach(function(link) {
     link.addEventListener('click', function() {
       navLinks.forEach(function(l) { l.classList.remove('active'); });
       link.classList.add('active');
 
-      // Close mobile menu when link is clicked
+      
       var navLinksEl = document.getElementById('navLinks');
       if (navLinksEl.classList.contains('active')) {
         navLinksEl.classList.remove('active');
@@ -91,22 +120,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Hamburger menu toggle
+  
   var hamburgerMenu = document.getElementById('hamburgerMenu');
   var navLinksEl = document.getElementById('navLinks');
 
   if (hamburgerMenu && navLinksEl) {
     hamburgerMenu.addEventListener('click', function() {
       navLinksEl.classList.toggle('active');
+      hamburgerMenu.setAttribute('aria-expanded', 
+        navLinksEl.classList.contains('active')
+      );
     });
   }
 
-  // Close mobile menu when clicking outside
+  
   document.addEventListener('click', function(e) {
-    if (!hamburgerMenu.contains(e.target) && !navLinksEl.contains(e.target)) {
+    if (hamburgerMenu && navLinksEl && 
+        !hamburgerMenu.contains(e.target) && 
+        !navLinksEl.contains(e.target)) {
       navLinksEl.classList.remove('active');
+      hamburgerMenu.setAttribute('aria-expanded', 'false');
     }
   });
+  
   
   var contactForm = document.getElementById('contactForm');
   if (contactForm) {
@@ -116,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var originalText = submitBtn.textContent;
       
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
       
       setTimeout(function() {
         Toast.success('Message sent successfully! We will get back to you soon.');
@@ -127,7 +163,64 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  setupPasswordToggles();
+  
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll(".reveal");
+    const windowHeight = window.innerHeight;
+    
+    reveals.forEach(el => {
+      const elementTop = el.getBoundingClientRect().top;
+      const elementVisible = 150;
+      
+      if (elementTop < windowHeight - elementVisible) {
+        el.classList.add("active");
+      }
+    });
+  }
+  
+  window.addEventListener("scroll", revealOnScroll);
+  revealOnScroll(); 
+  
+  
+  function animateCounter() {
+    const counters = document.querySelectorAll('.count');
+    let started = false;
+    
+    function startCounting() {
+      const section = document.querySelector('.stats-section');
+      const sectionTop = section.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+      
+      if (sectionTop < screenHeight && !started) {
+        counters.forEach(counter => {
+          const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            let count = +counter.innerText.replace('%','');
+            const increment = target / 150;
+            
+            if (count < target) {
+              counter.innerText = Math.ceil(count + increment);
+              setTimeout(updateCount, 20);
+            } else {
+              if (counter.dataset.target == "87") {
+                counter.innerText = target + "%";
+              } else {
+                counter.innerText = target;
+              }
+            }
+          };
+          updateCount();
+        });
+        
+        started = true;
+      }
+    }
+    
+    window.addEventListener('scroll', startCounting);
+    startCounting(); 
+  }
+  
+  animateCounter();
 });
 
 function handleLogin(role, idField, passField, form) {
@@ -157,52 +250,67 @@ function handleLogin(role, idField, passField, form) {
   
   var originalText = submitBtn.textContent;
   submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span class="spinner"></span> Logging in...';
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
   
   setTimeout(function() {
-    var result = Auth.validate(role, username, password);
     
-    if (result.success) {
-      Auth.login(result.role, result.username);
-      Toast.success('Login successful! Redirecting...');
-      
+    var isValid = false;
+    var userRole = '';
+    
+    if (role === 'student' && username === 'student' && password === '123') {
+      isValid = true;
+      userRole = 'student';
+    } else if (role === 'admin' && username === 'admin' && password === '123') {
+      isValid = true;
+      userRole = 'admin';
+    }
+    
+    if (isValid) {
+      Toast.success('Login successful!');
+
       setTimeout(function() {
-        if (role === 'admin') {
-          window.location.href = 'dashboard/admin-dashboard.html';
+        Auth.login(userRole, username);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+
+        
+        if (userRole === 'admin') {
+          window.location.href = './dashboard/admin-dashboard.html';
         } else {
-          window.location.href = 'dashboard/student-dashboard.html';
+          window.location.href = './dashboard/student-dashboard.html';
         }
-      }, 500);
+      }, 1000);
     } else {
       Toast.error('Invalid credentials. Please try again.');
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
       
       form.classList.add('shake');
-      setTimeout(function() { form.classList.remove('shake'); }, 500);
+      setTimeout(function() { form.classList.remove('shake'); }, 200);
     }
-  }, 800);
+  }, 200);
 }
 
 function showFieldError(input, message) {
-  var label = input.closest('label');
+  var wrapper = input.closest('.input-group') || input.parentElement;
   input.classList.add('input-error');
   
-  var existingError = label.querySelector('.error-message');
+  var existingError = wrapper.querySelector('.error-message');
   if (existingError) existingError.remove();
   
   var errorEl = document.createElement('span');
   errorEl.className = 'error-message';
   errorEl.textContent = message;
-  label.appendChild(errorEl);
+  errorEl.style.cssText = 'color: #dc2626; font-size: 14px; margin-top: 5px; display: block;';
+  wrapper.appendChild(errorEl);
 }
 
 function clearFieldError(input) {
   if (!input) return;
   input.classList.remove('input-error');
-  var label = input.closest('label');
-  if (label) {
-    var error = label.querySelector('.error-message');
+  var wrapper = input.closest('.input-group') || input.parentElement;
+  if (wrapper) {
+    var error = wrapper.querySelector('.error-message');
     if (error) error.remove();
   }
 }
@@ -215,49 +323,3 @@ function clearFormErrors() {
     el.remove(); 
   });
 }
-
-function setupPasswordToggles() {
-  document.querySelectorAll('input[type="password"]').forEach(function(input) {
-    var wrapper = document.createElement('div');
-    wrapper.className = 'password-wrapper';
-    wrapper.style.cssText = 'position:relative;';
-
-    input.parentNode.insertBefore(wrapper, input);
-    wrapper.appendChild(input);
-
-    var toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'password-toggle';
-    toggle.innerHTML = '👁';
-    toggle.style.cssText = 'position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;opacity:0.6;padding:4px;';
-
-    toggle.addEventListener('click', function() {
-      if (input.type === 'password') {
-        input.type = 'text';
-        toggle.innerHTML = '🙈';
-      } else {
-        input.type = 'password';
-        toggle.innerHTML = '👁';
-      }
-    });
-
-    wrapper.appendChild(toggle);
-  });
-}
-
-function revealOnScroll() {
-  const reveals = document.querySelectorAll(".reveal");
-
-  reveals.forEach(el => {
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
-    const elementVisible = 100;
-
-    if (elementTop < windowHeight - elementVisible) {
-      el.classList.add("active");
-    }
-  });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll(); // run once on load

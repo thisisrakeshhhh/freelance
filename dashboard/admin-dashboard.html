@@ -1,192 +1,211 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Admin Dashboard - Manage students, staff, attendance, fees and more.">
-  <title>Admin Dashboard - College Management</title>
-  <link rel="icon" type="image/png" href="../assets/images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/global.css">
-  <link rel="stylesheet" href="../css/dashboard.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ST. XAVIER'S | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/landing.css">
+    <style>
+        /* Minimal CSS for visibility/testing, your actual CSS is in landing.css */
+        .dash-main { padding: 20px; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
+        .stat-card { background: #f3f4f6; padding: 20px; border-radius: 8px; display: flex; align-items: center; }
+        .stat-icon { font-size: 24px; margin-right: 15px; }
+        .stat-info h3 { margin: 0; font-size: 24px; }
+        .stat-info p { margin: 0; font-size: 14px; color: #6b7280; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card-link { text-decoration: none; color: inherit; }
+        .card { background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card-icon { font-size: 30px; margin-bottom: 10px; }
+        .card-body h3 { margin-top: 0; font-size: 18px; }
+        .card-body ul { list-style: disc; margin: 5px 0 0 20px; padding: 0; font-size: 14px; color: #4b5563; }
+        .menu-toggle { position: fixed; top: 10px; left: 10px; z-index: 1001; background: #3b82f6; color: white; border: none; padding: 10px; cursor: pointer; display: none; }
+        @media (max-width: 768px) { .menu-toggle { display: block; } }
+    </style>
 </head>
+
 <body>
-  <button class="menu-toggle" id="menuToggle">☰</button>
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <div class="dash-wrapper">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-brand">
-        <img src="../assets/images/logo.png" class="logo-sm" alt="Logo">
-        <div class="brand-text-sm">COLLEGE CMS</div>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li class="active" data-page="dashboard" tabindex="0">
-            <span class="nav-icon">🏠</span> Dashboard
-          </li>
-          <li data-page="attendance" tabindex="0">
-            <span class="nav-icon">👥</span> Student Attendance
-          </li>
-          <li class="has-sub" data-page="examination" tabindex="0">
-            <span class="nav-icon">📝</span> Examination
-            <ul class="sub">
-              <li tabindex="0">Internal Exams</li>
-              <li tabindex="0">Report Cards</li>
-              <li tabindex="0">Upload Results</li>
-            </ul>
-          </li>
-          <li data-page="fees" tabindex="0">
-            <span class="nav-icon">💰</span> Fees
-          </li>
-          <li data-page="timetable" tabindex="0">
-            <span class="nav-icon">📅</span> Timetable
-          </li>
-          <li data-page="staff" tabindex="0">
-            <span class="nav-icon">👨‍🏫</span> Staff Management
-          </li>
-          <li data-page="notifications" tabindex="0">
-            <span class="nav-icon">🔔</span> Notifications
-          </li>
-          <li data-page="about" tabindex="0">
-            <span class="nav-icon">ℹ️</span> About Us
-          </li>
-          <li class="logout" id="logoutBtn" tabindex="0">
-            <span class="nav-icon">🚪</span> Logout
-          </li>
-        </ul>
-      </nav>
-    </aside>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <main class="dash-main">
-      <header class="dash-header">
-        <h1>Admin Dashboard</h1>
-        <div class="user-info">
-          <span>Welcome, <strong id="userName">Admin</strong></span>
-          <img src="../assets/images/logo.png" alt="User" class="user-avatar">
-        </div>
-      </header>
-
-      <section class="stats-row">
-        <div class="stat-card">
-          <div class="stat-icon blue">👨‍🎓</div>
-          <div class="stat-info">
-            <h3>1,250</h3>
-            <p>Total Students</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon green">👨‍🏫</div>
-          <div class="stat-info">
-            <h3>85</h3>
-            <p>Total Staff</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon orange">📚</div>
-          <div class="stat-info">
-            <h3>24</h3>
-            <p>Courses</p>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon purple">💵</div>
-          <div class="stat-info">
-            <h3>₹12.5L</h3>
-            <p>Fees Collected</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="cards-grid">
-        <div class="card" data-module="attendance" tabindex="0">
-          <div class="card-icon">👥</div>
-          <div class="card-body">
-            <h3>Student Attendance</h3>
-            <p>Manage attendance records</p>
-          </div>
-        </div>
-
-        <div class="card" data-module="examination" tabindex="0">
-          <div class="card-icon">📝</div>
-          <div class="card-body">
-            <h3>Examination</h3>
-            <p>Manage exams & report cards</p>
-          </div>
-        </div>
-
-        <div class="card" data-module="fees" tabindex="0">
-          <div class="card-icon">💰</div>
-          <div class="card-body">
-            <h3>Fees</h3>
-            <p>Fee collection & transactions</p>
-          </div>
-        </div>
-
-        <div class="card" data-module="timetable" tabindex="0">
-          <div class="card-icon">📅</div>
-          <div class="card-body">
-            <h3>Timetable</h3>
-            <p>Class schedules</p>
-          </div>
-        </div>
-
-        <div class="card" data-module="notifications" tabindex="0">
-          <div class="card-icon">🔔</div>
-          <div class="card-body">
-            <h3>Notifications</h3>
-            <p>Send announcements</p>
-          </div>
-        </div>
-
-        <div class="card" data-module="staff" tabindex="0">
-          <div class="card-icon">👨‍🏫</div>
-          <div class="card-body">
-            <h3>Staff Management</h3>
-            <p>Manage faculty records</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="recent-section">
-        <h2>Recent Activity</h2>
-        <div class="activity-list">
-          <div class="activity-item">
-            <span class="activity-icon">📋</span>
-            <div class="activity-info">
-              <p><strong>Attendance Updated</strong> - Class 10A</p>
-              <small>2 hours ago</small>
+    <div class="dash-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <img src="../assets/images/logo.png" alt="St. Xavier's Logo" class="logo-img" style="width:60px;height:60px;">
+                <div class="brand-text-sm">ST.XAVIER'S</div>
             </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-icon">💵</span>
-            <div class="activity-info">
-              <p><strong>Fee Payment</strong> - Rahul Kumar (₹15,000)</p>
-              <small>5 hours ago</small>
-            </div>
-          </div>
-          <div class="activity-item">
-            <span class="activity-icon">📝</span>
-            <div class="activity-info">
-              <p><strong>Results Uploaded</strong> - Semester 3 Exams</p>
-              <small>1 day ago</small>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
 
-  <script src="../js/auth.js"></script>
-  <script src="../js/toast.js"></script>
-  <script src="../js/dashboard.js"></script>
-  <script>
-    if (!Auth.requireAuth('admin')) {
-    } else {
-      document.getElementById('userName').textContent = Auth.getUsername() || 'Admin';
-    }
-  </script>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-page="dashboard">
+                        Dashboard
+                    </li>
+
+                    <li class="nav-item has-sub">
+                        Students
+                        <ul class="sub">
+                            <li class="nav-item" data-page="all-students">All Students</li>
+                            <li class="nav-item" data-page="add-student">Add New Student</li>
+                            <li class="nav-item" data-page="attendance">Attendance</li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" data-page="teachers">Teachers</li>
+                    <li class="nav-item" data-page="fees"> Fees</li>
+                    <li class="nav-item" data-page="timetable"> Timetable</li>
+                    <li class="nav-item" data-page="examinations"> Examinations</li>
+                    <li class="nav-item" data-page="notifications"> Notifications</li>
+                    <li class="nav-item" data-page="settings"> Settings</li>
+                    <li class="nav-item logout" id="logoutBtn"> Logout</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dash-main">
+            <header class="dash-header">
+                <h1 id="pageTitle">Dashboard Overview</h1>
+                <div class="user-info">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search anything...">
+                        <i class="search-icon">Search</i>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-btn">
+                            Bell <span class="badge">5</span>
+                        </button>
+                        <div class="user-avatar" id="userAvatar">AD</div>
+                        <span style="font-weight: 600;">Hi, <span id="userName">Admin</span></span>
+                    </div>
+                </div>
+            </header>
+            
+            <div id="dashboard-only-content">
+                <section class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">👨‍🎓</div>
+                        <div class="stat-info">
+                            <h3>2,847</h3>
+                            <p>Total Students</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">👨‍🏫</div>
+                        <div class="stat-info">
+                            <h3>156</h3>
+                            <p>Total Teachers</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">💰</div>
+                        <div class="stat-info">
+                            <h3>$84.5K</h3>
+                            <p>Fees Collected</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">📊</div>
+                        <div class="stat-info">
+                            <h3>94.2%</h3>
+                            <p>Attendance Rate</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="cards-grid">
+                    <a href="./pages/studentmanagement.html" class="card-link" data-page-link="all-students">
+                        <div class="card" data-module="student-management">
+                            <div class="card-icon">🎓</div>
+                            <div class="card-body">
+                                <h3>Student Management</h3>
+                                <ul>
+                                    <li>Add & Edit Students</li>
+                                    <li>View Profiles</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card-link" data-page-link="teachers">
+                        <div class="card" data-module="staff-management">
+                            <div class="card-icon" style="color: #10b981;">👨‍🏫</div>
+                            <div class="card-body">
+                                <h3>Staff Management</h3>
+                                <ul>
+                                    <li>Teacher Records</li>
+                                    <li>Schedules</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card-link" data-page-link="attendance">
+                        <div class="card" data-module="attendance">
+                            <div class="card-icon" style="color: #f59e0b;">📅</div>
+                            <div class="card-body">
+                                <h3>Attendance</h3>
+                                <ul>
+                                    <li>Mark Daily Attendance</li>
+                                    <li>View Reports</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="" class="card-link" data-page-link="examinations">
+                        <div class="card" data-module="examination">
+                            <div class="card-icon" style="color: #8b5cf6;">📝</div>
+                            <div class="card-body">
+                                <h3>Examinations</h3>
+                                <ul>
+                                    <li>Create Exams</li>
+                                    <li>Result Cards</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="card-link" data-page-link="fees">
+                        <div class="card" data-module="fees">
+                            <div class="card-icon" style="color: #ef4444;">💳</div>
+                            <div class="card-body">
+                                <h3>Fee Management</h3>
+                                <ul>
+                                    <li>Payment History</li>
+                                    <li>Generate Receipts</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card-link" data-page-link="timetable">
+                        <div class="card" data-module="timetable">
+                            <div class="card-icon" style="color: #0d9488;">⏱️</div>
+                            <div class="card-body">
+                                <h3>Timetable</h3>
+                                <ul>
+                                    <li>Class Schedules</li>
+                                    <li>Room Allocation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </section>
+            </div>
+            <div id="dynamic-content">
+                </div>
+        </main>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/toast.js"></script>
+    <script src="../js/dashboard.js"></script>
 </body>
+
 </html>
