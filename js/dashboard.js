@@ -2,7 +2,7 @@ const PAGES = {
     dashboard: '',
     'all-students': 'pages/studentmanagement.html',
     'add-student': 'pages/addstudent.html',
-    attendance: 'pages/attendance.html',
+    remove: 'pages/remove.html',
     teachers: 'pages/teachers.html',
     fees: 'pages/fees.html',
     timetable: 'pages/timetable.html',

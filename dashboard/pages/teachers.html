@@ -5,21 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers | St. Xavier's</title>
     <style>
-        /* Same base styles */
-        .module-header { background: #0891b2; }
-        .teacher-table img { width: 40px; height: 40px; border-radius: 50%; }
-        .dept-badge { background: #cffafe; color: #0e7490; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+        body{
+            margin:0;
+            font-family: Arial, Helvetica, sans-serif;
+            background:#f4f6f9;
+            padding:20px;
+        }
+        .page-module-container{
+            max-width:1200px;
+            margin:auto;
+            background:#fff;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 10px 25px rgba(0,0,0,0.1);
+        }
+        .module-header{
+            background:#0891b2;
+            color:#fff;
+            padding:16px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .module-header h2{ margin:0; }
+        .btn{
+            padding:8px 14px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            font-weight:600;
+        }
+        .btn-primary{
+            background:#fff;
+            color:#0e7490;
+        }
+        .module-content{
+            padding:20px;
+        }
+        .teacher-table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        .teacher-table th,
+        .teacher-table td{
+            border:1px solid #e5e7eb;
+            padding:10px;
+            text-align:center;
+            font-size:14px;
+        }
+        .teacher-table th{
+            background:#f0f9ff;
+        }
+        .teacher-table img{
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            object-fit:cover;
+        }
+        .dept-badge{
+            background:#cffafe;
+            color:#0e7490;
+            padding:4px 10px;
+            border-radius:20px;
+            font-size:12px;
+            font-weight:600;
+        }
     </style>
 </head>
 <body>
 <main class="page-module-container">
-    <section class="module-header">
-        <h2>Teachers Management</h2>
-        <div class="header-actions">
-            <button class="btn btn-primary">➕ Add New Teacher</button>
-        </div>
-    </section>
-
     <section class="module-content">
         <table class="teacher-table">
             <thead>
@@ -52,7 +106,60 @@
                     <td>12 years</td>
                     <td>amit.sharma@xaviers.edu</td>
                 </tr>
-                
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/women/65.jpg" alt=""></td>
+                    <td>T112</td>
+                    <td>Dr. Neha Verma</td>
+                    <td><span class="dept-badge">Physics</span></td>
+                    <td>Ph.D (Quantum)</td>
+                    <td>10 years</td>
+                    <td>neha.verma@xaviers.edu</td>
+                </tr>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/men/76.jpg" alt=""></td>
+                    <td>T098</td>
+                    <td>Mr. Rakesh Gupta</td>
+                    <td><span class="dept-badge">Commerce</span></td>
+                    <td>M.Com, CA</td>
+                    <td>15 years</td>
+                    <td>rakesh.gupta@xaviers.edu</td>
+                </tr>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/women/12.jpg" alt=""></td>
+                    <td>T121</td>
+                    <td>Ms. Priya Singh</td>
+                    <td><span class="dept-badge">Humanities</span></td>
+                    <td>M.A (English)</td>
+                    <td>8 years</td>
+                    <td>priya.singh@xaviers.edu</td>
+                </tr>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/men/15.jpg" alt=""></td>
+                    <td>T134</td>
+                    <td>Dr. Mohit Khanna</td>
+                    <td><span class="dept-badge">Computer Science</span></td>
+                    <td>Ph.D (Data Science)</td>
+                    <td>11 years</td>
+                    <td>mohit.khanna@xaviers.edu</td>
+                </tr>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/women/29.jpg" alt=""></td>
+                    <td>T140</td>
+                    <td>Mrs. Kavita Mehta</td>
+                    <td><span class="dept-badge">Mathematics</span></td>
+                    <td>M.Sc, B.Ed</td>
+                    <td>14 years</td>
+                    <td>kavita.mehta@xaviers.edu</td>
+                </tr>
+                <tr>
+                    <td><img src="https://randomuser.me/api/portraits/men/52.jpg" alt=""></td>
+                    <td>T150</td>
+                    <td>Prof. Arjun Patel</td>
+                    <td><span class="dept-badge">Physics</span></td>
+                    <td>M.Sc, Ph.D (Pursuing)</td>
+                    <td>7 years</td>
+                    <td>arjun.patel@xaviers.edu</td>
+                </tr>
             </tbody>
         </table>
     </section>

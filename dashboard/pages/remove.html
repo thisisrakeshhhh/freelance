@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remove Student | Attendance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{font-family:Inter,Arial,sans-serif;background:#f7fafc;margin:0;padding:20px;}
+    .container{max-width:1000px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08);overflow:hidden;}
+    .header{background:#dc2626;color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center;}
+    .content{padding:30px;}
+    table{width:100%;border-collapse:collapse;font-size:14px;}
+    th,td{padding:12px 8px;text-align:center;border:1px solid #ddd;}
+    th{background:#fee2e2;}
+    .btn{padding:8px 14px;border:none;border-radius:6px;cursor:pointer;font-weight:600;}
+    .btn-delete{background:#dc2626;color:white;}
+    .btn-add{background:#16a34a;color:white;}
+    .info{margin-bottom:15px;color:#444;font-size:14px;}
+    .controls{margin-bottom:15px;display:flex;gap:10px;flex-wrap:wrap;}
+    input{padding:8px;border:1px solid #ccc;border-radius:6px;}
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Remove Student from Attendance</h2>
+    <span>B.Sc CS - A</span>
+  </div>
+
+  <div class="content">
+    <div class="info">Add dummy students or click "Remove" to delete a student from today's attendance list.</div>
+
+    <div class="controls">
+      <input id="roll" placeholder="Roll No">
+      <input id="name" placeholder="Student Name">
+      <button class="btn btn-add" onclick="addStudent()">Add Student</button>
+      <button class="btn btn-delete" onclick="resetData()">Reset Dummy Data</button>
+    </div>
+
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Roll No</th>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const defaultStudents = [
+    {roll:'01', name:'Aarav Mehta'},
+    {roll:'02', name:'Isha Patel'},
+    {roll:'03', name:'Rohan Kapoor'},
+    {roll:'04', name:'Neha Sharma'},
+    {roll:'05', name:'Arjun Verma'},
+    {roll:'06', name:'Simran Kaur'}
+  ];
+
+  let students = JSON.parse(localStorage.getItem('attendance_students')) || [...defaultStudents];
+
+  function renderStudents(){
+    const tbody = document.querySelector('#studentTable tbody');
+    tbody.innerHTML = '';
+
+    students.forEach((s, index) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${s.roll}</td>
+          <td>${s.name}</td>
+          <td><button class="btn btn-delete" onclick="removeStudent(${index})">Remove</button></td>
+        </tr>`;
+    });
+
+    localStorage.setItem('attendance_students', JSON.stringify(students));
+  }
+
+  function addStudent(){
+    const roll = document.getElementById('roll').value.trim();
+    const name = document.getElementById('name').value.trim();
+
+    if(!roll || !name){
+      alert('Enter roll number and name');
+      return;
+    }
+
+    students.push({roll, name});
+    document.getElementById('roll').value='';
+    document.getElementById('name').value='';
+    renderStudents();
+  }
+
+  function removeStudent(index){
+    if(confirm('Are you sure you want to remove this student?')){
+      students.splice(index,1);
+      renderStudents();
+    }
+  }
+
+  function resetData(){
+    if(confirm('Reset to original dummy data?')){
+      students = [...defaultStudents];
+      renderStudents();
+    }
+  }
+
+  renderStudents();
+</script>
+
+</body>
+</html>
