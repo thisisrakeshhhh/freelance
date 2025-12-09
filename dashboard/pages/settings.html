@@ -1,29 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .setting {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .setting:hover {
+      background-color: #f1f5f9;
+    }
+
+    .setting input[type="checkbox"], 
+    .setting select {
+      cursor: pointer;
+    }
+
+    .save-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4f46e5;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .save-btn:hover {
+      background-color: #3730a3;
+    }
+
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      color: #1f2937;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-    <main class="page-module-container">
-    <section class="module-header">
-        <h2>System Settings</h2>
-    </section>
 
-    <section class="module-content">
-        <div class="content-block">
-            <h3>User Management</h3>
-            <p>Manage Admin accounts, roles, and permissions.</p>
-            <button class="btn btn-secondary">Manage Users</button>
-        </div>
-        
-        <div class="content-block">
-            <h3>Academic Year Setup</h3>
-            <p>Set start/end dates, holiday calendar, and grading structure.</p>
-            <button class="btn btn-secondary">Configure Academic Year</button>
-        </div>
-    </section>
-</main>
+  <div class="container">
+    <h1>Website Settings</h1>
+
+    <div class="setting">
+      <label for="darkMode">Dark Mode</label>
+      <input type="checkbox" id="darkMode">
+    </div>
+
+    <div class="setting">
+      <label for="notifications">Enable Notifications</label>
+      <input type="checkbox" id="notifications">
+    </div>
+
+    <div class="setting">
+      <label for="language">Language</label>
+      <select id="language">
+        <option value="english">English</option>
+        <option value="hindi">Hindi</option>
+        <option value="spanish">Spanish</option>
+      </select>
+    </div>
+
+    <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+    <div class="status" id="status">No changes saved yet.</div>
+  </div>
+
+  <script>
+    function saveSettings() {
+      const darkMode = document.getElementById('darkMode').checked;
+      const notifications = document.getElementById('notifications').checked;
+      const language = document.getElementById('language').value;
+
+      // Save settings in localStorage
+      localStorage.setItem('darkMode', darkMode);
+      localStorage.setItem('notifications', notifications);
+      localStorage.setItem('language', language);
+
+      // Update status message
+      document.getElementById('status').textContent = "Settings saved successfully!";
+      
+      // Apply dark mode immediately
+      document.body.style.backgroundColor = darkMode ? '#1f2937' : '#f9fafb';
+      document.body.style.color = darkMode ? '#f9fafb' : '#1f2937';
+    }
+
+    // Load saved settings on page load
+    window.onload = () => {
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      const notifications = localStorage.getItem('notifications') === 'true';
+      const language = localStorage.getItem('language') || 'english';
+
+      document.getElementById('darkMode').checked = darkMode;
+      document.getElementById('notifications').checked = notifications;
+      document.getElementById('language').value = language;
+
+      if(darkMode) {
+        document.body.style.backgroundColor = '#1f2937';
+        document.body.style.color = '#f9fafb';
+      }
+    }
+  </script>
 </body>
 </html>

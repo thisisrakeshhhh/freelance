@@ -250,20 +250,16 @@
         joinDate: new Date().toLocaleDateString()
       };
 
-      // Save to localStorage (so it appears in All Students page)
       let students = JSON.parse(localStorage.getItem('college_students') || '[]');
       students.push(student);
       localStorage.setItem('college_students', JSON.stringify(students));
 
-      // Show success
       successMsg.style.display = 'flex';
       setTimeout(() => successMsg.style.display = 'none', 4000);
 
-      // Reset form
       form.reset();
 
-      // Optional: Show toast if Toast.js is loaded
-      if (typeof Toast !== 'undefined') {
+        if (typeof Toast !== 'undefined') {
         Toast.success('Student added successfully!');
       }
     });

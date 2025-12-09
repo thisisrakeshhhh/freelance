@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | SMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+<style>
+    /* Global Styles for Consistency */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        /* Using a subtle gradient background for a modern dashboard look */
+        background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); 
+        color: #2d3748;
+        line-height: 1.6;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    /* Profile Container and Layout */
+    .profile-container {
+        max-width: 1000px;
+        margin: 30px auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    /* Profile Header Section */
+    .profile-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 40px 30px 20px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        border-bottom: 5px solid #4a6cf7;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: white;
+        color: #667eea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-info h2 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 700;
+    }
+
+    .header-info p {
+        margin: 5px 0 0;
+        font-size: 16px;
+        opacity: 0.9;
+    }
+    
+    .header-info button {
+        background: #10b981;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-weight: 600;
+        transition: background 0.3s;
+    }
+    .header-info button:hover {
+        background: #059669;
+    }
+
+    /* Tab Navigation */
+    .profile-tabs {
+        display: flex;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 0 30px;
+        background: #f8fafc;
+    }
+
+    .tab-button {
+        padding: 15px 25px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-weight: 600;
+        color: #718096;
+        transition: color 0.3s, border-bottom 0.3s;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -1px;
+    }
+
+    .tab-button.active {
+        color: #667eea;
+        border-bottom: 3px solid #667eea;
+    }
+
+    /* Tab Content Area */
+    .profile-content {
+        padding: 30px;
+    }
+
+    .tab-pane {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .tab-pane.active {
+        display: block;
+    }
+
+    /* Personal Details Styling */
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .detail-item {
+        padding: 15px;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        background: #f7fafc;
+        /* Polish: Added subtle transition for hover effect */
+        transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    }
+    
+    /* UX Enhancement */
+    .detail-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .detail-item strong {
+        display: block;
+        color: #4a5568;
+        font-size: 13px;
+        margin-bottom: 4px;
+        font-weight: 500;
+    }
+
+    .detail-item span {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a202c;
+    }
+    
+    /* Tables (Academic/Fees) */
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .data-table th, .data-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .data-table th {
+        background: #edf2f7;
+        font-weight: 600;
+        color: #4a5568;
+    }
+    .data-table tr:last-child td {
+        border-bottom: none;
+    }
+    
+    /* Status Badges */
+    .status-paid { background-color: #d1fae5; color: #065f46; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
+    .status-due { background-color: #fee2e2; color: #991b1b; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
+    .status-pass { background-color: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
+    .status-fail { background-color: #fce7f3; color: #be185d; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
+    .status-high { color: #16a34a; font-weight: 700; }
+    .status-low { color: #dc2626; font-weight: 700; }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<body> <div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-avatar" id="studentAvatar">?</div>
+        <div class="header-info">
+            <h2 id="studentFullName">Loading Student...</h2>
+            <p>Roll No: <span id="studentRollNo">---</span> | Course: <span id="studentCourse">---</span></p>
+            <button id="editProfileBtn">✏️ Edit Profile</button>
+        </div>
+    </div>
+
+    <div class="profile-tabs">
+        <button class="tab-button active" data-tab="personal" onclick="switchTab('personal')">Personal Details</button>
+        <button class="tab-button" data-tab="academic" onclick="switchTab('academic')">Academic History</button>
+        <button class="tab-button" data-tab="attendance" onclick="switchTab('attendance')">Attendance</button>
+        <button class="tab-button" data-tab="fees" onclick="switchTab('fees')">Fee Payments</button>
+    </div>
+
+    <div class="profile-content">
+        <div class="tab-pane active" id="personal">
+            <div class="details-grid" id="personalDetailsGrid">
+                </div>
+        </div>
+
+        <div class="tab-pane" id="academic">
+            <h3>Examination Results</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Exam Name</th>
+                        <th>Year</th>
+                        <th>Marks Secured</th>
+                        <th>Percentage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="academicBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane" id="attendance">
+            <h3>Last 3 Months Attendance Summary</h3>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <strong>Current Month Rate</strong>
+                    <span id="attMonthRate">92%</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Total Present Days</strong>
+                    <span id="attPresent">150 / 170</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Overall Attendance</strong>
+                    <span id="attOverall" class="status-high">95.4%</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Last 5 Absences</strong>
+                    <span id="attLastAbsence">2025-10-01, 2025-09-15</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="fees">
+            <h3>Fee Transaction History</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Fee Type</th>
+                        <th>Amount</th>
+                        <th>Date Paid</th>
+                        <th>Status</th>
+                        <th>Receipt</th>
+                    </tr>
+                </thead>
+                <tbody id="feesBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- MOCK DATA SOURCE ---
+    // In a real application, this data would come from an AJAX request to a server API.
+    const MOCK_STUDENTS = [
+        {
+            id: 'SX00123',
+            rollNumber: 'SX00123',
+            firstName: 'Aditya',
+            lastName: 'Raj',
+            fullName: 'Aditya Raj',
+            email: 'aditya.raj@stxaviers.edu',
+            phone: '+91 98765 43210',
+            dob: '2004-05-15',
+            gender: 'Male',
+            course: 'B.Sc Computer Science',
+            year: '3rd Year',
+            address: 'Hostel Block A, Room 305',
+            fatherName: 'Mr. Rakesh Raj',
+            motherName: 'Mrs. Suman Raj',
+            joinDate: '2022-07-20',
+            
+            academic: [
+                { exam: 'End-Sem VI', year: 2024, totalMarks: 480, maxMarks: 500, percentage: '96%', status: 'Pass' },
+                { exam: 'Mid-Sem V', year: 2024, totalMarks: 400, maxMarks: 500, percentage: '80%', status: 'Pass' },
+                { exam: 'End-Sem IV', year: 2023, totalMarks: 410, maxMarks: 500, percentage: '82%', status: 'Pass' },
+            ],
+            
+            attendance: {
+                monthRate: '92%',
+                totalPresent: '150',
+                totalDays: '170',
+                overallRate: '95.4%',
+                lastAbsences: '2025-10-01, 2025-09-15, 2025-08-01'
+            },
+            
+            fees: [
+                { type: 'Annual Tuition Fee', amount: '₹ 50,000', date: '2024-07-25', status: 'Paid', receipt: 'RPT-20240725' },
+                { type: 'Hostel & Mess Fee', amount: '₹ 25,000', date: '2024-07-25', status: 'Paid', receipt: 'RPT-20240725' },
+                { type: 'Library Fine', amount: '₹ 500', date: '2024-11-01', status: 'Due', receipt: '---' },
+            ]
+        },
+        {
+            id: 'SX00456',
+            rollNumber: 'SX00456',
+            firstName: 'Priya',
+            lastName: 'Sharma',
+            fullName: 'Priya Sharma',
+            email: 'priya.sharma@stxaviers.edu',
+            phone: '+91 99887 76655',
+            dob: '2003-11-20',
+            gender: 'Female',
+            course: 'B.A. English',
+            year: 'Final Year',
+            address: 'Local Residence',
+            fatherName: 'Mr. Anil Sharma',
+            motherName: 'Mrs. Geeta Sharma',
+            joinDate: '2021-07-15',
+            
+            academic: [
+                { exam: 'End-Sem VI', year: 2024, totalMarks: 350, maxMarks: 500, percentage: '70%', status: 'Pass' },
+                { exam: 'End-Sem V', year: 2024, totalMarks: 200, maxMarks: 500, percentage: '40%', status: 'Fail' },
+            ],
+            
+            attendance: {
+                monthRate: '75%',
+                totalPresent: '120',
+                totalDays: '160',
+                overallRate: '75.0%',
+                lastAbsences: '2025-10-01, 2025-10-02, 2025-10-03'
+            },
+            
+            fees: [
+                { type: 'Annual Tuition Fee', amount: '₹ 45,000', date: '2024-08-01', status: 'Paid', receipt: 'RPT-20240801' },
+                { type: 'Exam Fee', amount: '₹ 2,000', date: '2024-12-10', status: 'Due', receipt: '---' },
+            ]
+        }
+    ];
+
+    // --- UTILITY FUNCTIONS ---
+
+    function getStudentIdFromUrl() {
+        // Look for 'id' in the URL query string
+        const params = new URLSearchParams(window.location.search);
+        // Prioritize rollNumber if present, otherwise use id
+        return params.get('id') || params.get('roll');
+    }
+
+    function fetchStudentData(id) {
+        // Search by both id and rollNumber
+        return MOCK_STUDENTS.find(student => student.id === id || student.rollNumber === id) || null;
+    }
+
+    function switchTab(tabName) {
+        // Deactivate all buttons and panes
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+        // Activate the selected button and pane
+        const activeBtn = document.querySelector(`.tab-button[data-tab="${tabName}"]`);
+        const activePane = document.getElementById(tabName);
+        
+        if (activeBtn) activeBtn.classList.add('active');
+        if (activePane) activePane.classList.add('active');
+    }
+
+    function renderProfile(student) {
+        if (!student) {
+            document.getElementById('studentFullName').textContent = "Error: Student Not Found";
+            document.getElementById('studentRollNo').textContent = "---";
+            document.getElementById('studentCourse').textContent = "---";
+            document.getElementById('studentAvatar').textContent = "!";
+            return;
+        }
+
+        // --- Header Section ---
+        document.getElementById('studentFullName').textContent = student.fullName;
+        document.getElementById('studentRollNo').textContent = student.rollNumber;
+        document.getElementById('studentCourse').textContent = student.course;
+        document.getElementById('studentAvatar').textContent = student.firstName.charAt(0) + student.lastName.charAt(0);
+        
+        // --- Personal Details Tab ---
+        const personalDetails = document.getElementById('personalDetailsGrid');
+        personalDetails.innerHTML = `
+            <div class="detail-item"><strong>Roll Number</strong><span>${student.rollNumber}</span></div>
+            <div class="detail-item"><strong>Email</strong><span>${student.email}</span></div>
+            <div class="detail-item"><strong>Phone</strong><span>${student.phone}</span></div>
+            <div class="detail-item"><strong>Date of Birth</strong><span>${student.dob}</span></div>
+            <div class="detail-item"><strong>Gender</strong><span>${student.gender}</span></div>
+            <div class="detail-item"><strong>Course & Year</strong><span>${student.course} (${student.year})</span></div>
+            <div class="detail-item"><strong>Father's Name</strong><span>${student.fatherName || 'N/A'}</span></div>
+            <div class="detail-item"><strong>Mother's Name</strong><span>${student.motherName || 'N/A'}</span></div>
+            <div class="detail-item" style="grid-column: 1 / span 2;"><strong>Address</strong><span>${student.address}</span></div>
+        `;
+
+        // --- Academic Tab ---
+        const academicBody = document.getElementById('academicBody');
+        academicBody.innerHTML = student.academic.map(item => `
+            <tr>
+                <td>${item.exam}</td>
+                <td>${item.year}</td>
+                <td>${item.totalMarks} / ${item.maxMarks}</td>
+                <td>${item.percentage}</td>
+                <td><span class="${item.status === 'Pass' ? 'status-pass' : 'status-fail'}">${item.status}</span></td>
+            </tr>
+        `).join('') || `<tr><td colspan="5" style="text-align: center;">No academic records found.</td></tr>`;
+
+        // --- Attendance Tab ---
+        const attOverall = document.getElementById('attOverall');
+        document.getElementById('attMonthRate').textContent = student.attendance.monthRate;
+        document.getElementById('attPresent').textContent = `${student.attendance.totalPresent} / ${student.attendance.totalDays}`;
+        attOverall.textContent = student.attendance.overallRate;
+        // Logic to determine status badge for overall attendance
+        attOverall.className = `status-high`;
+        try {
+            const overallRateNum = parseFloat(student.attendance.overallRate.replace('%', ''));
+            if (overallRateNum < 80) {
+                 attOverall.className = 'status-low';
+            } else if (overallRateNum >= 80 && overallRateNum <= 90) {
+                attOverall.className = 'status-high'; // Using status-high for anything > 80%
+            } else if (overallRateNum > 90) {
+                attOverall.className = 'status-high';
+            } else {
+                 attOverall.className = ''; // Default if parsing fails
+            }
+        } catch (e) {
+            attOverall.className = '';
+        }
+        
+        document.getElementById('attLastAbsence').textContent = student.attendance.lastAbsences;
+
+        // --- Fees Tab ---
+        const feesBody = document.getElementById('feesBody');
+        feesBody.innerHTML = student.fees.map(item => `
+            <tr>
+                <td>${item.type}</td>
+                <td>${item.amount}</td>
+                <td>${item.date}</td>
+                <td><span class="${item.status === 'Paid' ? 'status-paid' : 'status-due'}">${item.status}</span></td>
+                <td>${item.receipt === '---' ? '---' : `<a href="/receipts/${item.receipt}.pdf" target="_blank">${item.receipt}</a>`}</td>
+            </tr>
+        `).join('') || `<tr><td colspan="5" style="text-align: center;">No fee transactions found.</td></tr>`;
+        
+        // Optional: Show toast if Toast.js is loaded
+        if (typeof Toast !== 'undefined') {
+            Toast.info(`Profile for ${student.fullName} loaded.`);
+        }
+    }
+
+
+    // --- INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const studentId = getStudentIdFromUrl();
+        let student;
+
+        if (studentId) {
+            // 1. Try to find the student in mock data
+            student = fetchStudentData(studentId);
+            
+            // 2. Fallback for custom added student (if applicable)
+            if (!student) {
+                try {
+                    const localStudents = JSON.parse(localStorage.getItem('college_students') || '[]');
+                    // Search by rollNumber which is used as 'id' substitute in local storage context
+                    const localStudent = localStudents.find(s => s.rollNumber === studentId);
+                    
+                    if(localStudent) {
+                        // Create a full student object with default/dummy data for tabs
+                        student = {
+                            ...localStudent,
+                            firstName: localStudent.fullName.split(' ')[0],
+                            lastName: localStudent.fullName.split(' ').pop(),
+                            academic: [{ exam: 'N/A', year: 'N/A', totalMarks: 'N/A', maxMarks: 'N/A', percentage: 'N/A', status: 'N/A' }], 
+                            attendance: { monthRate: 'N/A', totalPresent: '0', totalDays: '0', overallRate: '0%', lastAbsences: 'None' },
+                            fees: [{ type: 'Tuition Fee', amount: 'N/A', date: 'N/A', status: 'Unknown', receipt: '---' }],
+                        };
+                    }
+                } catch (e) {
+                    console.error("Error reading localStorage", e);
+                }
+            }
+        } else {
+            // Default to the first mock student if no ID is provided in URL
+            student = MOCK_STUDENTS[0];
+        }
+
+        renderProfile(student);
+        
+        // Attach tab switching event listeners
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', (e) => switchTab(e.target.dataset.tab));
+        });
+        
+        document.getElementById('editProfileBtn')?.addEventListener('click', () => {
+             if (typeof Toast !== 'undefined') {
+                 Toast.warning('Redirecting to Edit Form (functionality not implemented).');
+             } else {
+                 alert('Edit profile functionality placeholder.');
+             }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,73 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examinations | St. Xavier's</title>
-    <style>
-        /* Same base styles as above */
-        body { font-family: 'Inter', sans-serif; background: #f7fafc; margin: 0; padding: 20px; }
-        .page-module-container { max-width: 1200px; margin: auto; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; }
-        .module-header { background: #7c3aed; padding: 20px 30px; color: white; display: flex; justify-content: space-between; align-items: center; }
-        .btn-primary { background: #a78bfa; padding: 10px 20px; border: none; border-radius: 8px; color: white; font-weight: 600; }
-        .module-content { padding: 30px; }
-        .exam-list { list-style: none; padding: 0; }
-        .exam-list li { padding: 15px; background: #f8f0ff; margin: 10px 0; border-radius: 8px; border-left: 5px solid #7c3aed; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
-        th { background: #ede9fe; }
-    </style>
+ <meta charset="UTF-8">
+ <title>Examination Management | St. Xavier's</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ <style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    margin: 0;
+    padding: 20px;
+    color: #1e293b;
+  }
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #fff;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .header span {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+  .content {
+    padding: 32px;
+  }
+  .tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .tab {
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-size: 15px;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 12px 12px 0 0;
+    transition: all 0.3s;
+  }
+  .tab:hover {
+    background: #f1f5f9;
+    color: #4f46e5;
+  }
+  .tab.active {
+    background: #4f46e5;
+    color: white;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 15px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  th {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    padding: 16px 12px;
+    text-align: center;
+    font-weight: 700;
+    color: #4f46e5;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 16px 12px;
+    text-align: center;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  tr:hover {
+    background: #f8fafc;
+  }
+  .badge {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge-upcoming {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .badge-completed {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  .badge-published {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .btn-delete {
+    background: #ef4444;
+    color: white;
+  }
+  .btn-delete:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+  }
+  .notice-box {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    padding: 18px;
+    border-radius: 12px;
+    color: #92400e;
+    font-size: 15px;
+    border-left: 5px solid #f59e0b;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .notice-box::before {
+    content: "Warning";
+    font-size: 24px;
+  }
+  .tab-content {
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 768px) {
+    .header { flex-direction: column; text-align: center; gap: 10px; }
+    .tabs { justify-content: center; }
+    table { font-size: 13px; }
+    th, td { padding: 10px 6px; }
+  }
+ </style>
 </head>
 <body>
-<main class="page-module-container">
-    <section class="module-header">
-        <h2>Examinations</h2>
-        <div class="header-actions">
-            <button class="btn btn-primary">➕ Create New Exam</button>
-        </div>
-    </section>
 
-    <section class="module-content">
-        <div class="content-block">
-            <h3>Upcoming Exams – Semester I (2025–26)</h3>
-            <ul class="exam-list">
-                <li><strong>Mid-Term Assessments</strong> – 15–20 Dec 2025</li>
-                <li><strong>Practical Exams (Science)</strong> – 22–28 Dec 2025</li>
-                <li><strong>End Semester Theory Exams</strong> – 10–24 Jan 2026</li>
-                <li><strong>Final Year Project Viva (B.Tech/BCA)</strong> – 28 Feb 2026</li>
-            </ul>
-        </div>
-        
-        <div class="content-block">
-            <h3>Recent Results Published</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Exam Name</th>
-                        <th>Course</th>
-                        <th>Published On</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Internal Assessment II</td>
-                        <td>B.Sc Computer Science</td>
-                        <td>05 Dec 2025</td>
-                        <td><a href="#" style="color:#7c3aed;">View Results</a></td>
-                    </tr>
-                    <tr>
-                        <td>Mid-Semester Exam</td>
-                        <td>B.Com Honours</td>
-                        <td>01 Dec 2025</td>
-                        <td><a href="#" style="color:#7c3aed;">View Results</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <button class="btn btn-primary">Generate Report Cards (All Courses)</button>
-        </div>
-    </section>
-</main>
+<div class="container">
+  <div class="header">
+    <h2>Examination Management</h2>
+    <span>B.Sc Computer Science • Semester V</span>
+  </div>
+
+  <div class="content">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('upcoming')">Upcoming Exams</button>
+      <button class="tab" onclick="showTab('previous')">Previous Exams</button>
+    </div>
+
+    <!-- Upcoming Exams -->
+    <div id="upcoming" class="tab-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Exam ID</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EX101</td>
+            <td>Data Structures & Algorithms</td>
+            <td>15 Jan 2025</td>
+            <td>10:00 AM - 1:00 PM</td>
+            <td>A-101</td>
+            <td><span class="badge badge-upcoming">Upcoming</span></td>
+            <td><button class="btn btn-delete" onclick="alert('Exam removed!')">Remove</button></td>
+          </tr>
+          <tr>
+            <td>EX102</td>
+            <td>Operating Systems</td>
+            <td>18 Jan 2025</td>
+            <td>2:00 PM - 5:00 PM</td>
+            <td>B-204</td>
+            <td><span class="badge badge-upcoming">Upcoming</span></td>
+            <td><button class="btn btn-delete" onclick="alert('Exam removed!')">Remove</button></td>
+          </tr>
+          <tr>
+            <td>EX103</td>
+            <td>Database Management Systems</td>
+            <td>22 Jan 2025</td>
+            <td>10:00 AM - 1:00 PM</td>
+            <td>A-205</td>
+            <td><span class="badge badge-upcoming">Upcoming</span></td>
+            <td><button class="btn btn-delete" onclick="alert('Exam removed!')">Remove</button></td>
+          </tr>
+          <tr>
+            <td>EX104</td>
+            <td>Computer Networks</td>
+            <td>25 Jan 2025</td>
+            <td>2:00 PM - 5:00 PM</td>
+            <td>C-301</td>
+            <td><span class="badge badge-upcoming">Upcoming</span></td>
+            <td><button class="btn btn-delete" onclick="alert('Exam removed!')">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="notice-box">
+        Warning Students must carry valid ID card & admit card. Reporting time: 30 minutes before exam.
+      </div>
+    </div>
+
+    <!-- Previous Exams -->
+    <div id="previous" class="tab-content" style="display:none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Exam ID</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EX090</td>
+            <td>Software Engineering</td>
+            <td>05 Dec 2024</td>
+            <td>10:00 AM</td>
+            <td><span class="badge badge-completed">Completed</span></td>
+            <td><span class="badge badge-published">Published</span></td>
+          </tr>
+          <tr>
+            <td>EX091</td>
+            <td>Web Technology</td>
+            <td>08 Dec 2024</td>
+            <td>2:00 PM</td>
+            <td><span class="badge badge-completed">Completed</span></td>
+            <td><span class="badge badge-published">Published</span></td>
+          </tr>
+          <tr>
+            <td>EX092</td>
+            <td>Theory of Computation</td>
+            <td>12 Dec 2024</td>
+            <td>10:00 AM</td>
+            <td><span class="badge badge-completed">Completed</span></td>
+            <td><span class="badge badge-published">Published</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(type) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  
+  if (type === 'upcoming') {
+    document.getElementById('upcoming').style.display = 'block';
+    document.querySelectorAll('.tab')[0].classList.add('active');
+  } else {
+    document.getElementById('previous').style.display = 'block';
+    document.querySelectorAll('.tab')[1].classList.add('active');
+  }
+}
+</script>
+
 </body>
 </html>

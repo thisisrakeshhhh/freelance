@@ -1,30 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Notifications | St. Xavier's Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      margin: 0;
+      padding: 20px;
+      color: #1e293b;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+    }
+    .header .badge {
+      background: rgba(255,255,255,0.25);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .content {
+      padding: 32px;
+    }
+    .notification {
+      display: flex;
+      gap: 18px;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      background: #ffffff;
+    }
+    .notification:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border-color: #c7d2fe;
+    }
+    .notification.unread {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border-left: 5px solid #6366f1;
+    }
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: #6366f1;
+      color: white;
+      flex-shrink: 0;
+    }
+    .details {
+      flex: 1;
+    }
+    .title {
+      font-weight: 700;
+      font-size: 17px;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+    .notification.unread .title {
+      color: #4f46e5;
+    }
+    .message {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .time {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+      font-size: 16px;
+    }
+    .empty span {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 768px) {
+      .header {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      .notification {
+        flex-direction: column;
+      }
+      .icon {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-<main class="page-module-container">
-    <section class="module-header">
-        <h2>Notifications & Announcements</h2>
-        <div class="header-actions">
-            <button class="btn btn-primary">✉️ Send New Announcement</button>
-        </div>
-    </section>
 
-    <section class="module-content">
-        <div class="content-block">
-            <h3>Notification History</h3>
-            <p>List of all previous notifications sent out.</p>
-            <ul class="notification-list">
-                <li>**01 Dec:** School Closed due to weather (To all users)</li>
-                <li>**25 Nov:** Staff Meeting Reminder (To teachers)</li>
-                <li>**15 Nov:** Fee Due Date Extended (To students/parents)</li>
-            </ul>
-        </div>
-    </section>
-</main>
+<div class="container">
+  <div class="header">
+    <h2>Notifications</h2>
+    <div class="badge">8 New</div>
+  </div>
+
+  <div class="content">
+
+    <!-- Unread Notifications -->
+    <div class="notification unread">
+      <div class="icon">Student</div>
+      <div class="details">
+        <div class="title">New Student Registered</div>
+        <div class="message">John Doe has successfully registered for B.Sc Computer Science - Section A. Please verify documents.</div>
+        <div class="time">Just now</div>
+      </div>
+    </div>
+
+    <div class="notification unread">
+      <div class="icon">Attendance</div>
+      <div class="details">
+        <div class="title">Attendance Below Threshold</div>
+        <div class="message">3 students in B.Com Section B have attendance below 75%. Action required.</div>
+        <div class="time">10 minutes ago</div>
+      </div>
+    </div>
+
+    <div class="notification unread">
+      <div class="icon">Exam</div>
+      <div class="details">
+        <div class="title">Exam Schedule Published</div>
+        <div class="message">Mid-Semester Examination timetable for Semester V has been uploaded.</div>
+        <div class="time">1 hour ago</div>
+      </div>
+    </div>
+
+    <!-- Read Notifications -->
+    <div class="notification">
+      <div class="icon">Fees</div>
+      <div class="details">
+        <div class="title">Fee Payment Reminder</div>
+        <div class="message">Last date for Semester fee payment is 15th January 2025. Late fine applicable after due date.</div>
+        <div class="time">Yesterday</div>
+      </div>
+    </div>
+
+    <div class="notification">
+      <div class="icon">Calendar</div>
+      <div class="details">
+        <div class="title">College Closed Tomorrow</div>
+        <div class="message">College will remain closed on 26th January 2025 on account of Republic Day.</div>
+        <div class="time">2 days ago</div>
+      </div>
+    </div>
+
+    <div class="notification">
+      <div class="icon">Library</div>
+      <div class="details">
+        <div class="title">Library Book Due</div>
+        <div class="message">You have 2 books due for return by 12th January. Please return on time to avoid fine.</div>
+        <div class="time">3 days ago</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
