@@ -323,3 +323,29 @@ function clearFormErrors() {
     el.remove(); 
   });
 }
+
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let data = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("mail").value,
+    pax: document.getElementById("contact").value,
+    email: document.getElementById("subject").value,
+    message: document.getElementById("message").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbw3mmY0Kz5dARuYdEJVBpqZWgc1j5Bw0qXaseXQ-l9F39HRp-HNulfD_FoWvA3xFOWw/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    document.getElementById("status").innerText = "Form submitted!";
+  })
+  .catch(err => {
+    document.getElementById("status").innerText = "Error!";
+  });
+});
