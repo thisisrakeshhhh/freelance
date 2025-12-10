@@ -279,16 +279,16 @@ function handleLogin(role, idField, passField, form) {
         } else {
           window.location.href = './dashboard/student-dashboard.html';
         }
-      }, 1000);
+      }, 500);
     } else {
       Toast.error('Invalid credentials. Please try again.');
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
       
       form.classList.add('shake');
-      setTimeout(function() { form.classList.remove('shake'); }, 200);
+      setTimeout(function() { form.classList.remove('shake'); }, 50);
     }
-  }, 200);
+  }, 50);
 }
 
 function showFieldError(input, message) {

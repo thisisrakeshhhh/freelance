@@ -146,7 +146,7 @@
       padding: 14px 24px;
       cursor: pointer;
       transition: all 0.3s;
-      display: flex;
+      /* display: flex; */
       align-items: center;
       gap: 12px;
       font-weight: 500;
@@ -511,6 +511,45 @@
     transform: translateX(0);   /* ← Always visible on desktop */
   }
 }
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  border-bottom: 1px solid #eee;
+}
+
+.nav-link {
+  padding: 14px 18px;
+  font-weight: 500;
+  cursor: pointer;
+  display: block;
+}
+
+.dropdown {
+  display: none;
+  background: #f7f9ff;
+}
+
+.has-dropdown.open .dropdown {
+  display: block;
+}
+
+.sub-item {
+  padding: 12px 35px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #444;
+  border-top: 1px solid #e6e6e6;
+}
+
+.sub-item:hover,
+.sub-item.active {
+  background: #2563eb;
+  color: white;
+}
 
   </style>
 </head>
@@ -534,35 +573,132 @@
       <h2>ST. XAVIER'S | Student Dashboard</h2>
     </div>
 
-    <nav class="sidebar-nav">
-      <ul>
-        <li class="nav-item active" data-page="dashboard">
-          <span>🏠</span> Dashboard
-        </li>
-        <li class="nav-item" data-page="attendance">
-          <span>✅</span> Attendance
-        </li>
-        <li class="nav-item" data-page="exams">
-          <span>📝</span> Exams & Results
-        </li>
-        <li class="nav-item" data-page="timetable">
-          <span>📅</span> Timetable
-        </li>
-        <li class="nav-item" data-page="fees">
-          <span>💰</span> Fee Status
-        </li>
-        <li class="nav-item" data-page="notifications">
-          <span>🔔</span> Notifications
-          <span class="badge">5</span>
-        </li>
-        <li class="nav-item" data-page="profile">
-          <span>👤</span> My Profile
-        </li>
-        <li class="nav-item logout" id="logoutBtn">
-          <span>🚪</span> Logout
-        </li>
+<nav class="sidebar-nav">
+  <ul>
+    <li class="nav-item"  data-page="dashboard" >
+      <div class="nav-link">Dashboard</div>
+    </li>
+    <!-- FREQUENTLY USED -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">🏠 Frequently Used</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="busdetail">Bus Detail</li>
+        <li class="sub-item" data-page="trackpickup">Track Bus - Pick Up</li>
+        <li class="sub-item" data-page="trackdrop">Track Bus - Drop Off</li>
       </ul>
-    </nav>
+    </li>
+
+    <!-- ACADEMICS -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link" data-page="subjects">📘 Academics</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="attendance">Attendance</li>
+        <li class="sub-item" data-page="subjects">Subjects</li>
+        <li class="sub-item" data-page="issuedbooks">Issued Books</li>
+      </ul>
+    </li>
+
+    <!-- TRANSPORT -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">🚌 Transport</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="busdetail">Bus Detail</li>
+        <li class="sub-item" data-page="trackpickup">Track Pick Up</li>
+        <li class="sub-item" data-page="trackdrop">Track Drop</li>
+      </ul>
+    </li>
+
+    <!-- EXAMINATION -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">📝 Examination</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="reportcard">Report Card</li>
+      </ul>
+    </li>
+
+    <!-- FEES -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">💰 Fees</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="feehistory">Fee History</li>
+        <li class="sub-item" data-page="onlinepayment">Online Payment</li>
+      </ul>
+    </li>
+
+    <!-- COMMUNICATION -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">📢 Communication</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="circulars">Circulars</li>
+        <li class="sub-item" data-page="planners">Planners</li>
+        <li class="sub-item" data-page="resources">Resources</li>
+        <li class="sub-item" data-page="polls">Polls</li>
+        <li class="sub-item" data-page="calendar">My Calendar</li>
+        <li class="sub-item" data-page="gallery">Galleries</li>
+      </ul>
+    </li>
+
+    <!-- LEAVE -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">📅 Leave</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="applyleave">Apply Leave</li>
+        <li class="sub-item" data-page="leavedetail">Leave Detail</li>
+      </ul>
+    </li>
+
+    <!-- APPOINTMENT -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">🏥 Appointment</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="fixappointment">Fix Appointment</li>
+        <li class="sub-item" data-page="myappointment">My Appointment</li>
+      </ul>
+    </li>
+
+    <!-- GREETINGS -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">🎉 Greetings</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="mygreetings">My Greetings</li>
+      </ul>
+    </li>
+
+    <!-- ONLINE REQUEST -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">📝 Online Request</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="newrequest">Apply New</li>
+        <li class="sub-item" data-page="myrequest">My Requests</li>
+      </ul>
+    </li>
+
+    <!-- MORE PAGES -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">⭐ More Pages</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="gk">GK - Q/A</li>
+        <li class="sub-item" data-page="gems">Unison Gems</li>
+        <li class="sub-item" data-page="newsletter">School Newsletter</li>
+        <li class="sub-item" data-page="principal">Principal Desk</li>
+      </ul>
+    </li>
+
+    <!-- SUPPORT -->
+    <li class="nav-item has-dropdown">
+      <div class="nav-link">🛠 Support</div>
+      <ul class="dropdown">
+        <li class="sub-item" data-page="contact">Contact Us</li>
+      </ul>
+    </li>
+
+    <!-- LOGOUT -->
+    <li class="nav-item logout" id="logoutBtn">🚪 Logout</li>
+
+  </ul>
+</nav>
+
+
   </aside>
 
   <!-- Main Content -->
@@ -722,107 +858,285 @@
     <div id="app-view"></div>
   </main>
 <script>
+/* -------------------------
+   CONFIG (pages + titles)
+   ------------------------- */
 const CONFIG = {
-    pages: {
-        dashboard: '',
-        attendance: 'pages/studentmanagement.html',
-        exams: 'pages/examination.html',
-        timetable: 'pages/timetable.html',        
-        fees: 'pages/fees.html',
-        notifications: 'pages/notifications.html',
-        profile: 'pages/profiles.html'
-    },
-    titles: {
-        dashboard: "Dashboard Overview",
-        attendance: "My Attendence",
-        exams: "Examinations",
-        timetable: "Time Table",
-        fees:"My fees",
-        examinations: "Notifications & Announcements",
-        profile: "Profile"
-    }
+  pages: {
+    dashboard: '',
+    subjects: "pages/subjects.html",
+    issuedbooks: "pages/issued-books.html",
+    reportcard: "pages/report-card.html",
+    feehistory: "pages/fee-history.html",
+    onlinepayment: "pages/online-payment.html",
+    circulars: "pages/circulars.html",
+    planners: "pages/planners.html",
+    resources: "pages/resources.html",
+    polls: "pages/polls.html",
+    calendar: "pages/calendar.html",
+    gallery: "pages/gallery.html",
+    applyleave: "pages/apply-leave.html",
+    leavedetail: "pages/leave-detail.html",
+    fixappointment: "pages/fix-appointment.html",
+    myappointment: "pages/my-appointment.html",
+    mygreetings: "pages/my-greetings.html",
+    newrequest: "pages/new-request.html",
+    myrequest: "pages/my-requests.html",
+    gk: "pages/gk.html",
+    gems: "pages/gems.html",
+    newsletter: "pages/newsletter.html",
+    principal: "pages/principal.html",
+    contact: "pages/contact.html",
+    busdetail: "pages/bus-detail.html",
+    trackpickup: "pages/track-pickup.html",
+    trackdrop: "pages/track-drop.html",
+    attendance: "pages/studentmanagement.html",
+    reportcard: "pages/examination.html",
+  },
+  titles: {
+    dashboard: "Dashboard Overview",
+    subjects: "Subjects",
+    issuedbooks: "Issued Books",
+    reportcard: "Report Card",
+    feehistory: "Fee History",
+    onlinepayment: "Online Payment",
+    circulars: "Circulars",
+    planners: "Planners",
+    resources: "Resources",
+    polls: "Polls",
+    calendar: "My Calendar",
+    gallery: "Galleries",
+    applyleave: "Apply Leave",
+    leavedetail: "Leave Details",
+    fixappointment: "Fix Appointment",
+    myappointment: "My Appointment",
+    mygreetings: "My Greetings",
+    newrequest: "New Request",
+    myrequest: "My Requests",
+    gk: "GK - Q/A",
+    gems: "Unison Gems",
+    newsletter: "School Newsletter",
+    principal: "Principal Desk",
+    contact: "Contact Support",
+    busdetail: "Bus Detail",
+    trackpickup: "Track Bus - Pick Up",
+    trackdrop: "Track Bus - Drop Off",
+    attendance: "Attendance",
+  }
 };
 
-const userName = localStorage.getItem('userName') || 'Student';
-document.getElementById('userName').textContent = userName;
-
+/* -------------------------
+   DOM refs
+   ------------------------- */
 const menuToggle = document.getElementById('menuToggle');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('sidebarOverlay');
 const appView = document.getElementById('app-view');
+const pageTitle = document.getElementById('pageTitle');
 
-/* ✅ SAFETY CHECK */
+/* -------------------------
+   Basic UI: username + toggle
+   ------------------------- */
+const userName = localStorage.getItem('userName') || 'Student';
+const userNameEl = document.getElementById('userName');
+if (userNameEl) userNameEl.textContent = userName;
+
 if (!menuToggle || !sidebar || !overlay) {
-  alert("Toggle Error: menuToggle / sidebar / sidebarOverlay ID missing");
+  console.warn("menuToggle / sidebar / sidebarOverlay ID missing");
 }
 
-/* ✅ MENU TOGGLE */
-menuToggle.onclick = () => {
-  console.log("Toggle Clicked");
+menuToggle?.addEventListener('click', () => {
   menuToggle.classList.toggle('active');
   sidebar.classList.toggle('active');
   overlay.classList.toggle('active');
-};
+});
 
-overlay.onclick = () => {
+overlay?.addEventListener('click', () => {
   menuToggle.classList.remove('active');
   sidebar.classList.remove('active');
   overlay.classList.remove('active');
-};
-
-function loadRoute(route) {
-  const page = CONFIG.pages[route];
-  const title = CONFIG.titles[route] || "Dashboard";
-
-  document.getElementById("pageTitle").innerText = title;
-
-  if (route === "dashboard") {
-      appView.innerHTML = "";
-      document.querySelector(".stats-grid").style.display = "grid";
-      document.querySelector(".content-grid").style.display = "grid";
-  } else {
-      document.querySelector(".stats-grid").style.display = "none";
-      document.querySelector(".content-grid").style.display = "none";
-      fetch(page).then(res => res.text()).then(data => {
-          appView.innerHTML = data;
-      });
-  }
-
-  history.pushState({ route }, "", `#${route}`);
-}
-
-document.querySelectorAll('.nav-item[data-page]').forEach(item => {
-  item.onclick = function () {
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    this.classList.add('active');
-
-    const page = this.dataset.page;
-    loadRoute(page);
-
-    if (window.innerWidth <= 768) {
-      menuToggle.classList.remove('active');
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-    }
-  };
 });
 
-window.onpopstate = () => {
-  const route = location.hash.replace("#", "") || "dashboard";
-  loadRoute(route);
-};
+/* -------------------------
+   loadRoute(route) -> loads page into #app-view
+   - route: string key from CONFIG.pages
+   ------------------------- */
+async function loadRoute(route, pushHistory = true) {
+  if (!route) route = 'dashboard';
 
-document.getElementById('logoutBtn').onclick = () => {
-  if (confirm('Are you sure you want to logout?')) {
-      // localStorage.removeItem('userName');
-      // location.reload();
-      window.location.href = '../index.html';
+  const pagePath = CONFIG.pages[route];
+  const titleText = CONFIG.titles[route] || 'Page';
+
+  // set title
+  if (pageTitle) pageTitle.innerText = titleText;
+
+  // Handle dashboard (empty path)
+  if (!pagePath) {
+    // show dashboard area and clear app-view
+    document.querySelectorAll('.stats-grid, .content-grid').forEach(el => {
+      if (el) el.style.display = '';
+    });
+    appView.innerHTML = '';
+  } else {
+    // hide dashboard grids
+    document.querySelectorAll('.stats-grid, .content-grid').forEach(el => {
+      if (el) el.style.display = 'none';
+    });
+
+    // fetch page content
+    try {
+      const res = await fetch(pagePath, { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const html = await res.text();
+      appView.innerHTML = html;
+    } catch (err) {
+      console.error("Failed to load page", pagePath, err);
+      appView.innerHTML = `<div style="padding:28px;background:#fff;border-radius:12px;border:1px solid #eee;">
+        <h3>Page not found</h3>
+        <p>Could not load <strong>${route}</strong> (${pagePath}).</p>
+      </div>`;
+    }
   }
-};
 
-const initialRoute = location.hash.replace("#", "") || "dashboard";
-loadRoute(initialRoute);
+  // update URL/hash and history
+  if (pushHistory) {
+    try {
+      history.pushState({ route }, "", `#${route}`);
+    } catch (e) {
+      // some older browsers may throw; fallback:
+      location.hash = `#${route}`;
+    }
+  }
+
+  // update active classes in sidebar
+  setActiveMenu(route);
+}
+
+/* -------------------------
+   setActiveMenu(route)
+   - highlights matching .sub-item or .nav-link[data-page]
+   - expands parent dropdown when a sub-item is active
+   ------------------------- */
+function setActiveMenu(route) {
+  // clear all active
+  document.querySelectorAll('.nav-item, .sub-item, .nav-link[data-page]').forEach(el => {
+    el.classList.remove('active');
+  });
+  // close all dropdowns
+  document.querySelectorAll('.has-dropdown').forEach(d => d.classList.remove('open'));
+
+  if (!route) return;
+
+  // match sub-item first
+  const sub = document.querySelector(`.sub-item[data-page="${route}"]`);
+  if (sub) {
+    sub.classList.add('active');
+    // open its parent dropdown
+    const parent = sub.closest('.has-dropdown');
+    if (parent) parent.classList.add('open');
+    // highlight parent nav-item visually if you want
+    parent?.classList.add('active');
+    return;
+  }
+
+  // match top-level .nav-link[data-page] or .nav-item[data-page]
+  let top = document.querySelector(`.nav-link[data-page="${route}"]`) || document.querySelector(`.nav-item[data-page="${route}"]`);
+  if (top) {
+    // If top is inside a has-dropdown, open it
+    const parent = top.closest('.has-dropdown');
+    if (parent) parent.classList.add('open');
+    // add active to the clickable element or its container
+    top.classList.add('active');
+    const wrapper = top.closest('.nav-item');
+    if (wrapper) wrapper.classList.add('active');
+  }
+}
+
+/* -------------------------
+   Event wiring
+   - top-level items that should navigate: .nav-link[data-page] and .nav-item[data-page]
+   - sub-items: .sub-item[data-page]
+   - dropdown toggles: .has-dropdown > .nav-link (those WITHOUT data-page)
+   ------------------------- */
+function attachMenuEvents() {
+  // top-level navigation handlers (data-page on nav-link or nav-item)
+  document.querySelectorAll('.nav-link[data-page], .nav-item[data-page]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const page = el.dataset.page;
+      // If this element also has a dropdown parent, ensure it still navigates (per your preference)
+      loadRoute(page);
+      // close on mobile
+      if (window.innerWidth <= 768) {
+        menuToggle.classList.remove('active');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+    });
+  });
+
+  // sub-items
+  document.querySelectorAll('.sub-item[data-page]').forEach(si => {
+    si.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const page = si.dataset.page;
+      // mark active
+      document.querySelectorAll('.sub-item').forEach(i => i.classList.remove('active'));
+      si.classList.add('active');
+      loadRoute(page);
+      if (window.innerWidth <= 768) {
+        menuToggle.classList.remove('active');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+    });
+  });
+
+  // dropdown toggles for items that are just headings (no data-page)
+  document.querySelectorAll('.has-dropdown > .nav-link:not([data-page])').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const parent = link.parentElement;
+      // close other dropdowns
+      document.querySelectorAll('.has-dropdown').forEach(h => {
+        if (h !== parent) h.classList.remove('open');
+      });
+      parent.classList.toggle('open');
+    });
+  });
+
+  // logout
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = '../index.html';
+      }
+    });
+  }
+}
+
+/* -------------------------
+   Handle browser navigation (back/forward)
+   ------------------------- */
+window.addEventListener('popstate', (ev) => {
+  const route = (ev.state && ev.state.route) || location.hash.replace('#','') || 'dashboard';
+  loadRoute(route, false); // don't push history when responding to popstate
+});
+
+/* -------------------------
+   Init on DOMContentLoaded
+   ------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  attachMenuEvents();
+
+  // If initial hash is present, use it; otherwise default to dashboard
+  const initialRoute = location.hash.replace('#','') || 'dashboard';
+  loadRoute(initialRoute, false);
+});
 </script>
+
 
 
 </body>
