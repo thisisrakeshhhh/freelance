@@ -1,10 +1,19 @@
-
 :root {
-    --bg: #f8fafc;
+    /* Keeping the second, more complete set of variables */
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #8b5cf6;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+    --dark: #1e293b;
+    --light: #f8fafc;
+    --border: #e2e8f0;
+    --sidebar-width: 280px;
+    --header-height: 70px;
+    --bg: var(--light); /* Aligning with the light background */
     --muted: #64748b;
-    --primary: #4a6cf7;
-    --primary-dark: #3a5ce5;
-    --secondary: #6a11cb;
     --accent: #0f172a;
     --text: #1e293b;
     --radius: 12px;
@@ -19,7 +28,8 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: var(--bg);
+    /* Use var(--light) as default for light backgrounds */
+    background: var(--bg); 
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
@@ -37,24 +47,28 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 .gradient-text {
+    /* Updated gradient to use new variables */
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .btn-primary {
+    /* Updated gradient to use new variables */
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     padding: 12px 28px;
     border-radius: 8px;
     font-weight: 600;
     display: inline-block;
+    /* Updated box-shadow to use a better generic primary color */
     box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
+    /* Updated box-shadow to use a better generic primary color */
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
 }
 
@@ -95,13 +109,13 @@ button { font-family: inherit; cursor: pointer; border: none; }
 
 .section-header h2{
     font-size:clamp(24px, 4vw, 36px);
-    color:#0f172a;
+    color:var(--accent); /* Use accent variable */
     margin:0 0 12px;
     font-weight:700;
 }
 
 .section-header p{
-    color:#64748b;
+    color:var(--muted); /* Use muted variable */
     font-size:clamp(14px, 2vw, 18px);
     max-width:600px;
     margin:0 auto;
@@ -110,13 +124,13 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .site-header{
   background:#fff;
   border-bottom:1px solid #e5e7eb;
-  position:sticky;
-  top:0;
+  /* Removed sticky, fixed position is used below */
   z-index:100;
   box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  /* Primary fixed positioning */
   position: fixed;
-  background-color: white;
   width: 100%;
+  top: 0;
   left: 0;
   right: 0;
 }
@@ -128,7 +142,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
   gap:20px;
   padding:5px 25px;
   flex-wrap:wrap;
-  width:100%;
+  /* Removed width:100% - redundant in a fixed header */
 }
 
 .brand{
@@ -183,7 +197,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
   border:none;
   cursor:pointer;
   padding:0;
-  margin-right:10px;
+  /* Removed margin-right:10px */
   font-size: 24px;
   color: #4b5563;
 }
@@ -212,13 +226,15 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .nav-links li a:hover,
 .nav-links li a.active{
   color:var(--primary);
-  background:rgba(74, 108, 247, 0.08);
+  /* Updated color for consistency with new primary var */
+  background:rgba(99, 102, 241, 0.08); 
 }
 
 .btn-login{
   padding:8px 16px;
   font-size:14px;
-  background: linear-gradient(135deg, #4a6cf7, #6a11cb);
+  /* Updated gradient to use new variables */
+  background: linear-gradient(135deg, var(--primary), var(--secondary)); 
   color: white;
   border-radius: 6px;
   border: none;
@@ -229,7 +245,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
 
 .btn-login:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(74, 108, 247, 0.3);
+    /* Updated box-shadow to use a better generic primary color */
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .hero {
@@ -246,7 +263,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(74, 108, 247, 0.1) 0%, transparent 50%);
+    /* Updated gradient to use a consistent primary color */
+    background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
 }
 
 .hero .container {
@@ -326,7 +344,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .stat-icon {
     font-size: 40px;
     margin-bottom: 15px;
-    color: #4a6cf7;
+    /* Use primary variable */
+    color: var(--primary);
 }
 
 .stat-box h2 {
@@ -384,7 +403,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .icon-box {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #4a6cf7, #6a11cb);
+    /* Updated gradient to use new variables */
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -420,18 +440,19 @@ button { font-family: inherit; cursor: pointer; border: none; }
     padding: 30px;
     border-radius: 20px;
     transition: all 0.3s ease;
-    background: linear-gradient(135deg, rgba(248, 249, 255, 0.8), rgba(240, 244, 255, 0.8));
+    /* Use primary colors for transparent background */
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08)); 
 }
 
 .glass-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 150, 0.1);
-    border-color: #4a6cf7;
+    border-color: var(--primary);
 }
 
 .card-icon {
     font-size: 32px;
-    color: #4a6cf7;
+    color: var(--primary);
     margin-bottom: 15px;
 }
 
@@ -547,13 +568,14 @@ button { font-family: inherit; cursor: pointer; border: none; }
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, #4a6cf7, #6a11cb);
+    /* Updated gradient to use new variables */
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
 .course-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 150, 0.1);
-    border-color: #4a6cf7;
+    border-color: var(--primary);
 }
 
 .course-icon {
@@ -598,13 +620,14 @@ button { font-family: inherit; cursor: pointer; border: none; }
     content: '✓';
     position: absolute;
     left: 0;
-    color: #4a6cf7;
+    color: var(--primary);
     font-weight: bold;
 }
 
 .course-fee {
     display: inline-block;
-    background: linear-gradient(135deg, #4a6cf7, #6a11cb);
+    /* Updated gradient to use new variables */
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     padding: 10px 20px;
     border-radius: 50px;
@@ -637,7 +660,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .accred-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 150, 0.1);
-    border-color: #4a6cf7;
+    border-color: var(--primary);
 }
 
 .badge {
@@ -709,7 +732,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
   left: 0;
   top: -10px;
   font-size: 60px;
-  color: #4a6cf7;
+  color: var(--primary);
   opacity: 0.2;
   font-family: serif;
   line-height: 1;
@@ -732,7 +755,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #4a6cf7;
+  border: 3px solid var(--primary);
 }
 
 .author-info strong {
@@ -761,7 +784,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(74, 108, 247, 0.3) 0%, transparent 50%);
+  /* Updated gradient to use a consistent primary color */
+  background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
 }
 
 .placements-section .section-header h2,
@@ -853,7 +877,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 
 .info-item i {
   font-size: 20px;
-  color: #4a6cf7;
+  color: var(--primary);
   margin-top: 5px;
 }
 
@@ -896,9 +920,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #4a6cf7;
+  border-color: var(--primary);
   background: white;
-  box-shadow: 0 5px 20px rgba(74, 108, 247, 0.1);
+  box-shadow: 0 5px 20px rgba(99, 102, 241, 0.1);
 }
 
 .form-group textarea {
@@ -907,7 +931,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 .site-footer {
-  background: #0f172a;
+  background: var(--accent);
   color: #94a3b8;
   padding: 60px 0 0;
 }
@@ -1089,8 +1113,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 .tab-btn.active {
-  background: #4a6cf7;
-  border-color: #4a6cf7;
+  background: var(--primary);
+  border-color: var(--primary);
   color: white;
 }
 
@@ -1121,9 +1145,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
 
 .input-group input:focus {
   outline: none;
-  border-color: #4a6cf7;
+  border-color: var(--primary);
   background: white;
-  box-shadow: 0 5px 20px rgba(74, 108, 247, 0.1);
+  box-shadow: 0 5px 20px rgba(99, 102, 241, 0.1);
 }
 
 .demo-hint {
@@ -1133,15 +1157,16 @@ button { font-family: inherit; cursor: pointer; border: none; }
   font-size: 14px;
 }
 
+/* --- Media Queries --- */
+
 @media (max-width: 900px) {
   .header-inner {
     padding: 10px 20px !important;
   }
 
-  .logo-circle {
+  .logo-wrapper {
     width: 40px;
     height: 40px;
-    font-size: 20px;
   }
 
   .brand-title {
@@ -1208,10 +1233,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
     gap: 8px;
   }
 
-  .logo-circle {
+  .logo-wrapper {
     width: 35px;
     height: 35px;
-    font-size: 18px;
   }
 
   .brand-title {
@@ -1340,6 +1364,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
   }
 }
 
+/* --- Animations --- */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -1432,25 +1458,7 @@ button { font-family: inherit; cursor: pointer; border: none; }
   transform: translateX(0);
 }
 
-:root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --secondary: #8b5cf6;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --info: #3b82f6;
-  --dark: #1e293b;
-  --light: #f8fafc;
-  --border: #e2e8f0;
-  --sidebar-width: 280px;
-  --header-height: 70px;
-}
-
-body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-}
+/* --- DASHBOARD STYLES (Kept for completeness, but should ideally be in a separate file) --- */
 
 .dash-wrapper {
   display: flex;
@@ -1503,6 +1511,13 @@ body {
   padding: 20px 16px;
 }
 
+/* Base list styling for dashboard */
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 .sidebar-nav > ul > li {
   padding: 14px 16px;
   margin: 4px 0;
@@ -1543,48 +1558,13 @@ body {
   color: var(--danger);
 }
 
-.sidebar-nav li.has-sub {
-  flex-wrap: wrap;
-}
-
-.sidebar-nav li.has-sub::after {
-  content: '▼';
-  font-size: 10px;
-  margin-left: auto;
-  transition: transform 0.3s ease;
-}
-
-.sidebar-nav li.has-sub.open::after {
-  transform: rotate(180deg);
-}
-
-.sidebar-nav .sub {
-  display: none;
-  width: 100%;
-  margin-top: 10px;
-  padding-left: 10px;
-}
-
-.sidebar-nav li.has-sub.open .sub {
-  display: block;
-}
-
-.sidebar-nav .sub li {
-  padding: 10px;
-  font-size: 14px;
-  color: #94a3b8;
-  transition: color 0.2s;
-}
-
-.sidebar-nav .sub li:hover {
-  color: var(--primary);
-}
-
 .dash-main {
   margin-left: var(--sidebar-width);
   flex: 1;
   min-height: 100vh;
   transition: margin 0.3s ease;
+  /* Add background here for dashboard content area */
+  background: var(--light); 
 }
 
 .dash-header {
@@ -1854,75 +1834,47 @@ body {
   .cards-grid { grid-template-columns: 1fr; }
 }
 
+/* --- Consolidated Sidebar Dropdown Logic --- */
+
+.sidebar-nav li.has-sub {
+  flex-wrap: wrap;
+}
+
+.sidebar-nav li.has-sub::after {
+  content: '▼';
+  font-size: 10px;
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-nav li.has-sub.open::after {
+  transform: rotate(180deg);
+}
+
 .sidebar-nav ul.sub {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out; 
-    padding-left: 10px; 
+    transition: max-height 0.35s ease;
+    background: rgba(0,0,0,0.15); /* Slightly darker background for submenu */
+    padding-left: 10px;
 }
 
-.has-sub.open > ul.sub {
-    max-height: 500px; 
-}
-/* Sidebar Dropdown Fix */
-.sidebar-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar-nav > ul > li {
-    padding: 12px 20px;
-    cursor: pointer;
-    transition: background 0.2s;
-    position: relative;
-}
-
-.sidebar-nav > ul > li:hover,
-.sidebar-nav > ul > li.active {
-    background: rgba(255,255,255,0.1);
-}
-
-.sidebar-nav .has-sub > .sub {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    background: rgba(0,0,0,0.2);
-    margin-left: 20px;
-}
-
-.sidebar-nav .has-sub.open > .sub {
-    max-height: 300px; /* enough for all items */
+.sidebar-nav li.has-sub.open > ul.sub {
+    max-height: 300px; 
 }
 
 .sidebar-nav .sub li {
     padding: 10px 20px;
     font-size: 14px;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.sidebar-nav .sub li:hover {
+    color: var(--primary);
 }
 
 .sidebar-nav .nav-icon {
     margin-right: 10px;
     font-size: 18px;
-}
-.sidebar-nav .has-sub > ul.sub {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease;
-    background: rgba(0,0,0,0.15);
-}
-
-.sidebar-nav .has-sub.open > ul.sub {
-    max-height: 300px;
-}
-
-.sidebar-nav .has-sub::after {
-    content: '▼';
-    position: absolute;
-    right: 20px;
-    font-size: 12px;
-    transition: transform 0.3s;
-}
-
-.sidebar-nav .has-sub.open::after {
-    transform: rotate(180deg);
 }
