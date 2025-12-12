@@ -1,10 +1,10 @@
 :root {
-  /* Unique, vibrant color palette - less AI-generated feel */
-  --primary: #ff6b6b;
-  --primary-dark: #ee5a52;
-  --secondary: #4ecdc4;
-  --accent-warm: #ffa94d;
-  --accent-cool: #a29bfe;
+  /* Professional blue color palette */
+  --primary: #4a6cf7;
+  --primary-dark: #3b5ad9;
+  --secondary: #45aaf2;
+  --accent-warm: #5ed4f4;
+  --accent-cool: #6c5ce7;
   --success: #26de81;
   --warning: #fed330;
   --danger: #fc5c65;
