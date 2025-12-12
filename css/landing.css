@@ -106,7 +106,7 @@ button {
 .btn-secondary:hover {
   background: var(--secondary);
   color: #fff;
-  transform: translateY(-3px) rotate(-2deg);
+  transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
 }
 
@@ -343,12 +343,11 @@ button {
   width: 100%;
   border-radius: 30px;
   box-shadow: 0 25px 70px rgba(255, 107, 107, 0.2);
-  transform: perspective(1200px) rotateY(-8deg) rotateX(2deg);
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .hero-image:hover {
-  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.02);
+  transform: scale(1.02);
   box-shadow: 0 30px 80px rgba(255, 107, 107, 0.25);
 }
 
@@ -386,28 +385,28 @@ button {
 }
 
 .stat-box:nth-child(1):hover {
-  transform: translateY(-12px) rotate(-2deg);
+  transform: translateY(-12px);
   background: rgba(255, 107, 107, 0.1);
   border-color: var(--primary);
   box-shadow: 0 20px 50px rgba(255, 107, 107, 0.3);
 }
 
 .stat-box:nth-child(2):hover {
-  transform: translateY(-12px) rotate(2deg);
+  transform: translateY(-12px);
   background: rgba(78, 205, 196, 0.1);
   border-color: var(--secondary);
   box-shadow: 0 20px 50px rgba(78, 205, 196, 0.3);
 }
 
 .stat-box:nth-child(3):hover {
-  transform: translateY(-12px) rotate(-2deg);
+  transform: translateY(-12px);
   background: rgba(255, 169, 77, 0.1);
   border-color: var(--accent-warm);
   box-shadow: 0 20px 50px rgba(255, 169, 77, 0.3);
 }
 
 .stat-box:nth-child(4):hover {
-  transform: translateY(-12px) rotate(2deg);
+  transform: translateY(-12px);
   background: rgba(162, 155, 254, 0.1);
   border-color: var(--accent-cool);
   box-shadow: 0 20px 50px rgba(162, 155, 254, 0.3);
@@ -604,13 +603,13 @@ button {
 }
 
 .facility-card:nth-child(odd):hover {
-  transform: translateY(-12px) rotate(-1deg);
+  transform: translateY(-12px);
   box-shadow: var(--shadow-lg);
   border-color: var(--primary);
 }
 
 .facility-card:nth-child(even):hover {
-  transform: translateY(-12px) rotate(1deg);
+  transform: translateY(-12px);
   box-shadow: var(--shadow-lg);
   border-color: var(--secondary);
 }
@@ -630,7 +629,7 @@ button {
 }
 
 .facility-card:hover .facility-img img {
-  transform: scale(1.15) rotate(2deg);
+  transform: scale(1.15);
 }
 
 .facility-content {
@@ -728,12 +727,12 @@ button {
 }
 
 .course-card:nth-child(odd):hover {
-  transform: translateY(-15px) rotate(-2deg);
+  transform: translateY(-15px);
   box-shadow: var(--shadow-lg);
 }
 
 .course-card:nth-child(even):hover {
-  transform: translateY(-15px) rotate(2deg);
+  transform: translateY(-15px);
   box-shadow: var(--shadow-lg);
 }
 
