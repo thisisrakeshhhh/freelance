@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   var studentForm = document.getElementById('studentLoginForm');
   var adminForm = document.getElementById('adminLoginForm');
+  var facultyForm = document.getElementById('facultyLoginForm');
   
   if (studentForm) {
     studentForm.addEventListener('submit', function(e) {
@@ -102,6 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
     adminForm.addEventListener('submit', function(e) {
       e.preventDefault();
       handleLogin('admin', 'adminId', 'adminPass', adminForm);
+    });
+  }
+  
+  if (facultyForm) {
+    facultyForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      handleLogin('faculty', 'facultyId', 'facultyPass', facultyForm);
     });
   }
   
@@ -263,6 +271,9 @@ function handleLogin(role, idField, passField, form) {
     } else if (role === 'admin' && username === 'admin' && password === '123') {
       isValid = true;
       userRole = 'admin';
+    } else if (role === 'faculty' && username === 'faculty' && password === '123') {
+      isValid = true;
+      userRole = 'faculty';
     }
     
     if (isValid) {
@@ -276,6 +287,8 @@ function handleLogin(role, idField, passField, form) {
         
         if (userRole === 'admin') {
           window.location.href = './dashboard/admin-dashboard.html';
+        } else if (userRole === 'faculty') {
+          window.location.href = './dashboard/faculty-dashboard.html';
         } else {
           window.location.href = './dashboard/student-dashboard.html';
         }
