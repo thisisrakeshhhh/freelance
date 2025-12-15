@@ -1,163 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Examination | St. Xavier's</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages-common.css">
+  <link rel="stylesheet" href="pages-common.css">
 </head>
+
 <body>
 
-<div class="container">
-  <div class="header">
-    <h2>Examination Management</h2>
-    <span>B.Sc Computer Science</span>
-  </div>
+  <main class="page-module-container">
+    <section class="module-header">
+      <div style="display:flex; flex-direction:column;">
+        <h2>Examination Management</h2>
+        <span style="font-size:14px; opacity:0.9; font-weight:500;">B.Sc Computer Science</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="showTab('previous')">Previous Exams</button>
+        <button class="btn btn-primary" onclick="showTab('upcoming')">Upcoming Exams</button>
+      </div>
+    </section>
 
-  <div class="content">
+    <section class="module-content">
 
-    <div class="tabs">
-      <button class="tab active" onclick="showTab('upcoming')">Upcoming Exams</button>
-      <button class="tab" onclick="showTab('previous')">Previous Exams</button>
-    </div>
+      <!-- UPCOMING EXAMS -->
+      <div id="upcoming" class="tab-content">
+        <div class="content-block">
+          <h3>Add Upcoming Exam</h3>
+          <div class="controls"
+            style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-bottom:20px;">
+            <input id="u_subject" placeholder="Subject" type="text">
+            <input id="u_date" type="date">
+            <input id="u_time" placeholder="Time" type="text">
+            <input id="u_room" placeholder="Room No" type="text">
+            <button class="btn btn-primary" onclick="addUpcoming()">Add Exam</button>
+          </div>
+        </div>
 
-    <!-- UPCOMING EXAMS -->
-    <div id="upcoming" class="tab-content">
+        <div class="content-block">
+          <h3>Scheduled Exams</h3>
 
-      <div class="controls">
-        <input id="u_subject" placeholder="Subject">
-        <input id="u_date" type="date">
-        <input id="u_time" placeholder="Time">
-        <input id="u_room" placeholder="Room No">
-        <button class="btn btn-add" onclick="addUpcoming()">Add Upcoming</button>
+          <div class="notice-box"
+            style="background:rgba(254, 211, 48, 0.15); border:1px solid var(--warning); padding:15px; border-radius:8px; margin-bottom:20px; color:#92400e; font-weight:600; font-size:14px;">
+            <i class="fas fa-exclamation-triangle"></i> Students must carry their valid ID cards and arrive 30 minutes
+            before the exam time.
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Exam ID</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Room</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="upcomingBody"></tbody>
+          </table>
+        </div>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Exam ID</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Room</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="upcomingBody"></tbody>
-      </table>
-
-      <div class="notice-box">
-        ⚠ Students must carry their valid ID cards and arrive 30 minutes before the exam time.
+      <!-- PREVIOUS EXAMS -->
+      <div id="previous" class="tab-content" style="display:none;">
+        <div class="content-block">
+          <h3>Exam History</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Exam ID</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody id="previousBody"></tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <!-- PREVIOUS EXAMS -->
-    <div id="previous" class="tab-content" style="display:none;">
+    </section>
+  </main>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Exam ID</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Status</th>
-            <th>Result</th>
-          </tr>
-        </thead>
-        <tbody id="previousBody"></tbody>
-      </table>
+  <script>
+    // Dummy Data
+    let upcomingExams = JSON.parse(localStorage.getItem('upcoming_exams')) || [
+      { id: 'EX101', subject: 'Data Structures', date: '2025-01-15', time: '10:00 AM', room: 'A-101' },
+      { id: 'EX102', subject: 'Operating Systems', date: '2025-01-18', time: '2:00 PM', room: 'B-204' }
+    ];
 
-    </div>
+    let previousExams = JSON.parse(localStorage.getItem('previous_exams')) || [
+      { id: 'EX090', subject: 'DBMS', date: '2024-12-05', time: '10:00 AM', status: 'Completed', result: 'Published' },
+      { id: 'EX091', subject: 'Computer Networks', date: '2024-12-08', time: '2:00 PM', status: 'Completed', result: 'Published' }
+    ];
 
-  </div>
-</div>
+    function render() {
+      const uBody = document.getElementById('upcomingBody');
+      const pBody = document.getElementById('previousBody');
+      uBody.innerHTML = '';
+      pBody.innerHTML = '';
 
-<script>
-  // Dummy Data
-  let upcomingExams = JSON.parse(localStorage.getItem('upcoming_exams')) || [
-    {id:'EX101', subject:'Data Structures', date:'2025-01-15', time:'10:00 AM', room:'A-101'},
-    {id:'EX102', subject:'Operating Systems', date:'2025-01-18', time:'2:00 PM', room:'B-204'}
-  ];
-
-  let previousExams = JSON.parse(localStorage.getItem('previous_exams')) || [
-    {id:'EX090', subject:'DBMS', date:'2024-12-05', time:'10:00 AM', status:'Completed', result:'Published'},
-    {id:'EX091', subject:'Computer Networks', date:'2024-12-08', time:'2:00 PM', status:'Completed', result:'Published'}
-  ];
-
-  function render(){
-    const uBody = document.getElementById('upcomingBody');
-    const pBody = document.getElementById('previousBody');
-    uBody.innerHTML = '';
-    pBody.innerHTML = '';
-
-    upcomingExams.forEach((e,i)=>{
-      uBody.innerHTML += `
+      upcomingExams.forEach((e, i) => {
+        uBody.innerHTML += `
         <tr>
           <td>${e.id}</td>
           <td>${e.subject}</td>
           <td>${e.date}</td>
           <td>${e.time}</td>
           <td>${e.room}</td>
-          <td><span class="badge-upcoming">Upcoming</span></td>
-          <td><button class="btn btn-delete" onclick="removeUpcoming(${i})">Remove</button></td>
+          <td><span class="status-badge status-pending">Upcoming</span></td>
+          <td><button class="btn btn-danger btn-sm" style="padding:5px 10px; font-size:12px; background:var(--danger); color:white; border:none; border-radius:4px;" onclick="removeUpcoming(${i})">Remove</button></td>
         </tr>`;
-    });
+      });
 
-    previousExams.forEach(e=>{
-      pBody.innerHTML += `
+      previousExams.forEach(e => {
+        pBody.innerHTML += `
         <tr>
           <td>${e.id}</td>
           <td>${e.subject}</td>
           <td>${e.date}</td>
           <td>${e.time}</td>
-          <td><span class="badge-previous">Completed</span></td>
-          <td>${e.result}</td>
+          <td><span class="status-badge status-paid">Completed</span></td>
+          <td><span style="font-weight:700; color:var(--primary);">${e.result}</span></td>
         </tr>`;
-    });
+      });
 
-    localStorage.setItem('upcoming_exams', JSON.stringify(upcomingExams));
-    localStorage.setItem('previous_exams', JSON.stringify(previousExams));
-  }
+      localStorage.setItem('upcoming_exams', JSON.stringify(upcomingExams));
+      localStorage.setItem('previous_exams', JSON.stringify(previousExams));
+    }
 
-  function addUpcoming(){
-    const subject = u_subject.value;
-    const date = u_date.value;
-    const time = u_time.value;
-    const room = u_room.value;
+    function addUpcoming() {
+      const subject = u_subject.value;
+      const date = u_date.value;
+      const time = u_time.value;
+      const room = u_room.value;
 
-    if(!subject || !date || !time || !room){ alert('Fill all fields'); return; }
+      if (!subject || !date || !time || !room) { alert('Fill all fields'); return; }
 
-    const id = 'EX' + Math.floor(Math.random()*900+100);
-    upcomingExams.push({id, subject, date, time, room});
-    u_subject.value=''; u_date.value=''; u_time.value=''; u_room.value='';
-    render();
-  }
-
-  function removeUpcoming(index){
-    if(confirm('Remove this upcoming exam?')){
-      upcomingExams.splice(index,1);
+      const id = 'EX' + Math.floor(Math.random() * 900 + 100);
+      upcomingExams.push({ id, subject, date, time, room });
+      u_subject.value = ''; u_date.value = ''; u_time.value = ''; u_room.value = '';
       render();
     }
-  }
 
-  function showTab(type){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    if(type==='upcoming'){
-      document.getElementById('upcoming').style.display='block';
-      document.getElementById('previous').style.display='none';
-      document.querySelectorAll('.tab')[0].classList.add('active');
-    }else{
-      document.getElementById('previous').style.display='block';
-      document.getElementById('upcoming').style.display='none';
-      document.querySelectorAll('.tab')[1].classList.add('active');
+    function removeUpcoming(index) {
+      if (confirm('Remove this upcoming exam?')) {
+        upcomingExams.splice(index, 1);
+        render();
+      }
     }
-  }
 
-  render();
-</script>
+    function showTab(type) {
+      if (type === 'upcoming') {
+        document.getElementById('upcoming').style.display = 'block';
+        document.getElementById('previous').style.display = 'none';
+      } else {
+        document.getElementById('previous').style.display = 'block';
+        document.getElementById('upcoming').style.display = 'none';
+      }
+    }
+
+    render();
+  </script>
 
 </body>
+
 </html>

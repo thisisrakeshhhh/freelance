@@ -1,125 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Class Timetable</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages-common.css">
+  <link rel="stylesheet" href="pages-common.css">
 </head>
+
 <body>
 
-<div class="container">
-  <h2>Class Timetable</h2>
+  <main class="page-module-container">
+    <section class="module-header">
+      <h2>Class Timetable</h2>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="printTable()"><i class="fas fa-print"></i> Print</button>
+      </div>
+    </section>
 
-  <div class="form-box">
-    <input id="cls" placeholder="Class (e.g. BCA-6)">
-    <select id="day">
-      <option value="">Select Day</option>
-      <option>Monday</option>
-      <option>Tuesday</option>
-      <option>Wednesday</option>
-      <option>Thursday</option>
-      <option>Friday</option>
-      <option>Saturday</option>
-    </select>
-    <input id="subject" placeholder="Subject">
-    <input id="time" placeholder="Time (e.g. 10–11 AM)">
-    <button class="add-btn" onclick="addTimeTable()">Add</button>
-  </div>
+    <section class="module-content">
+      <div class="content-block"
+        style="background:#f8fafc; padding:20px; border-radius:12px; border:1px solid var(--border);">
+        <h3 style="border:none; margin-bottom:15px;">Add New Class</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:12px;">
+          <input id="cls" placeholder="Class (e.g. BCA-6)" type="text">
+          <select id="day">
+            <option value="">Select Day</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+          </select>
+          <input id="subject" placeholder="Subject" type="text">
+          <input id="time" placeholder="Time (e.g. 10–11 AM)" type="text">
+          <button class="btn btn-primary" onclick="addTimeTable()">Add Class</button>
+        </div>
+      </div>
 
-  <!-- Dummy Table Data -->
-  <div id="tableBox">
-    <table>
-      <tr>
-        <th>Class</th>
-        <th>Day</th>
-        <th>Subject</th>
-        <th>Time</th>
-        <th>Action</th>
-      </tr>
-      <tr>
-        <td>BCA-6</td>
-        <td>Monday</td>
-        <td>Maths</td>
-        <td>10–11 AM</td>
-        <td><button class="del-btn" onclick="deleteRow(1)">Delete</button></td>
-      </tr>
-      <tr>
-        <td>BCA-6</td>
-        <td>Tuesday</td>
-        <td>Physics</td>
-        <td>11–12 AM</td>
-        <td><button class="del-btn" onclick="deleteRow(2)">Delete</button></td>
-      </tr>
-      <tr>
-        <td>BCA-6</td>
-        <td>Wednesday</td>
-        <td>Computer Science</td>
-        <td>12–1 PM</td>
-        <td><button class="del-btn" onclick="deleteRow(3)">Delete</button></td>
-      </tr>
-    </table>
-  </div>
-</div>
+      <div class="content-block">
+        <h3>Weekly Schedule</h3>
+        <div id="tableBox" class="timetable-grid">
+          <table>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Day</th>
+                <th>Subject</th>
+                <th>Time</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BCA-6</td>
+                <td>Monday</td>
+                <td>Maths</td>
+                <td>10–11 AM</td>
+                <td><button class="btn btn-danger btn-sm" style="padding:5px 10px; font-size:12px;"
+                    onclick="deleteRow(1)">Delete</button></td>
+              </tr>
+              <tr>
+                <td>BCA-6</td>
+                <td>Tuesday</td>
+                <td>Physics</td>
+                <td>11–12 AM</td>
+                <td><button class="btn btn-danger btn-sm" style="padding:5px 10px; font-size:12px;"
+                    onclick="deleteRow(2)">Delete</button></td>
+              </tr>
+              <tr>
+                <td>BCA-6</td>
+                <td>Wednesday</td>
+                <td>Computer Science</td>
+                <td>12–1 PM</td>
+                <td><button class="btn btn-danger btn-sm" style="padding:5px 10px; font-size:12px;"
+                    onclick="deleteRow(3)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<script>
-  // Now JS can handle adding/deleting dynamically
-  let timetable = [
-    {id: 1, cls: "BCA-6", day: "Monday", subject: "Maths", time: "10–11 AM"},
-    {id: 2, cls: "BCA-6", day: "Tuesday", subject: "Physics", time: "11–12 AM"},
-    {id: 3, cls: "BCA-6", day: "Wednesday", subject: "Computer Science", time: "12–1 PM"}
-  ];
+  <script>
+    let timetable = [
+      { id: 1, cls: "BCA-6", day: "Monday", subject: "Maths", time: "10–11 AM" },
+      { id: 2, cls: "BCA-6", day: "Tuesday", subject: "Physics", time: "11–12 AM" },
+      { id: 3, cls: "BCA-6", day: "Wednesday", subject: "Computer Science", time: "12–1 PM" }
+    ];
 
-  function addTimeTable() {
-    const cls = document.getElementById('cls').value.trim();
-    const day = document.getElementById('day').value.trim();
-    const subject = document.getElementById('subject').value.trim();
-    const time = document.getElementById('time').value.trim();
+    function addTimeTable() {
+      const cls = document.getElementById('cls').value.trim();
+      const day = document.getElementById('day').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const time = document.getElementById('time').value.trim();
 
-    if (!cls || !day || !subject || !time) {
-      alert('Please fill all fields');
-      return;
+      if (!cls || !day || !subject || !time) {
+        alert('Please fill all fields');
+        return;
+      }
+
+      const id = Date.now();
+      timetable.push({ id, cls, day, subject, time });
+      renderTable();
+
+      // Clear inputs
+      document.getElementById('cls').value = '';
+      document.getElementById('day').value = '';
+      document.getElementById('subject').value = '';
+      document.getElementById('time').value = '';
     }
 
-    const id = Date.now();
-    timetable.push({id, cls, day, subject, time});
-    renderTable();
-  }
-
-  function deleteRow(id) {
-    timetable = timetable.filter(t => t.id !== id);
-    renderTable();
-  }
-
-  function renderTable() {
-    const box = document.getElementById('tableBox');
-    if (timetable.length === 0) {
-      box.innerHTML = '<div class="empty">No timetable added</div>';
-      return;
+    function deleteRow(id) {
+      if (confirm('Are you sure you want to delete this entry?')) {
+        timetable = timetable.filter(t => t.id !== id);
+        renderTable();
+      }
     }
 
-    let html = `<table>
-      <tr>
-        <th>Class</th>
-        <th>Day</th>
-        <th>Subject</th>
-        <th>Time</th>
-        <th>Action</th>
-      </tr>`;
-    timetable.forEach(t => {
-      html += `<tr>
+    function renderTable() {
+      const box = document.getElementById('tableBox');
+      if (timetable.length === 0) {
+        box.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text-light);">No timetable added yet.</div>';
+        return;
+      }
+
+      let html = `<table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Day</th>
+          <th>Subject</th>
+          <th>Time</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+      timetable.forEach(t => {
+        html += `<tr>
         <td>${t.cls}</td>
         <td>${t.day}</td>
         <td>${t.subject}</td>
         <td>${t.time}</td>
-        <td><button class="del-btn" onclick="deleteRow(${t.id})">Delete</button></td>
+        <td><button class="btn btn-danger btn-sm" style="padding:5px 10px; font-size:12px; background:var(--danger); color:white; border:none; border-radius:4px; cursor:pointer;" onclick="deleteRow(${t.id})">Delete</button></td>
       </tr>`;
-    });
-    html += '</table>';
-    box.innerHTML = html;
-  }
-</script>
+      });
+      html += '</tbody></table>';
+      box.innerHTML = html;
+    }
+
+    function printTable() {
+      window.print();
+    }
+  </script>
 
 </body>
+
 </html>

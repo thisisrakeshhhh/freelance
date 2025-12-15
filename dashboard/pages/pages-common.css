@@ -3,23 +3,23 @@
    Authentic, Non-AI-Generated Design
    ============================================ */
 
-/* Color System - Blue Theme */
+/* Color System - Blue Theme (Matching Main Dashboard) */
 :root {
-    --primary: #3b82f6;
-    --primary-dark: #2563eb;
-    --secondary: #0ea5e9;
-    --accent-warm: #06b6d4;
-    --accent-cool: #8b5cf6;
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
+    --primary: #4a6cf7;
+    --primary-dark: #3b5ad9;
+    --secondary: #45aaf2;
+    --accent-warm: #5ed4f4;
+    --accent-cool: #6c5ce7;
+    --success: #26de81;
+    --warning: #fed330;
+    --danger: #fc5c65;
     --bg: #f8fafc;
-    --text: #1e293b;
-    --text-light: #64748b;
-    --border: #e2e8f0;
-    --shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
-    --shadow-sm: 0 2px 8px rgba(59, 130, 246, 0.08);
-    --shadow-lg: 0 20px 60px rgba(59, 130, 246, 0.2);
+    --text: #2d3436;
+    --text-light: #636e72;
+    --border: #dfe6e9;
+    --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 /* Base Styles */
@@ -340,7 +340,9 @@ textarea:focus {
         display: block;
         overflow-x: auto;
     }
-}/* ============================================
+}
+
+/* ============================================
    SPECIFIC PAGE STYLES
    ============================================ */
 
