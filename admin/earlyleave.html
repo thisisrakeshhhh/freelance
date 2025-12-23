@@ -1,0 +1,62 @@
+<div class="settings-card">
+    <h4>Find Student</h4>
+
+    <div class="form-group">
+        <label>Student Roll Number</label>
+        <input type="text" id="rollInput" class="form-input" placeholder="Enter Roll Number">
+    </div>
+
+    <button class="btn btn-primary" onclick="loadStudent()">
+        <i class="fas fa-search"></i> Search
+    </button>
+
+    <p id="errorMsg" style="color:red; display:none; margin-top:10px;">
+        Student not found!
+    </p>
+</div>
+
+<div id="leaveSection" style="display:none;">
+
+    <!-- Student + Parent Card -->
+    <div class="earlyleave-card">
+
+        <!-- Student -->
+        <div class="person-info">
+            <img src="/assets/images/images.jpeg" alt="Student Photo">
+            <div class="person-details">
+                <h4 id="studentName">Palak</h4>
+                <p id="studentClass">BCA – 2nd Year</p>
+            </div>
+        </div>
+
+        <!-- Parent -->
+        <div class="person-info parent">
+            <img src="/assets/images/image3.jpg" alt="Parent Photo">
+            <div class="person-details">
+                <h4 id="parentName">Mr. Suresh Kumar</h4>
+                <p>Parent / Guardian</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Early Leave Form -->
+    <div class="settings-card">
+        <h4>Request Early Leave</h4>
+
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label>Reason</label>
+            <input type="text" class="form-input" placeholder="Wedding / Emergency">
+        </div>
+
+        <button class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Submit Request
+        </button>
+    </div>
+
+</div>

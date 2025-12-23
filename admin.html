@@ -4,186 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login • College CMS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="College Management System - Admin Dashboard">
+    <title>Admin Dashboard • College CMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --primary: #4a6cf7;
-            --primary-dark: #3b5ad9;
-            --text: #2d3436;
-            --bg: #f8f9fa;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-        }
-
-        .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .logo {
-            width: 80px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            position: relative;
-            text-align: left;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: var(--primary);
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #999;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-login:hover {
-            background: var(--primary-dark);
-        }
-
-        .back-link {
-            display: block;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #888;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            color: var(--primary);
-        }
-
-        .demo-hint {
-            margin-top: 15px;
-            font-size: 12px;
-            color: #bbb;
-        }
-    </style>
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
 
-    <div class="login-card">
-        <img src="assets/images/logo.png" alt="Logo" class="logo">
-        <h2>Admin Login</h2>
-        <p>Enter your credentials to access the dashboard</p>
-
-        <form id="adminLoginForm">
-            <div class="input-group">
-                <input type="text" id="adminId" placeholder="Admin ID" required>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <!-- College Logo & Name -->
+        <div class="sidebar-brand">
+            <img src="./assets/images/logo.png" alt="College Logo" class="college-logo"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Crect width=%2260%22 height=%2260%22 fill=%22%234a6cf7%22 rx=%2212%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2224%22 font-weight=%22bold%22%3EGJ%3C/text%3E%3C/svg%3E'">
+            <div class="brand-info">
+                <h1 class="college-name">ST. XAVIER'S</h1>
+                <p class="admin-label">Admin Panel</p>
             </div>
-            <div class="input-group">
-                <input type="password" id="adminPass" placeholder="Password" required>
-                <button type="button" class="toggle-password" onclick="togglePass()">
-                    <i class="fas fa-eye" id="eyeIcon"></i>
-                </button>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="students">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Manage Students</span>
+                </li>
+                <li class="nav-item" data-page="faculty">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Manage Faculty</span>
+                </li>
+                <li class="nav-item" data-page="departments">
+                    <i class="fas fa-building"></i>
+                    <span>Departments / Courses</span>
+                </li>
+                <li class="nav-item" data-page="early leave">
+                    <i class="fas fa-door-open"></i>
+                    <span>Early Leave</span>
+                </li>
+                <li class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+                <li class="nav-item logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </nav>
+
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h2 class="page-title" id="pageTitle">Dashboard</h2>
+            <div class="admin-profile">
+                <div class="notification-wrapper">
+                    <i class="fas fa-bell notification-icon" id="notificationBell"></i>
+                    <span class="notification-badge" id="notificationBadge">3</span>
+
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <span class="mark-all-read">Mark all as read</span>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <div class="notification-icon-wrapper blue">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text"><strong>New Student Registered</strong></p>
+                                    <p class="notification-desc">Rahul Sharma joined BCA Department</p>
+                                    <span class="notification-time">5 minutes ago</span>
+                                </div>
+                            </div>
+
+                            <div class="notification-item unread">
+                                <div class="notification-icon-wrapper green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text"><strong>Leave Request Approved</strong></p>
+                                    <p class="notification-desc">Priya Singh's leave request approved</p>
+                                    <span class="notification-time">1 hour ago</span>
+                                </div>
+                            </div>
+
+                            <div class="notification-item unread">
+                                <div class="notification-icon-wrapper orange">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text"><strong>Pending Action</strong></p>
+                                    <p class="notification-desc">3 early leave requests need review</p>
+                                    <span class="notification-time">2 hours ago</span>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notification-icon-wrapper purple">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text"><strong>Event Reminder</strong></p>
+                                    <p class="notification-desc">Faculty meeting scheduled for tomorrow</p>
+                                    <span class="notification-time">5 hours ago</span>
+                                </div>
+                            </div>
+
+                            <div class="notification-item">
+                                <div class="notification-icon-wrapper blue">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text"><strong>Report Generated</strong></p>
+                                    <p class="notification-desc">Monthly attendance report is ready</p>
+                                    <span class="notification-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notification-footer">
+                            <a href="#" class="view-all-link">View All Notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="admin-info">
+                    <span class="admin-name">Administrator</span>
+                    <span class="admin-role">Role: Administrator</span>
+                </div>
+                <div class="admin-avatar">A</div>
             </div>
-            <button type="submit" class="btn-login" id="loginBtn">Login</button>
-        </form>
+        </div>
 
-        <p class="demo-hint">Demo: admin / 123</p>
-        <a href="index.html" class="back-link">Back to Home</a>
-    </div>
+        <!-- Content Area -->
+        <div class="content-area">
+            <div id="app-view"></div>
+        </div>
+    </main>
 
-    <script src="js/toast.js"></script>
-    <script>
-        function togglePass() {
-            const passInput = document.getElementById('adminPass');
-            const icon = document.getElementById('eyeIcon');
-            if (passInput.type === 'password') {
-                passInput.type = 'text';
-                icon.className = 'fas fa-eye-slash';
-            } else {
-                passInput.type = 'password';
-                icon.className = 'fas fa-eye';
-            }
-        }
-
-        document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const id = document.getElementById('adminId').value;
-            const pass = document.getElementById('adminPass').value;
-            const btn = document.getElementById('loginBtn');
-
-            if (id === 'admin' && pass === '123') {
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
-                btn.disabled = true;
-
-                // Simulate network delay
-                setTimeout(() => {
-                    localStorage.setItem('userRole', 'admin');
-                    window.location.href = 'dashboard/admin-dashboard.html';
-                }, 800);
-            } else {
-                alert('Invalid Credentials! Try admin / 123');
-            }
-        });
-    </script>
+    <script src="admin.js"></script>
 </body>
 
 </html>

@@ -311,7 +311,7 @@ function handleLogin(role, idField, passField, form) {
     if (role === 'student' && username === 'student' && password === '123') {
       isValid = true;
       userRole = 'student';
-    } else if (role === 'admin' && username === 'admin' && password === '123') {
+    } else if (role === 'admin' && username === 'admin' && password === 'admin123') {
       isValid = true;
       userRole = 'admin';
     } else if (role === 'faculty' && username === 'faculty' && password === '123') {
@@ -329,7 +329,8 @@ function handleLogin(role, idField, passField, form) {
 
 
         if (userRole === 'admin') {
-          window.location.href = './dashboard/admin-dashboard.html';
+          sessionStorage.setItem('adminLoggedIn', 'true');
+          window.location.href = './admin/admin.html';
         } else if (userRole === 'faculty') {
           window.location.href = './dashboard/faculty-dashboard.html';
         } else {

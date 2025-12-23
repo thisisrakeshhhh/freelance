@@ -585,6 +585,7 @@
       <div class="login-tabs">
         <button class="tab-btn active" data-target="studentLogin">Student</button>
         <button class="tab-btn" data-target="facultyLogin">Faculty</button>
+        <button class="tab-btn" data-target="adminLogin">Admin</button>
       </div>
 
 
@@ -621,6 +622,22 @@
           </div>
           <button type="submit" class="btn-primary full-width">Login as Faculty</button>
           <p class="demo-hint">Demo: faculty / 123</p>
+        </form>
+      </div>
+
+      <div id="adminLogin" class="login-section" style="display: none;">
+        <form id="adminLoginForm" class="login-form">
+          <div class="input-group">
+            <input type="text" id="adminId" placeholder="Admin ID" required>
+          </div>
+          <div class="input-group">
+            <input type="password" id="adminPass" placeholder="Password" required>
+            <button type="button" class="toggle-password" data-target="adminPass">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <button type="submit" class="btn-primary full-width">Login as Admin</button>
+          <p class="demo-hint">Demo: admin / admin123</p>
         </form>
       </div>
 
