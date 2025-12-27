@@ -1,62 +1,115 @@
-<div class="settings-card">
-    <h4>Find Student</h4>
-
-    <div class="form-group">
-        <label>Student Roll Number</label>
-        <input type="text" id="rollInput" class="form-input" placeholder="Enter Roll Number">
+<div class="view early-leave-view" id="early-leave">
+    <!-- Search Card -->
+    <div class="search-card" id="searchCard">
+        <h3 class="section-title">
+            <i class="fas fa-search"></i> Find Student
+        </h3>
+        <div class="search-section">
+            <div class="form-group">
+                <label for="rollInput">Student Roll Number</label>
+                <input type="text" id="rollInput" class="form-input" placeholder="Enter Roll Number (e.g., 1011)">
+            </div>
+            <button class="btn btn-primary" onclick="searchStudent()">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+        <div id="errorMsg" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Student not found! Please check the roll number.
+        </div>
     </div>
 
-    <button class="btn btn-primary" onclick="loadStudent()">
-        <i class="fas fa-search"></i> Search
-    </button>
+    <!-- Leave Section -->
+    <div id="leaveSection" class="leave-section">
+        <!-- Request Early Leave Header -->
+        <div class="leave-header">
+            <h3>Request Early Leave</h3>
+        </div>
 
-    <p id="errorMsg" style="color:red; display:none; margin-top:10px;">
-        Student not found!
-    </p>
-</div>
+        <!-- Profile Cards -->
+        <div class="profiles-container-modern">
+            <!-- Student Card -->
+            <div class="profile-card-modern">
+                <img id="studentPhoto" src="https://via.placeholder.com/80" alt="Student" class="profile-photo-modern">
+                <div class="profile-info-modern">
+                    <h4 id="studentName">Student Name</h4>
+                    <p id="studentClass" class="profile-subtitle">Class - Year</p>
+                    <p class="profile-detail">Roll No: <strong id="studentRoll">-</strong></p>
+                </div>
+            </div>
 
-<div id="leaveSection" style="display:none;">
-
-    <!-- Student + Parent Card -->
-    <div class="earlyleave-card">
-
-        <!-- Student -->
-        <div class="person-info">
-            <img src="/assets/images/images.jpeg" alt="Student Photo">
-            <div class="person-details">
-                <h4 id="studentName">Palak</h4>
-                <p id="studentClass">BCA – 2nd Year</p>
+            <!-- Parent Card -->
+            <div class="profile-card-modern">
+                <img id="parentPhoto" src="https://via.placeholder.com/80" alt="Parent" class="profile-photo-modern">
+                <div class="profile-info-modern">
+                    <h4 id="parentName">Parent Name</h4>
+                    <p class="profile-subtitle">Parent / Guardian</p>
+                    <p class="profile-detail">
+                        <i class="fas fa-phone"></i> <span id="parentPhone">-</span>
+                    </p>
+                    <p class="profile-detail">
+                        <i class="fas fa-map-marker-alt"></i> <span id="parentAddress">-</span>
+                    </p>
+                </div>
             </div>
         </div>
 
-        <!-- Parent -->
-        <div class="person-info parent">
-            <img src="/assets/images/image3.jpg" alt="Parent Photo">
-            <div class="person-details">
-                <h4 id="parentName">Mr. Suresh Kumar</h4>
-                <p>Parent / Guardian</p>
+        <!-- Form Section -->
+        <div class="leave-form-card">
+            <h4 class="form-section-title">Request Early Leave</h4>
+
+            <div class="form-grid-modern">
+                <div class="form-group-modern">
+                    <label for="leaveDate">Date</label>
+                    <input type="date" id="leaveDate" class="form-input-modern" required>
+                </div>
+
+                <div class="form-group-modern">
+                    <label>Parent / Guardian</label>
+                    <div class="radio-group-modern">
+                        <label class="radio-label-modern">
+                            <input type="radio" name="guardianRelation" value="Father" checked
+                                onchange="updateContact()">
+                            <span>Father</span>
+                        </label>
+                        <label class="radio-label-modern">
+                            <input type="radio" name="guardianRelation" value="Mother" onchange="updateContact()">
+                            <span>Mother</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group-modern">
+                    <label for="leaveTime">Time</label>
+                    <select id="leaveTime" class="form-input-modern" required>
+                        <option value="">Select Time</option>
+                    </select>
+                </div>
+
+                <div class="form-group-modern contact-display">
+                    <label><i class="fas fa-phone"></i></label>
+                    <input type="tel" id="contactNumber" class="form-input-modern contact-input"
+                        placeholder="+91 98775 4210" readonly>
+                </div>
+
+                <div class="form-group-modern full-width">
+                    <label for="reasonType">Type of Reason</label>
+                    <select id="reasonType" class="form-input-modern" required>
+                        <option value="">Select Reason</option>
+                    </select>
+                </div>
+
+                <div class="form-group-modern full-width">
+                    <label for="adminRemarks">Remarks (for Admin)</label>
+                    <textarea id="adminRemarks" class="form-input-modern" rows="3"
+                        placeholder="Enter any additional notes or remarks..."></textarea>
+                </div>
+            </div>
+
+            <div class="action-buttons-modern">
+                <button class="btn btn-primary-modern" onclick="submitLeaveRequest()">
+                    Submit & Print
+                </button>
             </div>
         </div>
-
     </div>
-
-    <!-- Early Leave Form -->
-    <div class="settings-card">
-        <h4>Request Early Leave</h4>
-
-        <div class="form-group">
-            <label>Date</label>
-            <input type="date" class="form-input">
-        </div>
-
-        <div class="form-group">
-            <label>Reason</label>
-            <input type="text" class="form-input" placeholder="Wedding / Emergency">
-        </div>
-
-        <button class="btn btn-primary">
-            <i class="fas fa-paper-plane"></i> Submit Request
-        </button>
-    </div>
-
 </div>

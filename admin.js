@@ -22,7 +22,7 @@ const CONFIG = {
         students: 'admin/students.html',
         faculty: 'admin/faculty.html',
         departments: 'admin/departments.html',
-        'early leave': 'admin/earlyleave.html',
+        'early-leave': 'admin/earlyleave.html',
         settings: 'admin/settings.html'
     },
     titles: {
@@ -30,7 +30,7 @@ const CONFIG = {
         students: 'Manage Students',
         faculty: 'Manage Faculty',
         departments: 'Departments / Courses',
-        'early leave': 'Early Leave Requests',
+        'early-leave': 'Early Leave Requests',
         settings: 'Settings'
     }
 };
@@ -86,7 +86,7 @@ function initPageFunctionality(pageName) {
         case 'departments':
             initDepartments();
             break;
-        case 'early leave':
+        case 'early-leave':
             initEarlyLeave();
             break;
         case 'settings':
@@ -363,52 +363,252 @@ function renderDepartments() {
 // ================================================
 // EARLY LEAVE FUNCTIONS
 // ================================================
+
+// Demo Student Database
+const demoStudents = [
+    {
+        rollNo: "1011",
+        name: "Palak",
+        class: "BCA",
+        year: "2nd Year",
+        photo: "./assets/images/images.jpeg",
+        parent: {
+            name: "Suresh Kumar",
+            relation: "Father",
+            photo: "./assets/images/image3.jpg",
+            phone: "+91 98765 43210",
+            address: "123 Main Street, Cityname"
+        }
+    },
+    {
+        rollNo: "1012",
+        name: "Rahul Sharma",
+        class: "MCA",
+        year: "1st Year",
+        photo: "./assets/images/images.jpeg",
+        parent: {
+            name: "Vikram Sharma",
+            relation: "Father",
+            photo: "./assets/images/image3.jpg",
+            phone: "+91 98765 12345",
+            address: "456 Park Avenue, Cityname"
+        }
+    },
+    {
+        rollNo: "1013",
+        name: "Priya Singh",
+        class: "BCA",
+        year: "3rd Year",
+        photo: "./assets/images/images.jpeg",
+        parent: {
+            name: "Anjali Singh",
+            relation: "Mother",
+            photo: "./assets/images/image3.jpg",
+            phone: "+91 98765 67890",
+            address: "789 Garden Road, Cityname"
+        }
+    },
+    {
+        rollNo: "1014",
+        name: "Amit Kumar",
+        class: "MBA",
+        year: "2nd Year",
+        photo: "./assets/images/images.jpeg",
+        parent: {
+            name: "Rajesh Kumar",
+            relation: "Father",
+            photo: "./assets/images/image3.jpg",
+            phone: "+91 98765 54321",
+            address: "321 Lake View, Cityname"
+        }
+    }
+];
+
+// Time slots for dropdown
+const timeSlots = [
+    "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+    "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM",
+    "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM"
+];
+
+// Reason types for dropdown
+const reasonTypes = [
+    "Medical Emergency",
+    "Doctor Appointment",
+    "Family Emergency",
+    "Personal Work",
+    "Illness",
+    "Other"
+];
+
 function initEarlyLeave() {
-    renderLeaveRequests();
+    // Populate time dropdown
+    populateTimeDropdown();
+
+    // Populate reason dropdown
+    populateReasonDropdown();
+
+    // Set today's date as default
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('leaveDate');
+    if (dateInput) {
+        dateInput.value = today;
+    }
 }
 
-function renderLeaveRequests() {
-    const tbody = document.getElementById('leaveRequestsBody');
-    if (!tbody) return;
+function populateTimeDropdown() {
+    const timeSelect = document.getElementById('leaveTime');
+    if (!timeSelect) return;
 
-    const leaveRequests = [
-        { id: 'L001', student: 'Rahul Sharma', date: '2024-12-23', reason: 'Medical', status: 'pending' },
-        { id: 'L002', student: 'Priya Singh', date: '2024-12-23', reason: 'Personal', status: 'approved' },
-        { id: 'L003', student: 'Amit Kumar', date: '2024-12-24', reason: 'Family Emergency', status: 'pending' }
-    ];
-
-    tbody.innerHTML = leaveRequests.map((req, index) => `
-    <tr>
-      <td>${req.id}</td>
-      <td><strong>${req.student}</strong></td>
-      <td>${req.date}</td>
-      <td>${req.reason}</td>
-      <td>
-        <span class="status-badge status-${req.status}">${req.status.toUpperCase()}</span>
-      </td>
-      <td>
-        ${req.status === 'pending' ? `
-          <button class="btn btn-edit" onclick="approveLeave(${index})">
-            <i class="fas fa-check"></i> Approve
-          </button>
-          <button class="btn btn-delete" onclick="rejectLeave(${index})">
-            <i class="fas fa-times"></i> Reject
-          </button>
-        ` : '<span>-</span>'}
-      </td>
-    </tr>
-  `).join('');
+    timeSelect.innerHTML = '<option value="">Select Time</option>';
+    timeSlots.forEach(time => {
+        const option = document.createElement('option');
+        option.value = time;
+        option.textContent = time;
+        timeSelect.appendChild(option);
+    });
 }
 
-window.approveLeave = function (index) {
-    alert('Leave request approved!');
-    renderLeaveRequests();
+function populateReasonDropdown() {
+    const reasonSelect = document.getElementById('reasonType');
+    if (!reasonSelect) return;
+
+    reasonSelect.innerHTML = '<option value="">Select Reason</option>';
+    reasonTypes.forEach(reason => {
+        const option = document.createElement('option');
+        option.value = reason;
+        option.textContent = reason;
+        reasonSelect.appendChild(option);
+    });
+}
+
+// Search Student Function
+window.searchStudent = function () {
+    const rollInput = document.getElementById('rollInput');
+    const errorMsg = document.getElementById('errorMsg');
+    const leaveSection = document.getElementById('leaveSection');
+    const searchCard = document.getElementById('searchCard');
+
+    if (!rollInput) return;
+
+    const rollNo = rollInput.value.trim();
+
+    // Search for student in demo database
+    const student = demoStudents.find(s => s.rollNo === rollNo);
+
+    if (student) {
+        // Store current student globally
+        window.currentStudent = student;
+
+        // Student found - display information
+        errorMsg.classList.remove('show');
+        searchCard.classList.add('hidden');
+        leaveSection.classList.add('active');
+
+        // Populate student information
+        document.getElementById('studentPhoto').src = student.photo;
+        document.getElementById('studentName').textContent = student.name;
+        document.getElementById('studentClass').textContent = `${student.class} – ${student.year}`;
+        document.getElementById('studentRoll').textContent = student.rollNo;
+
+        // Populate parent information (default to father)
+        updateParentInfo('Father');
+
+        // Set today's date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('leaveDate').value = today;
+
+        // Smooth scroll to form
+        setTimeout(() => {
+            leaveSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+
+    } else {
+        // Student not found
+        errorMsg.classList.add('show');
+        leaveSection.classList.remove('active');
+    }
 };
 
-window.rejectLeave = function (index) {
-    alert('Leave request rejected!');
-    renderLeaveRequests();
+// Update parent information based on selected relation
+function updateParentInfo(relation) {
+    if (!window.currentStudent) return;
+
+    const parent = relation === 'Father' ? window.currentStudent.parent : window.currentStudent.parent;
+
+    document.getElementById('parentPhoto').src = parent.photo;
+    document.getElementById('parentName').textContent = parent.name;
+    document.getElementById('parentPhone').textContent = parent.phone;
+    document.getElementById('parentAddress').textContent = parent.address;
+    document.getElementById('contactNumber').value = parent.phone;
+}
+
+// Update contact when radio button changes
+window.updateContact = function () {
+    const selectedRelation = document.querySelector('input[name="guardianRelation"]:checked').value;
+    updateParentInfo(selectedRelation);
 };
+
+// Submit Leave Request
+window.submitLeaveRequest = function () {
+    // Get form values
+    const leaveDate = document.getElementById('leaveDate').value;
+    const leaveTime = document.getElementById('leaveTime').value;
+    const reasonType = document.getElementById('reasonType').value;
+    const guardianRelation = document.querySelector('input[name="guardianRelation"]:checked')?.value;
+    const contactNumber = document.getElementById('contactNumber').value;
+    const adminRemarks = document.getElementById('adminRemarks').value;
+
+    // Validation
+    if (!leaveDate || !leaveTime || !reasonType) {
+        alert('Please fill in all required fields (Date, Time, and Reason)');
+        return;
+    }
+
+    // Get student info
+    const studentName = document.getElementById('studentName').textContent;
+    const studentRoll = document.getElementById('studentRoll').textContent;
+    const studentClass = document.getElementById('studentClass').textContent;
+
+    // Create leave request object
+    const leaveRequest = {
+        student: {
+            name: studentName,
+            rollNo: studentRoll,
+            class: studentClass
+        },
+        leaveDetails: {
+            date: leaveDate,
+            time: leaveTime,
+            reason: reasonType,
+            guardian: guardianRelation,
+            contact: contactNumber,
+            remarks: adminRemarks
+        },
+        timestamp: new Date().toISOString()
+    };
+
+    // Log the request (in real app, this would be sent to server)
+    console.log('Early Leave Request Submitted:', leaveRequest);
+
+    // Show success message
+    alert(`Early Leave Request Created Successfully!\n\nStudent: ${studentName}\nRoll No: ${studentRoll}\nDate: ${leaveDate}\nTime: ${leaveTime}\n\nPrint dialog will open...`);
+
+    // Open print dialog
+    window.print();
+};
+
+// Reset Form
+window.resetForm = function () {
+    if (confirm('Are you sure you want to reset the form?')) {
+        document.getElementById('leaveDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('leaveTime').value = '';
+        document.getElementById('reasonType').value = '';
+        document.querySelector('input[name="guardianRelation"][value="Father"]').checked = true;
+        document.getElementById('adminRemarks').value = '';
+    }
+};
+
 
 // ================================================
 // SETTINGS FUNCTIONS
@@ -422,23 +622,3 @@ function initSettings() {
     }
 }
 
-function loadStudent() {
-    const roll = document.getElementById("rollInput").value;
-    const section = document.getElementById("leaveSection");
-    const error = document.getElementById("errorMsg");
-
-    // Dummy roll number (for now)
-    if (roll === "101") {
-        section.style.display = "block";
-        error.style.display = "none";
-
-        // Optional: change details dynamically
-        document.getElementById("studentName").innerText = "Palak";
-        document.getElementById("studentClass").innerText = "BCA – 2nd Year";
-        document.getElementById("parentName").innerText = "Mr. Suresh Kumar";
-
-    } else {
-        section.style.display = "none";
-        error.style.display = "block";
-    }
-}
