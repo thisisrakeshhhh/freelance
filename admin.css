@@ -1304,11 +1304,19 @@ body {
 /* Print Styles */
 @media print {
 
+    /* Hide everything except print section */
     .sidebar,
     .top-bar,
     .search-card,
-    .action-buttons-modern {
+    .action-buttons-modern,
+    .leave-section,
+    .early-leave-view>*:not(#printSection) {
         display: none !important;
+    }
+
+    /* Show print section */
+    .print-only {
+        display: block !important;
     }
 
     .main-content {
@@ -1316,9 +1324,164 @@ body {
     }
 
     .content-area {
-        padding: 20px;
+        padding: 0;
+    }
+
+    /* Print section styles */
+    #printSection {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        background: white;
+    }
+
+    .print-header {
+        text-align: center;
+        border-bottom: 3px solid #000;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    .print-header h1 {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+
+    .print-header h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 15px 0;
+        color: #333;
+    }
+
+    .print-date {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+    }
+
+    /* Print Profile Photos */
+    .print-profiles {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin-bottom: 30px;
+        padding: 20px 0;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .print-profile-card {
+        text-align: center;
+    }
+
+    .print-profile-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #333;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .print-profile-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #666;
+        margin: 0;
+    }
+
+    .print-section {
+        margin-bottom: 25px;
+        page-break-inside: avoid;
+    }
+
+    .print-section h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #000;
+        margin: 0 0 12px 0;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+
+    .print-table td {
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #000;
+        border: 1px solid #ddd;
+    }
+
+    .print-table td:first-child {
+        width: 25%;
+        background: #f5f5f5;
+    }
+
+    .print-table td:nth-child(3) {
+        width: 25%;
+        background: #f5f5f5;
+    }
+
+    .print-remarks {
+        padding: 12px;
+        border: 1px solid #ddd;
+        background: #f9f9f9;
+        font-size: 14px;
+        color: #000;
+        min-height: 60px;
+        margin: 0;
+    }
+
+    .print-signatures {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 60px;
+        page-break-inside: avoid;
+    }
+
+    .signature-box {
+        text-align: center;
+        width: 30%;
+    }
+
+    .signature-line {
+        border-top: 2px solid #000;
+        margin-bottom: 8px;
+        margin-top: 50px;
+    }
+
+    .signature-box p {
+        font-size: 12px;
+        color: #000;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    /* Ensure proper page breaks */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    @page {
+        margin: 1cm;
     }
 }
+
+/* Hide print section on screen */
+.print-only {
+    display: none;
+}
+
 
 /* ===== FIX EXTRA MARGIN IN EARLY LEAVE ===== */
 

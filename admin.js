@@ -442,9 +442,6 @@ const reasonTypes = [
 ];
 
 function initEarlyLeave() {
-    // Populate time dropdown
-    populateTimeDropdown();
-
     // Populate reason dropdown
     populateReasonDropdown();
 
@@ -454,20 +451,23 @@ function initEarlyLeave() {
     if (dateInput) {
         dateInput.value = today;
     }
+
+    // Add event listener for reason type to show/hide remarks
+    const reasonSelect = document.getElementById('reasonType');
+    const remarksSection = document.getElementById('remarksSection');
+    if (reasonSelect && remarksSection) {
+        reasonSelect.addEventListener('change', function () {
+            if (this.value === 'Other') {
+                remarksSection.style.display = 'block';
+            } else {
+                remarksSection.style.display = 'none';
+                document.getElementById('adminRemarks').value = ''; // Clear remarks when hidden
+            }
+        });
+    }
 }
 
-function populateTimeDropdown() {
-    const timeSelect = document.getElementById('leaveTime');
-    if (!timeSelect) return;
 
-    timeSelect.innerHTML = '<option value="">Select Time</option>';
-    timeSlots.forEach(time => {
-        const option = document.createElement('option');
-        option.value = time;
-        option.textContent = time;
-        timeSelect.appendChild(option);
-    });
-}
 
 function populateReasonDropdown() {
     const reasonSelect = document.getElementById('reasonType');
@@ -511,9 +511,6 @@ window.searchStudent = function () {
         document.getElementById('studentClass').textContent = `${student.class} – ${student.year}`;
         document.getElementById('studentRoll').textContent = student.rollNo;
 
-        // Populate parent information (default to father)
-        updateParentInfo('Father');
-
         // Set today's date
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('leaveDate').value = today;
@@ -530,24 +527,54 @@ window.searchStudent = function () {
     }
 };
 
-// Update parent information based on selected relation
-function updateParentInfo(relation) {
-    if (!window.currentStudent) return;
 
-    const parent = relation === 'Father' ? window.currentStudent.parent : window.currentStudent.parent;
 
-    document.getElementById('parentPhoto').src = parent.photo;
-    document.getElementById('parentName').textContent = parent.name;
-    document.getElementById('parentPhone').textContent = parent.phone;
-    document.getElementById('parentAddress').textContent = parent.address;
-    document.getElementById('contactNumber').value = parent.phone;
+
+// Populate Print Section
+function populatePrintSection(leaveRequest) {
+    // Set current date
+    const currentDate = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    document.getElementById('printDate').textContent = currentDate;
+
+    // Photos
+    const studentPhoto = document.getElementById('studentPhoto').src;
+    const parentPhoto = document.getElementById('parentPhoto').src;
+    document.getElementById('printStudentPhoto').src = studentPhoto;
+    document.getElementById('printParentPhoto').src = parentPhoto;
+
+    // Student Information
+    document.getElementById('printStudentName').textContent = leaveRequest.student.name;
+    document.getElementById('printStudentRoll').textContent = leaveRequest.student.rollNo;
+    document.getElementById('printStudentClass').textContent = leaveRequest.student.class;
+
+    // Leave Details
+    const leaveDate = new Date(leaveRequest.leaveDetails.date);
+    document.getElementById('printLeaveDate').textContent = leaveDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    document.getElementById('printLeaveTime').textContent = leaveRequest.leaveDetails.time;
+    document.getElementById('printReason').textContent = leaveRequest.leaveDetails.reason;
+
+    // Guardian Information
+    document.getElementById('printGuardian').textContent = leaveRequest.leaveDetails.guardian;
+    document.getElementById('printContact').textContent = leaveRequest.leaveDetails.contact;
+
+    // Remarks (only show if exists)
+    const remarksSection = document.getElementById('printRemarksSection');
+    const remarksText = document.getElementById('printRemarks');
+    if (leaveRequest.leaveDetails.remarks && leaveRequest.leaveDetails.remarks.trim()) {
+        remarksSection.style.display = 'block';
+        remarksText.textContent = leaveRequest.leaveDetails.remarks;
+    } else {
+        remarksSection.style.display = 'none';
+    }
 }
-
-// Update contact when radio button changes
-window.updateContact = function () {
-    const selectedRelation = document.querySelector('input[name="guardianRelation"]:checked').value;
-    updateParentInfo(selectedRelation);
-};
 
 // Submit Leave Request
 window.submitLeaveRequest = function () {
@@ -560,8 +587,14 @@ window.submitLeaveRequest = function () {
     const adminRemarks = document.getElementById('adminRemarks').value;
 
     // Validation
-    if (!leaveDate || !leaveTime || !reasonType) {
-        alert('Please fill in all required fields (Date, Time, and Reason)');
+    if (!leaveDate || !leaveTime || !reasonType || !contactNumber) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    // Additional validation for 'Other' reason type
+    if (reasonType === 'Other' && !adminRemarks.trim()) {
+        alert('Please provide remarks when selecting "Other" as reason type');
         return;
     }
 
@@ -591,11 +624,16 @@ window.submitLeaveRequest = function () {
     // Log the request (in real app, this would be sent to server)
     console.log('Early Leave Request Submitted:', leaveRequest);
 
+    // Populate print section
+    populatePrintSection(leaveRequest);
+
     // Show success message
     alert(`Early Leave Request Created Successfully!\n\nStudent: ${studentName}\nRoll No: ${studentRoll}\nDate: ${leaveDate}\nTime: ${leaveTime}\n\nPrint dialog will open...`);
 
     // Open print dialog
-    window.print();
+    setTimeout(() => {
+        window.print();
+    }, 500);
 };
 
 // Reset Form
@@ -605,7 +643,9 @@ window.resetForm = function () {
         document.getElementById('leaveTime').value = '';
         document.getElementById('reasonType').value = '';
         document.querySelector('input[name="guardianRelation"][value="Father"]').checked = true;
+        document.getElementById('contactNumber').value = '';
         document.getElementById('adminRemarks').value = '';
+        document.getElementById('remarksSection').style.display = 'none';
     }
 };
 

@@ -29,7 +29,7 @@
         <div class="profiles-container-modern">
             <!-- Student Card -->
             <div class="profile-card-modern">
-                <img id="studentPhoto" src="https://via.placeholder.com/80" alt="Student" class="profile-photo-modern">
+                <img id="studentPhoto" src="/assets/images/images.jpeg" alt="Student" class="profile-photo-modern">
                 <div class="profile-info-modern">
                     <h4 id="studentName">Student Name</h4>
                     <p id="studentClass" class="profile-subtitle">Class - Year</p>
@@ -39,15 +39,15 @@
 
             <!-- Parent Card -->
             <div class="profile-card-modern">
-                <img id="parentPhoto" src="https://via.placeholder.com/80" alt="Parent" class="profile-photo-modern">
+                <img id="parentPhoto" src="/assets/images/image3.jpg" alt="Parent" class="profile-photo-modern">
                 <div class="profile-info-modern">
                     <h4 id="parentName">Parent Name</h4>
                     <p class="profile-subtitle">Parent / Guardian</p>
                     <p class="profile-detail">
-                        <i class="fas fa-phone"></i> <span id="parentPhone">-</span>
+                        <i class="fas fa-phone"></i> <span id="parentPhone">1234567890</span>
                     </p>
                     <p class="profile-detail">
-                        <i class="fas fa-map-marker-alt"></i> <span id="parentAddress">-</span>
+                        <i class="fas fa-map-marker-alt"></i> <span id="parentAddress">123 Main St, City</span>
                     </p>
                 </div>
             </div>
@@ -67,12 +67,11 @@
                     <label>Parent / Guardian</label>
                     <div class="radio-group-modern">
                         <label class="radio-label-modern">
-                            <input type="radio" name="guardianRelation" value="Father" checked
-                                onchange="updateContact()">
+                            <input type="radio" name="guardianRelation" value="Father">
                             <span>Father</span>
                         </label>
                         <label class="radio-label-modern">
-                            <input type="radio" name="guardianRelation" value="Mother" onchange="updateContact()">
+                            <input type="radio" name="guardianRelation" value="Mother">
                             <span>Mother</span>
                         </label>
                     </div>
@@ -80,15 +79,18 @@
 
                 <div class="form-group-modern">
                     <label for="leaveTime">Time</label>
-                    <select id="leaveTime" class="form-input-modern" required>
-                        <option value="">Select Time</option>
-                    </select>
+                    <input type="time" id="leaveTime" class="form-input-modern" placeholder="Select time" required>
+
                 </div>
 
-                <div class="form-group-modern contact-display">
-                    <label><i class="fas fa-phone"></i></label>
-                    <input type="tel" id="contactNumber" class="form-input-modern contact-input"
-                        placeholder="+91 98775 4210" readonly>
+                <div class="form-group-modern">
+                    <label for="contactNumber">Phone Number</label>
+                    <div style="position: relative;">
+                        <i class="fas fa-phone"
+                            style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #666;"></i>
+                        <input type="tel" id="contactNumber" class="form-input-modern" style="padding-left: 40px;"
+                            placeholder="Phone no." required>
+                    </div>
                 </div>
 
                 <div class="form-group-modern full-width">
@@ -98,7 +100,7 @@
                     </select>
                 </div>
 
-                <div class="form-group-modern full-width">
+                <div class="form-group-modern full-width" id="remarksSection" style="display: none;">
                     <label for="adminRemarks">Remarks (for Admin)</label>
                     <textarea id="adminRemarks" class="form-input-modern" rows="3"
                         placeholder="Enter any additional notes or remarks..."></textarea>
@@ -107,8 +109,95 @@
 
             <div class="action-buttons-modern">
                 <button class="btn btn-primary-modern" onclick="submitLeaveRequest()">
-                    Submit & Print
+                    Print
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Section (Hidden on screen, visible on print) -->
+    <div id="printSection" class="print-only">
+        <div class="print-header">
+            <h1>ST. XAVIER'S COLLEGE</h1>
+            <h2>Early Leave Request Form</h2>
+            <p class="print-date">Date: <span id="printDate"></span></p>
+        </div>
+
+        <div class="print-content">
+            <!-- Profile Photos Section -->
+            <div class="print-profiles">
+                <div class="print-profile-card">
+                    <img id="printStudentPhoto" src="" alt="Student Photo" class="print-profile-photo">
+                    <div class="print-profile-label">Student</div>
+                </div>
+                <div class="print-profile-card">
+                    <img id="printParentPhoto" src="" alt="Parent Photo" class="print-profile-photo">
+                    <div class="print-profile-label">Parent/Guardian</div>
+                </div>
+            </div>
+
+            <div class="print-section">
+                <h3>Student Information</h3>
+                <table class="print-table">
+                    <tr>
+                        <td><strong>Name:</strong></td>
+                        <td id="printStudentName"></td>
+                        <td><strong>Roll No:</strong></td>
+                        <td id="printStudentRoll"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Class:</strong></td>
+                        <td id="printStudentClass" colspan="3"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-section">
+                <h3>Leave Details</h3>
+                <table class="print-table">
+                    <tr>
+                        <td><strong>Leave Date:</strong></td>
+                        <td id="printLeaveDate"></td>
+                        <td><strong>Leave Time:</strong></td>
+                        <td id="printLeaveTime"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reason:</strong></td>
+                        <td id="printReason" colspan="3"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-section">
+                <h3>Guardian Information</h3>
+                <table class="print-table">
+                    <tr>
+                        <td><strong>Guardian Type:</strong></td>
+                        <td id="printGuardian"></td>
+                        <td><strong>Contact Number:</strong></td>
+                        <td id="printContact"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="print-section" id="printRemarksSection" style="display: none;">
+                <h3>Remarks</h3>
+                <p id="printRemarks" class="print-remarks"></p>
+            </div>
+
+            <div class="print-signatures">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>Student Signature</p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>Guardian Signature</p>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <p>Admin Signature</p>
+                </div>
             </div>
         </div>
     </div>
