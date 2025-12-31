@@ -1,21 +1,19 @@
-/* ================================================
-   ADMIN DASHBOARD WITH COMPONENT ROUTING
-   ================================================ */
 
-// ================================================
-// AUTHENTICATION CHECK
-// ================================================
-// (function checkAuth() {
-//     const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-//     if (!isLoggedIn || isLoggedIn !== 'true') {
-//         // alert('Please login as Admin to access this page.');
-//         // window.location.href = '../index.html';
-//     }
-// })();
 
-// ================================================
-// ROUTING CONFIGURATION
-// ================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const CONFIG = {
     pages: {
         dashboard: 'admin/dashboard.html',
@@ -35,9 +33,9 @@ const CONFIG = {
     }
 };
 
-// ================================================
-// ROUTING FUNCTIONS
-// ================================================
+
+
+
 function loadPage(pageName) {
     const pageUrl = CONFIG.pages[pageName];
     const appView = document.getElementById('app-view');
@@ -48,10 +46,10 @@ function loadPage(pageName) {
         return;
     }
 
-    // Update page title
+
     pageTitle.textContent = CONFIG.titles[pageName] || 'Dashboard';
 
-    // Load component
+
     fetch(pageUrl)
         .then(response => {
             if (!response.ok) throw new Error('Page not found');
@@ -60,7 +58,7 @@ function loadPage(pageName) {
         .then(html => {
             appView.innerHTML = html;
 
-            // Initialize page-specific functionality
+
             initPageFunctionality(pageName);
         })
         .catch(error => {
@@ -69,9 +67,9 @@ function loadPage(pageName) {
         });
 }
 
-// ================================================
-// PAGE-SPECIFIC INITIALIZATION
-// ================================================
+
+
+
 function initPageFunctionality(pageName) {
     switch (pageName) {
         case 'dashboard':
@@ -95,47 +93,47 @@ function initPageFunctionality(pageName) {
     }
 }
 
-// ================================================
-// NAVIGATION HANDLER
-// ================================================
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item:not(.logout)');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    // Navigation click handler
+
     navItems.forEach(item => {
         item.addEventListener('click', function () {
             const page = this.getAttribute('data-page');
 
-            // Update active state
+
             navItems.forEach(nav => nav.classList.remove('active'));
             this.classList.add('active');
 
-            // Load page
+
             loadPage(page);
         });
     });
 
-    // Logout handler
+
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             if (confirm('Are you sure you want to logout?')) {
                 sessionStorage.removeItem('adminLoggedIn');
-                window.location.href = '../index.html';
+                window.location.reload();
             }
         });
     }
 
-    // Load default page (dashboard)
+
     loadPage('dashboard');
 
-    // Initialize Notifications
+
     initNotifications();
 });
 
-// ================================================
-// NOTIFICATION FUNCTIONS
-// ================================================
+
+
+
 function initNotifications() {
     const bellIcon = document.getElementById('notificationBell');
     const dropdown = document.getElementById('notificationDropdown');
@@ -144,14 +142,14 @@ function initNotifications() {
     const unreadItems = document.querySelectorAll('.notification-item.unread');
 
     if (bellIcon && dropdown) {
-        // Toggle dropdown
+
         bellIcon.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdown.classList.toggle('active');
             bellIcon.classList.toggle('active');
         });
 
-        // Close when clicking outside
+
         document.addEventListener('click', (e) => {
             if (!dropdown.contains(e.target) && !bellIcon.contains(e.target)) {
                 dropdown.classList.remove('active');
@@ -159,7 +157,7 @@ function initNotifications() {
             }
         });
 
-        // Mark all as read
+
         if (markReadBtn) {
             markReadBtn.addEventListener('click', () => {
                 const unread = document.querySelectorAll('.notification-item.unread');
@@ -175,11 +173,11 @@ function initNotifications() {
     }
 }
 
-// ================================================
-// DASHBOARD FUNCTIONS
-// ================================================
+
+
+
 function initDashboard() {
-    // Update statistics dynamically
+
     setTimeout(() => {
         document.getElementById('totalStudents').textContent = '1,245';
         document.getElementById('totalFaculty').textContent = '87';
@@ -188,9 +186,9 @@ function initDashboard() {
     }, 100);
 }
 
-// ================================================
-// STUDENTS FUNCTIONS
-// ================================================
+
+
+
 let students = [
     { id: 'S001', name: 'Rahul Sharma', dept: 'BCA', year: '1', email: 'rahul.sharma@student.edu' },
     { id: 'S002', name: 'Priya Singh', dept: 'MCA', year: '2', email: 'priya.singh@student.edu' },
@@ -231,7 +229,7 @@ function renderStudentsTable() {
 }
 
 function openStudentModal() {
-    // This would open a modal (simplified for now)
+
     const name = prompt('Enter student name:');
     if (name) {
         students.push({
@@ -261,9 +259,9 @@ window.deleteStudent = function (index) {
     }
 };
 
-// ================================================
-// FACULTY FUNCTIONS
-// ================================================
+
+
+
 let faculty = [
     { id: 'F001', name: 'Prof. Rajesh Kumar', dept: 'BCA', position: 'Professor', email: 'rajesh.kumar@college.edu' },
     { id: 'F002', name: 'Dr. Meena Sharma', dept: 'MCA', position: 'Associate Professor', email: 'meena.sharma@college.edu' },
@@ -332,9 +330,9 @@ window.deleteFaculty = function (index) {
     }
 };
 
-// ================================================
-// DEPARTMENTS FUNCTIONS
-// ================================================
+
+
+
 let departments = [
     { name: 'BCA', fullName: 'Bachelor of Computer Applications', students: 245, faculty: 18 },
     { name: 'MCA', fullName: 'Master of Computer Applications', students: 156, faculty: 12 },
@@ -360,11 +358,11 @@ function renderDepartments() {
   `).join('');
 }
 
-// ================================================
-// EARLY LEAVE FUNCTIONS
-// ================================================
 
-// Demo Student Database
+
+
+
+
 const demoStudents = [
     {
         rollNo: "1011",
@@ -424,14 +422,14 @@ const demoStudents = [
     }
 ];
 
-// Time slots for dropdown
+
 const timeSlots = [
     "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
     "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM",
     "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM"
 ];
 
-// Reason types for dropdown
+
 const reasonTypes = [
     "Medical Emergency",
     "Doctor Appointment",
@@ -442,17 +440,17 @@ const reasonTypes = [
 ];
 
 function initEarlyLeave() {
-    // Populate reason dropdown
+
     populateReasonDropdown();
 
-    // Set today's date as default
+
     const today = new Date().toISOString().split('T')[0];
     const dateInput = document.getElementById('leaveDate');
     if (dateInput) {
         dateInput.value = today;
     }
 
-    // Add event listener for reason type to show/hide remarks
+
     const reasonSelect = document.getElementById('reasonType');
     const remarksSection = document.getElementById('remarksSection');
     if (reasonSelect && remarksSection) {
@@ -461,7 +459,7 @@ function initEarlyLeave() {
                 remarksSection.style.display = 'block';
             } else {
                 remarksSection.style.display = 'none';
-                document.getElementById('adminRemarks').value = ''; // Clear remarks when hidden
+                document.getElementById('adminRemarks').value = '';
             }
         });
     }
@@ -482,7 +480,7 @@ function populateReasonDropdown() {
     });
 }
 
-// Search Student Function
+
 window.searchStudent = function () {
     const rollInput = document.getElementById('rollInput');
     const errorMsg = document.getElementById('errorMsg');
@@ -493,35 +491,35 @@ window.searchStudent = function () {
 
     const rollNo = rollInput.value.trim();
 
-    // Search for student in demo database
+
     const student = demoStudents.find(s => s.rollNo === rollNo);
 
     if (student) {
-        // Store current student globally
+
         window.currentStudent = student;
 
-        // Student found - display information
+
         errorMsg.classList.remove('show');
         searchCard.classList.add('hidden');
         leaveSection.classList.add('active');
 
-        // Populate student information
+
         document.getElementById('studentPhoto').src = student.photo;
         document.getElementById('studentName').textContent = student.name;
         document.getElementById('studentClass').textContent = `${student.class} – ${student.year}`;
         document.getElementById('studentRoll').textContent = student.rollNo;
 
-        // Set today's date
+
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('leaveDate').value = today;
 
-        // Smooth scroll to form
+
         setTimeout(() => {
             leaveSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
 
     } else {
-        // Student not found
+
         errorMsg.classList.add('show');
         leaveSection.classList.remove('active');
     }
@@ -530,9 +528,9 @@ window.searchStudent = function () {
 
 
 
-// Populate Print Section
+
 function populatePrintSection(leaveRequest) {
-    // Set current date
+
     const currentDate = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
@@ -540,18 +538,18 @@ function populatePrintSection(leaveRequest) {
     });
     document.getElementById('printDate').textContent = currentDate;
 
-    // Photos
+
     const studentPhoto = document.getElementById('studentPhoto').src;
     const parentPhoto = document.getElementById('parentPhoto').src;
     document.getElementById('printStudentPhoto').src = studentPhoto;
     document.getElementById('printParentPhoto').src = parentPhoto;
 
-    // Student Information
+
     document.getElementById('printStudentName').textContent = leaveRequest.student.name;
     document.getElementById('printStudentRoll').textContent = leaveRequest.student.rollNo;
     document.getElementById('printStudentClass').textContent = leaveRequest.student.class;
 
-    // Leave Details
+
     const leaveDate = new Date(leaveRequest.leaveDetails.date);
     document.getElementById('printLeaveDate').textContent = leaveDate.toLocaleDateString('en-US', {
         year: 'numeric',
@@ -561,11 +559,11 @@ function populatePrintSection(leaveRequest) {
     document.getElementById('printLeaveTime').textContent = leaveRequest.leaveDetails.time;
     document.getElementById('printReason').textContent = leaveRequest.leaveDetails.reason;
 
-    // Guardian Information
+
     document.getElementById('printGuardian').textContent = leaveRequest.leaveDetails.guardian;
     document.getElementById('printContact').textContent = leaveRequest.leaveDetails.contact;
 
-    // Remarks (only show if exists)
+
     const remarksSection = document.getElementById('printRemarksSection');
     const remarksText = document.getElementById('printRemarks');
     if (leaveRequest.leaveDetails.remarks && leaveRequest.leaveDetails.remarks.trim()) {
@@ -576,9 +574,9 @@ function populatePrintSection(leaveRequest) {
     }
 }
 
-// Submit Leave Request
+
 window.submitLeaveRequest = function () {
-    // Get form values
+
     const leaveDate = document.getElementById('leaveDate').value;
     const leaveTime = document.getElementById('leaveTime').value;
     const reasonType = document.getElementById('reasonType').value;
@@ -586,24 +584,24 @@ window.submitLeaveRequest = function () {
     const contactNumber = document.getElementById('contactNumber').value;
     const adminRemarks = document.getElementById('adminRemarks').value;
 
-    // Validation
+
     if (!leaveDate || !leaveTime || !reasonType || !contactNumber) {
         alert('Please fill in all required fields');
         return;
     }
 
-    // Additional validation for 'Other' reason type
+
     if (reasonType === 'Other' && !adminRemarks.trim()) {
         alert('Please provide remarks when selecting "Other" as reason type');
         return;
     }
 
-    // Get student info
+
     const studentName = document.getElementById('studentName').textContent;
     const studentRoll = document.getElementById('studentRoll').textContent;
     const studentClass = document.getElementById('studentClass').textContent;
 
-    // Create leave request object
+
     const leaveRequest = {
         student: {
             name: studentName,
@@ -621,22 +619,22 @@ window.submitLeaveRequest = function () {
         timestamp: new Date().toISOString()
     };
 
-    // Log the request (in real app, this would be sent to server)
+
     console.log('Early Leave Request Submitted:', leaveRequest);
 
-    // Populate print section
+
     populatePrintSection(leaveRequest);
 
-    // Show success message
+
     alert(`Early Leave Request Created Successfully!\n\nStudent: ${studentName}\nRoll No: ${studentRoll}\nDate: ${leaveDate}\nTime: ${leaveTime}\n\nPrint dialog will open...`);
 
-    // Open print dialog
+
     setTimeout(() => {
         window.print();
     }, 500);
 };
 
-// Reset Form
+
 window.resetForm = function () {
     if (confirm('Are you sure you want to reset the form?')) {
         document.getElementById('leaveDate').value = new Date().toISOString().split('T')[0];
@@ -650,9 +648,9 @@ window.resetForm = function () {
 };
 
 
-// ================================================
-// SETTINGS FUNCTIONS
-// ================================================
+
+
+
 function initSettings() {
     const saveBtn = document.querySelector('.save-settings-btn');
     if (saveBtn) {

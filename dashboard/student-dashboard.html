@@ -43,7 +43,7 @@
       color: var(--text);
     }
 
-    /* MENU TOGGLE BUTTON */
+    
     .menu-toggle {
       position: fixed;
       top: 20px;
@@ -109,7 +109,7 @@
       transform: rotate(-45deg) translate(6px, -6px);
     }
 
-    /* Overlay & Sidebar */
+    
     .sidebar-overlay {
       position: fixed;
       inset: 0;
@@ -268,7 +268,7 @@
       background: rgba(239, 71, 111, 0.05);
     }
 
-    /* New Dashboard Styles */
+    
     .dash-main {
       padding: 90px 20px 40px;
       max-width: 1400px;
@@ -299,7 +299,7 @@
       border-radius: 0 0 40px 40px;
       margin: -90px -20px 30px -20px;
       padding-top: 100px;
-      /* Space for top spacing */
+      
       position: relative;
     }
 
@@ -392,7 +392,7 @@
       color: var(--text);
     }
 
-    /* Icon colors matching reference roughly */
+    
     .icon-orange .dash-card-icon {
       color: #f39c12;
       background: rgba(243, 156, 18, 0.1);
@@ -451,7 +451,7 @@
 
 <body>
 
-  <!-- MENU BUTTON -->
+  
   <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
     <div class="hamburger">
       <span></span>
@@ -462,7 +462,7 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- Sidebar -->
+  
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <img src="../assets/images/logo.png" alt="Logo">
@@ -471,18 +471,18 @@
 
     <nav class="sidebar-nav">
       <ul>
-        <!-- FREQUENTLY USED -->
+        
         <li class="nav-item has-dropdown">
           <div class="nav-link">
             🏠 Frequently Used
             <span class="arrow"></span>
           </div>
           <ul class="dropdown" id="frequentList">
-            <!-- Auto generated items will appear here -->
+            
           </ul>
         </li>
 
-        <!-- ACADEMICS -->
+        
         <li class="nav-item has-dropdown">
           <div class="nav-link">
             📘 Academics
@@ -497,7 +497,7 @@
           </ul>
         </li>
 
-        <!-- TRANSPORT -->
+        
         <li class="nav-item has-dropdown">
           <div class="nav-link">
             🚌 Transport
@@ -510,7 +510,7 @@
           </ul>
         </li>
 
-        <!-- EXAMINATION -->
+        
         <li class="nav-item has-dropdown">
           <div class="nav-link">
             📝 Examination
@@ -521,7 +521,7 @@
           </ul>
         </li>
 
-        <!-- FEES -->
+        
         <li class="nav-item has-dropdown">
           <div class="nav-link">
             💰 Fees
@@ -533,26 +533,26 @@
           </ul>
         </li>
 
-        <!-- LOGOUT -->
+        
         <li class="nav-item logout" id="logoutBtn">🚪 Logout</li>
       </ul>
     </nav>
   </aside>
 
-  <!-- Main Content -->
+  
   <main class="dash-main">
     <div id="dashboard-view" class="dashboard-view">
-      <!-- Profile Header -->
+      
       <div class="profile-header">
         <img src="../assets/images/image2.jpeg" alt="Niket Sharma" class="profile-avatar">
         <div class="profile-info-wrapper">
           <h2 class="profile-name">Niket Sharma</h2>
           <p class="profile-details">Reg No: 1741, GRADE XI NON MEDICAL - Discovery</p>
-          <!-- <span class="profile-badge">Parent</span> -->
+          
         </div>
       </div>
 
-      <!-- Frequently Used Section -->
+      
       <div class="section-title">Frequently Used</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-orange" onclick="loadRoute('busdetail')">
@@ -581,8 +581,8 @@
         </div>
       </div>
 
-      <!-- Academics Section -->
-      <!-- Academics Section -->
+      
+      
       <div class="section-title">Academics</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-blue" onclick="loadRoute('attendance')">
@@ -607,7 +607,7 @@
         </div>
       </div>
 
-      <!-- Transport -->
+      
       <div class="section-title">Transport</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-orange" onclick="loadRoute('busdetail')">
@@ -624,7 +624,7 @@
         </div>
       </div>
 
-      <!-- Examination -->
+      
       <div class="section-title">Examination</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-green" onclick="loadRoute('reportcard')">
@@ -633,7 +633,7 @@
         </div>
       </div>
 
-      <!-- Fees -->
+      
       <div class="section-title">Fees</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-blue" onclick="loadRoute('feehistory')">
@@ -646,7 +646,7 @@
         </div>
       </div>
 
-      <!-- Communication -->
+      
       <div class="section-title">Communication</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-purple" onclick="loadRoute('circulars')">
@@ -679,7 +679,7 @@
         </div>
       </div>
 
-      <!-- Leave & Appointment -->
+      
       <div class="section-title">Leave & Appointments</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-red" onclick="loadRoute('applyleave')">
@@ -700,7 +700,7 @@
         </div>
       </div>
 
-      <!-- Greetings & Requests -->
+      
       <div class="section-title">Requests & More</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-green" onclick="loadRoute('mygreetings')">
@@ -721,7 +721,7 @@
         </div>
       </div>
 
-      <!-- More Pages -->
+      
       <div class="section-title">Extra Support</div>
       <div class="dashboard-grid">
         <div class="dash-icon-card icon-purple" onclick="loadRoute('gk')">
@@ -762,9 +762,7 @@
   </main>
 
   <script>
-    /* -------------------------
-       CONFIG (pages + titles)
-       ------------------------- */
+    
     const CONFIG = {
       pages: {
         dashboard: '',
@@ -834,9 +832,7 @@
       });
     }
 
-    /* -------------------------
-       Functions
-       ------------------------- */
+    
     function incrementFrequency(page) {
       if (!page || page === 'dashboard') return;
       let freq = JSON.parse(localStorage.getItem('pageFrequency') || "{}");

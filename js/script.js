@@ -172,65 +172,55 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  function revealOnScroll() {
-    const reveals = document.querySelectorAll(".reveal");
-    const windowHeight = window.innerHeight;
+  // Scroll Reveal Animation using Intersection Observer
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  };
 
-    reveals.forEach(el => {
-      const elementTop = el.getBoundingClientRect().top;
-      const elementVisible = 150;
-
-      if (elementTop < windowHeight - elementVisible) {
-        el.classList.add("active");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target); // Only animate once
       }
     });
-  }
+  }, observerOptions);
 
-  window.addEventListener("scroll", revealOnScroll);
-  revealOnScroll();
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
 
-
-  function animateCounter() {
-    const counters = document.querySelectorAll('.count');
-    let started = false;
-
-    function startCounting() {
-      const section = document.querySelector('.stats-section');
-      const sectionTop = section.getBoundingClientRect().top;
-      const screenHeight = window.innerHeight;
-
-      if (sectionTop < screenHeight && !started) {
+  // Stats Counter Animation
+  const statsSection = document.querySelector('.stats-section');
+  if (statsSection) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        const counters = document.querySelectorAll('.count');
         counters.forEach(counter => {
-          const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            let count = +counter.innerText.replace('%', '');
-            const increment = target / 150;
+          const target = +counter.getAttribute('data-target');
+          const duration = 2000; // 2 seconds
+          const increment = target / (duration / 16); // 60fps
 
-            if (count < target) {
-              counter.innerText = Math.ceil(count + increment);
-              setTimeout(updateCount, 20);
+          let current = 0;
+          const updateCount = () => {
+            current += increment;
+            if (current < target) {
+              counter.innerText = Math.ceil(current);
+              requestAnimationFrame(updateCount);
             } else {
-              if (counter.dataset.target == "87") {
-                counter.innerText = target + "%";
-              } else {
-                counter.innerText = target;
-              }
+              counter.innerText = target + (counter.getAttribute('data-target') === '87' ? '%' : '');
             }
           };
           updateCount();
         });
-
-        started = true;
+        counterObserver.unobserve(statsSection);
       }
-    }
-
-    window.addEventListener('scroll', startCounting);
-    startCounting();
+    }, { threshold: 0.5 });
+    counterObserver.observe(statsSection);
   }
 
-  animateCounter();
 
-  // Scroll Spy - Update active nav link based on current section
   function updateActiveNavOnScroll() {
     var sections = document.querySelectorAll('section[id]');
     var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
@@ -242,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var windowHeight = window.innerHeight;
 
       sections.forEach(function (section) {
-        var sectionTop = section.offsetTop - 100; // Offset for fixed header
+        var sectionTop = section.offsetTop - 100;
         var sectionBottom = sectionTop + section.offsetHeight;
         var sectionId = section.getAttribute('id');
 
@@ -256,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
 
-      // Handle top of page (home section)
+
       if (scrollY < 100) {
         navLinks.forEach(function (link) {
           link.classList.remove('active');
@@ -268,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.addEventListener('scroll', setActiveLink);
-    setActiveLink(); // Call once on load
+    setActiveLink();
   }
 
   updateActiveNavOnScroll();
@@ -382,27 +372,31 @@ function clearFormErrors() {
 }
 
 
+
+
+
 document.getElementById("contactForm").addEventListener("submit", function (e) {
   e.preventDefault();
+  const formData = new FormData(this);
 
-  let data = {
-    name: document.getElementById("name").value,
-    phone: document.getElementById("mail").value,
-    pax: document.getElementById("contact").value,
-    email: document.getElementById("subject").value,
-    message: document.getElementById("message").value
-  };
+  /* 
+     IMPORTANT: Replace the URL below with your actual Google Apps Script Web App URL.
+     It should look like: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
+     Make sure you have deployed the script as a "Web App" and set access to "Anyone".
+  */
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuQKO0n6-RPVU5U5JwJfCVu7eYMaKhYsVRlIKTZjY3GHLks4DtsJX_TgxITNhBE4DGWg/exec";
 
-  fetch("https://script.google.com/macros/s/AKfycbw3mmY0Kz5dARuYdEJVBpqZWgc1j5Bw0qXaseXQ-l9F39HRp-HNulfD_FoWvA3xFOWw/exec", {
+  fetch(SCRIPT_URL, {
     method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: formData
   })
-    .then(() => {
-      document.getElementById("status").innerText = "Form submitted!";
+    .then(response => response.text())
+    .then(data => {
+      alert("Message sent successfully!");
+      document.getElementById("contactForm").reset();
     })
-    .catch(err => {
-      document.getElementById("status").innerText = "Error!";
+    .catch(error => {
+      alert("Error! Please try again.");
+      console.log(error);
     });
 });

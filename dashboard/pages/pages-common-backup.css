@@ -1,9 +1,6 @@
-/* ============================================
-   DASHBOARD PAGES COMMON STYLES
-   Authentic, Non-AI-Generated Design
-   ============================================ */
 
-/* Color System - Blue Theme */
+
+
 :root {
     --primary: #3b82f6;
     --primary-dark: #2563eb;
@@ -22,7 +19,7 @@
     --shadow-lg: 0 20px 60px rgba(59, 130, 246, 0.2);
 }
 
-/* Base Styles */
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg);
@@ -32,7 +29,7 @@ body {
     line-height: 1.6;
 }
 
-/* Page Container */
+
 .page-module-container {
     max-width: 1200px;
     margin: auto;
@@ -44,7 +41,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Module Header */
+
 .module-header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
@@ -69,7 +66,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* Buttons */
+
 .btn {
     padding: 12px 24px;
     border: none;
@@ -114,7 +111,7 @@ body {
     box-shadow: 0 8px 20px rgba(38, 222, 129, 0.35);
 }
 
-/* Module Content */
+
 .module-content {
     padding: 32px;
 }
@@ -133,7 +130,7 @@ body {
     display: inline-block;
 }
 
-/* Tables */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -188,7 +185,7 @@ table img {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Badges */
+
 .dept-badge,
 .status-badge,
 .badge {
@@ -207,7 +204,7 @@ table img {
     border-color: var(--primary);
 }
 
-/* Status Badges */
+
 .status-paid {
     background: rgba(38, 222, 129, 0.15);
     color: #065f46;
@@ -229,7 +226,7 @@ table img {
     font-weight: 700;
 }
 
-/* Chart Placeholder */
+
 .chart-placeholder {
     height: 300px;
     background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
@@ -243,7 +240,7 @@ table img {
     margin: 20px 0;
 }
 
-/* Links */
+
 a {
     color: var(--primary);
     text-decoration: none;
@@ -256,7 +253,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Forms */
+
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -283,7 +280,7 @@ textarea:focus {
     transform: translateY(-2px);
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     body {
         padding: 10px;

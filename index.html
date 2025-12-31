@@ -488,16 +488,16 @@
 
           <form id="contactForm" class="contact-form">
             <div class="form-group">
-              <input type="text" placeholder="Your Name" required>
+              <input type="text" name="name" placeholder="Your Name" required>
             </div>
             <div class="form-group">
-              <input type="email" placeholder="Email Address" required>
+              <input type="email" name="email" placeholder="Email Address" required>
             </div>
             <div class="form-group">
-              <input type="tel" placeholder="Phone Number">
+              <input type="tel" name="phone" placeholder="Phone Number">
             </div>
             <div class="form-group">
-              <select required>
+              <select name="subject" required>
                 <option value="">Select Subject</option>
                 <option value="admission">Admission Inquiry</option>
                 <option value="fees">Fee Structure</option>
@@ -507,10 +507,13 @@
               </select>
             </div>
             <div class="form-group">
-              <textarea rows="4" placeholder="Your Message" required></textarea>
+              <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
             </div>
             <button type="submit" class="btn-primary full-width">Send Message</button>
           </form>
+
+          <p id="responseMsg"></p>
+
         </div>
       </div>
     </section>
@@ -585,7 +588,7 @@
       <div class="login-tabs">
         <button class="tab-btn active" data-target="studentLogin">Student</button>
         <button class="tab-btn" data-target="facultyLogin">Faculty</button>
-        <button class="tab-btn" data-target="adminLogin">Admin</button>
+        <!-- <button class="tab-btn" data-target="adminLogin">Admin</button> -->
       </div>
 
 
@@ -605,10 +608,6 @@
           <p class="demo-hint">Demo: student / 123</p>
         </form>
       </div>
-
-
-
-
       <div id="facultyLogin" class="login-section" style="display: none;">
         <form id="facultyLoginForm" class="login-form">
           <div class="input-group">
@@ -625,21 +624,6 @@
         </form>
       </div>
 
-      <div id="adminLogin" class="login-section" style="display: none;">
-        <form id="adminLoginForm" class="login-form">
-          <div class="input-group">
-            <input type="text" id="adminId" placeholder="Admin ID" required>
-          </div>
-          <div class="input-group">
-            <input type="password" id="adminPass" placeholder="Password" required>
-            <button type="button" class="toggle-password" data-target="adminPass">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <button type="submit" class="btn-primary full-width">Login as Admin</button>
-          <p class="demo-hint">Demo: admin / admin123</p>
-        </form>
-      </div>
 
     </div>
   </div>
